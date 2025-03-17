@@ -8,7 +8,7 @@ const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT;
 
-const allowedOrigins = ['https://luxury-valkyrie-6356f7.netlify.app'];
+const allowedOrigins = ['https://luxury-brigadeiros-40458b.netlify.app'];
 
 // Middleware
 app.use(express.json());
