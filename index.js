@@ -1,7 +1,7 @@
 const express = require("express");
 require("dotenv").config();
-const pool = require("./config/database"); 
-const userRouter = require("./router/route");
+const pool = require("./server/config/database"); 
+const userRouter = require("./server/router/route");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const path = require("path");
