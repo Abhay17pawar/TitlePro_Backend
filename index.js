@@ -28,7 +28,7 @@ pool.connect()
     .catch((err) => console.error("❌ Database Connection Error:", err));
 
 // Routes
-app.use("/api/v1", userRouter);
+app.use("", userRouter);
 
 // Global Error Handler
 app.use((err, req, res, next) => {
