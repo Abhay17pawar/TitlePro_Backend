@@ -8,17 +8,27 @@ const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT;
 
+const allowedOrigins = ['https://luxury-valkyrie-6356f7.netlify.app'];
 
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-    cors({
-        origin: "*",
-        credentials: true,
-    })
-);
-
+const corsOptions = {
+    origin: function (origin, callback) {
+      // Check if the origin is in the allowedOrigins array
+      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        callback(null, true);  // Allow the request
+      } else {
+        callback(new Error('Not allowed by CORS'));  // Reject the request
+      }
+    },
+    methods: 'GET, POST, PUT, DELETE',
+    credentials: true, // If you need to send cookies or authentication headers
+  };
+  
+  // Use the CORS middleware with the options
+  app.use(cors(corsOptions));
+  
 // Database Connection Test
 pool.connect()
     .then(() => console.log("✅ PostgreSQL Database Connected Successfully"))
