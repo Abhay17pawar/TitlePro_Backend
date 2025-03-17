@@ -12,10 +12,10 @@ const PORT = process.env.PORT;
 app.use(express.json());
 app.use(cookieParser());
 
-// CORS configuration to allow any origin
 const corsOptions = {
-    origin: "*",  // Allow requests from any origin
-    methods: 'GET, POST, PUT, DELETE',
+    origin: "https://elegant-tanuki-106796.netlify.app",  // Allow this origin only
+    methods: 'GET, POST, PUT, DELETE, OPTIONS',  // Add OPTIONS method to handle preflight requests
+    allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',  // Headers you may send in the request
     credentials: true,  // If you need to send cookies or authentication headers
 };
 
