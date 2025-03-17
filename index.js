@@ -4,12 +4,9 @@ const pool = require("./server/config/database");
 const userRouter = require("./server/router/route");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT;
-
-const _dirname = path.resolve();
 
 
 // Middleware
@@ -36,10 +33,6 @@ app.use((err, req, res, next) => {
     res.status(500).json({ status: 500, message: "Internal Server Error" });
 });
 
-app.use(express.static(path.join(_dirname, "frontend", "dist"))); 
-app.get('*', (_,res) => {
-    res.sendFile(path.resolve(_dirname,"frontend", "dist", "index.html"))
-})
 
 // Start Server
 app.listen(PORT, () => {
