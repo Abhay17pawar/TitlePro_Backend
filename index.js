@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const corsOptions = {
-    origin: "https://elegant-tanuki-106796.netlify.app",  // Allow this origin only
+    origin: "https://resonant-sunflower-57a3dc.netlify.app",  // Allow this origin only
     methods: 'GET, POST, PUT, DELETE, OPTIONS',  // Add OPTIONS method to handle preflight requests
     allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',  // Headers you may send in the request
     credentials: true,  // If you need to send cookies or authentication headers
