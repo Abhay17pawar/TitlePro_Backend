@@ -13,14 +13,27 @@ app.use(express.json());
 app.use(cookieParser());
 
 const corsOptions = {
-    origin: "https://resonant-sunflower-57a3dc.netlify.app",  // Allow this origin only
-    methods: 'GET, POST, PUT, DELETE, OPTIONS',  // Add OPTIONS method to handle preflight requests
-    allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',  // Headers you may send in the request
-    credentials: true,  // If you need to send cookies or authentication headers
-};
-
-// Use the CORS middleware with the options
-app.use(cors(corsOptions));
+    origin: function (origin, callback) {
+      const allowedOrigins = [
+        "https://resonant-sunflower-57a3dc.netlify.app",
+        "http://localhost:5173"
+      ];
+  
+      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        // If the origin is in the list, allow it, or allow no origin for requests without one (like from Postman or server-to-server)
+        callback(null, true);
+      } else {
+        // Reject the request if the origin is not allowed
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    methods: 'GET, POST, PUT, DELETE, OPTIONS',  // Specify allowed methods, including OPTIONS for preflight requests
+    allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',  // Allowed headers
+    credentials: true,  // Allow sending cookies or authentication headers
+  };
+  
+  // Use the CORS middleware with the options
+  app.use(cors(corsOptions));  
 
 // Database Connection Test
 pool.connect()
