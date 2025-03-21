@@ -38,7 +38,7 @@ const corsOptions = {
   };
   
   // Use the CORS middleware with the options
-  // app.use(cors(corsOptions));  
+   app.use(cors(corsOptions));  
 
 // Database Connection Test
 pool.connect()
