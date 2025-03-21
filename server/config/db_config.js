@@ -14,12 +14,12 @@ const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
         rejectUnauthorized: false, // Allow self-signed certificates
       },
     },
-    pool: {
-      max: 10,
-      min: 0,
-      acquire: 30000, // Increase connection acquire timeout (30 seconds)
-      idle: 10000, // Increase idle timeout (10 seconds)
-    },
+    // pool: {
+    //   max: 10,
+    //   min: 0,
+    //   acquire: 30000, // Increase connection acquire timeout (30 seconds)
+    //   idle: 10000, // Increase idle timeout (10 seconds)
+    // },
   });
   
 
