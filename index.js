@@ -4,13 +4,18 @@ const pool = require("./server/config/database");
 const userRouter = require("./server/router/route");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const bodyParser = require("body-parser");
+const db = require("./server/config/db_config");
+const { PORT, DB_FORCE, DB_ALTER } = require("./server/config/server_config");
 
 const app = express();
-const PORT = process.env.PORT;
+
 
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
+app.use(bodyParser.text()) // for validating the text data
+app.use(bodyParser.urlencoded({extended:true})) // for validating the data incoming through body
 
 const corsOptions = {
     origin: function (origin, callback) {
@@ -33,7 +38,7 @@ const corsOptions = {
   };
   
   // Use the CORS middleware with the options
-  app.use(cors(corsOptions));  
+  // app.use(cors(corsOptions));  
 
 // Database Connection Test
 pool.connect()
@@ -50,6 +55,17 @@ app.use((err, req, res, next) => {
 });
 
 // Start Server
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
     console.log(`🚀 Server is running on port ${PORT}`);
+    if(DB_FORCE === true){
+      console.log("db force true called..")
+      await db.sync({force: true});
+    }
+    else if (DB_ALTER === true){
+        await db.sync({alter:true})
+    }
+    else{
+        await db.sync()
+        console.log("Db connected with sequelize...")
+    }
 });

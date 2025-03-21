@@ -16,6 +16,15 @@ const orderController = require("../controller/order");
 const orderEntryController = require("../controller/orderEntry");
 const orderSummaryController = require("../controller/ordersummary");
 
+
+// controller for product creation..
+const { createProduct, getProducts, deleteProduct, getProductsIncludedDeleted, updateProduct } = require("../controller/product_controller");
+
+
+
+
+
+
 // ********************************************************************************************************
 //                                      Authentication Routes
 // ********************************************************************************************************
@@ -86,10 +95,27 @@ router.delete("/order-entries/:id", orderEntryController.deleteOrderEntry);
 // ********************************************************************************************************
 //                                      Order Summary Management Routes
 // ********************************************************************************************************
+
 router.get("/order-summaries", orderSummaryController.getAllOrderSummaries);
 router.get("/order-summaries/:orderNumber", orderSummaryController.getOrderSummaryByOrderNumber);
 // router.get("/order-summaries/:orderNumber/status", orderSummaryController.getOrderSummariesByOrderNumberAndStatus);
 // router.get("/order-summaries/date-range", orderSummaryController.getOrderSummariesByDateRange);
 router.get("/order-summaries/:orderNumber/order-status", orderSummaryController.getOrderStatusByOrderNumber);
 
-module.exports = router;
+
+
+
+// ********************************************************************************************************
+//                                      Products Management Routes
+// ********************************************************************************************************
+
+router.post("/products", createProduct)
+router.get("/products", getProducts)
+router.get("/products/deleted", getProductsIncludedDeleted)
+router.delete("/products/:id", deleteProduct)
+router.put("/products/:id", updateProduct)
+
+
+
+
+module.exports = router; 
