@@ -15,6 +15,21 @@ class TransactionRepository {
         }
 
     }
+
+    async getTransactionWithProductId(productId) {
+        try{
+            const response = await Transaction.findAll({
+                where: { productId }, // Filter by p_id
+                attributes: ["transaction_name"], // Select only t_name field
+            });
+            console.log("response of creat transaction", response);
+            return response;
+        }
+        catch(error) {
+            console.log("Transaction Repository error...", error)
+            throw error;
+        }
+    }
 }
 
 

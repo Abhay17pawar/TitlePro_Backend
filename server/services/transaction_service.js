@@ -15,6 +15,15 @@ class TransactionService {
             console.log("Transaction Service layer error...", error);
         }
     }
+    async getTransactionWithProductId(productId){
+        try{
+            const newTransaction = await this.repository.getTransactionWithProductId(productId);
+            return newTransaction;
+        }
+        catch(error){
+            console.log("Transaction Service layer error...", error);
+        }
+    }
 }
 
 

@@ -22,8 +22,7 @@ const { createProduct, getProducts, deleteProduct, getProductsIncludedDeleted, u
 
 
 // controller for transaction...
-const { createTransaction } = require("../controller/transaction_controller");
-const Product = require("../model/product");
+const { createTransaction, getTransactionWithProductId } = require("../controller/transaction_controller");
 const { createTransactionValidator } = require("../middleware/transaction_middleware");
 
 
@@ -130,12 +129,9 @@ router.put("/products/:id", updateProduct)
 
 
 router.post("/transactions", [createTransactionValidator], createTransaction);
+router.get("/transactions/:id", getTransactionWithProductId);
 
-router.get("/pk",  (req, res) => {
-  console.log("id is pk or not.", Product.rawAttributes.id);
-  res.send({message:true})
 
-})
 
 
 module.exports = router; 
