@@ -10,13 +10,13 @@ const BadRequest = require("../errors/badd_request")
 function createTransactionValidator(req, res, next) {
 
     if(!req.body.product_name) {
-        res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("product_name")))
+        return res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("product_name")))
     }
     if(!req.body.transaction_name) {
-        res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("transaction_name")))
+        return res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("transaction_name")))
     }
     if(!req.body.productId) {
-        res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("productId")))
+        return res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("productId")))
     }
 
 
@@ -24,6 +24,22 @@ function createTransactionValidator(req, res, next) {
     next()
 }
 
+
+function updateTransactionValidator(req, res, next){
+
+    if(!req.body.transaction_name) {
+       return res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("transaction_name")))
+    }
+
+
+
+    // if everything is good then call next()
+    next()
+}
+
+
+
 module.exports = {
     createTransactionValidator,
+    updateTransactionValidator,
 }

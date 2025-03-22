@@ -46,6 +46,27 @@ class TransactionRepository {
             throw error;
         }
     }
+
+
+    async updateTransaction(id, transaction_name){
+        try{
+            const response = await Transaction.update({
+                transaction_name,
+            }, {
+                where:{
+                    id:id,
+                }
+            });
+            return response;
+        }
+        catch(error) {
+            console.log("Transaction Repository error...", error)
+            throw error;
+        }
+    }
+
+
+
 }
 
 

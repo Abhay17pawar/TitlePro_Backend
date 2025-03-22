@@ -30,7 +30,24 @@ class TransactionService {
         try{
             const data = await this.repository.deleteTransaction(id);
             if(!data){
-                throw new NotFoundError("Category", "id", id)
+                throw new NotFoundError("Transaction", "id", id)
+            }
+            return data;
+        }
+        catch(error){
+            if(error.name === "NotFoundError"){
+                throw error;
+            }
+            console.log("Transaction Service layer error...", error);
+            throw new InternalServerError()
+        }
+    }
+    async updateTransaction(id, updatedData){
+        try{
+            const data = await this.repository.updateTransaction(id, updatedData.transaction_name);
+            console.log("receive data from updating..", data)
+            if(data[0] == 0){
+                throw new NotFoundError("Transaction", "id", id)
             }
             return data;
         }

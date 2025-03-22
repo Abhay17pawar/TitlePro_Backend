@@ -57,9 +57,28 @@ async function deleteTransaction(req, res) {
     }
 
 }
+async function updateTransaction(req, res) {
+    try{
+        const data = await transactionService.updateTransaction(req.params.id, req.body)
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "Transaction Update Successfully.. " + ReasonPhrases.OK,
+            data: data,
+        })
+    }
+    catch(error){
+        console.log("Transaction controller layer error...", error)
+        console.log("Transaction controller layer status code is...", error.statusCode)
+        console.log("Transaction controller layer reason is...", error.reason)
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
+    }
+
+}
 
 module.exports = {
     createTransaction,
     getTransactionWithProductId,
     deleteTransaction,
+    updateTransaction,
 }
