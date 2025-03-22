@@ -22,7 +22,7 @@ const { createProduct, getProducts, deleteProduct, getProductsIncludedDeleted, u
 
 
 // controller for transaction...
-const { createTransaction, getTransactionWithProductId } = require("../controller/transaction_controller");
+const { createTransaction, getTransactionWithProductId, deleteTransaction } = require("../controller/transaction_controller");
 const { createTransactionValidator } = require("../middleware/transaction_middleware");
 
 
@@ -130,6 +130,7 @@ router.put("/products/:id", updateProduct)
 
 router.post("/transactions", [createTransactionValidator], createTransaction);
 router.get("/transactions/:id", getTransactionWithProductId);
+router.delete("/transactions/:id", deleteTransaction);
 
 
 

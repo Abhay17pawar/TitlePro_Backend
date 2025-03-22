@@ -10,7 +10,7 @@ const transactionService = new TransactionService(new TransactionRepository());
 
 async function createTransaction(req, res) {
     try{
-        const data = await transactionService.createTransaction(req.body, req.params.id)
+        const data = await transactionService.createTransaction(req.body)
         res.status(StatusCodes.CREATED).send({
             success:true,
             error:{},
@@ -39,7 +39,27 @@ async function getTransactionWithProductId(req, res) {
 
 }
 
+
+async function deleteTransaction(req, res) {
+    try{
+        const data = await transactionService.deleteTransaction(req.params.id)
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "Transaction Delete Successfully.. " + ReasonPhrases.OK,
+            data: data,
+        })
+    }
+    catch(error){
+        console.log("Transaction controller layer error...", error)
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
+
+    }
+
+}
+
 module.exports = {
     createTransaction,
     getTransactionWithProductId,
+    deleteTransaction,
 }

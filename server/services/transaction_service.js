@@ -1,3 +1,5 @@
+const InternalServerError = require("../errors/internal_server_error");
+const NotFoundError = require("../errors/not_found_error");
 
 
 class TransactionService {
@@ -22,6 +24,22 @@ class TransactionService {
         }
         catch(error){
             console.log("Transaction Service layer error...", error);
+        }
+    }
+    async deleteTransaction(id){
+        try{
+            const data = await this.repository.deleteTransaction(id);
+            if(!data){
+                throw new NotFoundError("Category", "id", id)
+            }
+            return data;
+        }
+        catch(error){
+            if(error.name === "NotFoundError"){
+                throw error;
+            }
+            console.log("Transaction Service layer error...", error);
+            throw new InternalServerError()
         }
     }
 }

@@ -30,6 +30,22 @@ class TransactionRepository {
             throw error;
         }
     }
+
+
+    async deleteTransaction(id){
+        try{
+            const response = await Transaction.destroy({
+                where:{
+                    id:id,
+                }
+            });
+            return response;
+        }
+        catch(error) {
+            console.log("Transaction Repository error...", error)
+            throw error;
+        }
+    }
 }
 
 
