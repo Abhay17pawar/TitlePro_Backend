@@ -22,7 +22,7 @@ const createOrdersTable = async () => {
     console.log("✅ Orders table created successfully");
 };
 
-createOrdersTable();
+// createOrdersTable();
 
 const Order = {
   // Create a new order

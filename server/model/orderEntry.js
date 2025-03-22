@@ -57,7 +57,7 @@ const createOrderEntryTable = async () => {
 };
 
 
-createOrderEntryTable();
+// createOrderEntryTable();
 
 const OrderEntry = {
   // Create a new order entry

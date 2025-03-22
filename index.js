@@ -7,6 +7,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const db = require("./server/config/db_config");
 const { PORT, DB_FORCE, DB_ALTER } = require("./server/config/server_config");
+const Transaction = require("./server/model/transaction");
 
 const app = express();
 
@@ -41,9 +42,10 @@ const corsOptions = {
    app.use(cors(corsOptions));  
 
 // Database Connection Test
-pool.connect()
-    .then(() => console.log("✅ PostgreSQL Database Connected Successfully"))
-    .catch((err) => console.error("❌ Database Connection Error:", err));
+
+// pool.connect()
+//     .then(() => console.log("✅ PostgreSQL Database Connected Successfully"))
+//     .catch((err) => console.error("❌ Database Connection Error:", err));
 
 // Routes
 app.use("", userRouter);
@@ -68,4 +70,6 @@ app.listen(PORT, async () => {
         await db.sync()
         console.log("Db connected with sequelize...")
     }
+    // const allTrans = await Transaction.findAll();
+    // console.log("all transactions are", allTrans)
 });

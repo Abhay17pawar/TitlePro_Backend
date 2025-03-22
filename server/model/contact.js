@@ -24,7 +24,7 @@ const createContactsTable = async () => {
 };
 
 // Run the function to create the table
-createContactsTable();
+// createContactsTable();
 
 const Contact = {
   // Create a new contact   

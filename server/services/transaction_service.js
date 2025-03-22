@@ -7,8 +7,8 @@ class TransactionService {
 
     async createTransaction(data){
         try{
-            const {transaction_name, product_name} = data;
-            const newTransaction = await this.repository.createTransaction(transaction_name, product_name);
+            const {transaction_name, product_name, productId} = data;
+            const newTransaction = await this.repository.createTransaction(transaction_name, product_name, productId);
             return newTransaction;
         }
         catch(error){
@@ -19,3 +19,5 @@ class TransactionService {
 
 
 module.exports = TransactionService;
+
+

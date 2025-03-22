@@ -8,7 +8,7 @@ const transactionService = new TransactionService(new TransactionRepository());
 
 async function createTransaction(req, res) {
     try{
-        const data = await transactionService.createTransaction(req.body)
+        const data = await transactionService.createTransaction(req.body, req.params.id)
         res.status(StatusCodes.CREATED).send({
             success:true,
             error:{},
@@ -18,9 +18,9 @@ async function createTransaction(req, res) {
     }
     catch(error){
         console.log("Transaction controller layer error...", error)
-        res.send({
-            errorMessage:"Something went wrong..."
-        })
+        // res.send({
+        //     errorMessage:"Something went wrong..."
+        // })
     }
 
 }

@@ -25,7 +25,7 @@ const createUserTable = async () => {
 };
 
 // Initialize table creation
-createUserTable();
+// createUserTable();
 
 const User = {
   // Create a new user
