@@ -25,10 +25,6 @@ async function createTransaction(req, res) {
 }
 async function getTransactionWithProductId(req, res) {
     try{
-        if(!req.params.id){
-            res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("productId")))
-
-        }
         const data = await transactionService.getTransactionWithProductId(req.params.id)
         res.status(StatusCodes.OK).send({
             success:true,
