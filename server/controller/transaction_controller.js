@@ -1,6 +1,8 @@
 const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 const TransactionRepository = require("../repositories/transaction_repository");
 const TransactionService = require("../services/transaction_service");
+const BadRequest = require("../errors/badd_request");
+const errorResponse = require("../utils/error_response");
 
 
 
@@ -23,6 +25,10 @@ async function createTransaction(req, res) {
 }
 async function getTransactionWithProductId(req, res) {
     try{
+        if(!req.params.id){
+            res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("productId")))
+
+        }
         const data = await transactionService.getTransactionWithProductId(req.params.id)
         res.status(StatusCodes.OK).send({
             success:true,
