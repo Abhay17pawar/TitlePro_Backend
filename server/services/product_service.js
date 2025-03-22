@@ -11,7 +11,7 @@ class ProductService {
     async createProduct(productDetails) {
         try{
             const {product_name} = productDetails;
-            console.log("service layer called..", product_name, productDetails)
+            // console.log("service layer called..", product_name, productDetails)
             let newProduct = await this.repository.createProduct(product_name);
             return newProduct;
         }

@@ -17,8 +17,12 @@ const orderEntryController = require("../controller/orderEntry");
 const orderSummaryController = require("../controller/ordersummary");
 
 
-// controller for product creation..
+// controller for product...
 const { createProduct, getProducts, deleteProduct, getProductsIncludedDeleted, updateProduct } = require("../controller/product_controller");
+
+
+// controller for transaction...
+const { createTransaction } = require("../controller/transaction_controller");
 
 
 
@@ -114,6 +118,16 @@ router.get("/products", getProducts)
 router.get("/products/deleted", getProductsIncludedDeleted)
 router.delete("/products/:id", deleteProduct)
 router.put("/products/:id", updateProduct)
+
+
+
+
+// ********************************************************************************************************
+//                                      Transactions Management Routes
+// ********************************************************************************************************
+
+
+router.post("/transactions", createTransaction);
 
 
 

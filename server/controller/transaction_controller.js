@@ -1,0 +1,30 @@
+const { StatusCodes, ReasonPhrases } = require("http-status-codes");
+const TransactionRepository = require("../repositories/transaction_repository");
+const TransactionService = require("../services/transaction_service");
+
+
+
+const transactionService = new TransactionService(new TransactionRepository());
+
+async function createTransaction(req, res) {
+    try{
+        const data = await transactionService.createTransaction(req.body)
+        res.status(StatusCodes.CREATED).send({
+            success:true,
+            error:{},
+            message: "Transaction Created" + ReasonPhrases.OK,
+            data: data,
+        })
+    }
+    catch(error){
+        console.log("Transaction controller layer error...", error)
+        res.send({
+            errorMessage:"Something went wrong..."
+        })
+    }
+
+}
+
+module.exports = {
+    createTransaction,
+}
