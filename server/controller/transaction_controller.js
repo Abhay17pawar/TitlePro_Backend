@@ -10,8 +10,7 @@ const transactionService = new TransactionService(new TransactionRepository());
 
 async function createTransaction(req, res) {
     try{
-        await Transaction.sync({ force: false }); // Creates the table if it doesn't exist
-
+        console.log('API hit:', req.body); // ✅ Check if request is received
         const data = await transactionService.createTransaction(req.body)
         res.status(StatusCodes.CREATED).send({
             success:true,
