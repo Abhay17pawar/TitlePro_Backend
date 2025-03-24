@@ -88,10 +88,6 @@ class TransactionRepository {
             throw error;
         }
     }
-
-
-
 }
-
 
 module.exports = TransactionRepository;

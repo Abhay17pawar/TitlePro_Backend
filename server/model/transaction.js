@@ -5,6 +5,11 @@ const Product = require("./product");
 
 
 const Transaction = db.define("transaction", {
+  id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
   transaction_name:{
     type: Sequelize.STRING,    
     allowNull: false,
