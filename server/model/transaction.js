@@ -10,7 +10,6 @@ const Transaction = db.define("transaction", {
     autoIncrement: true, 
     primaryKey: true,    
     allowNull: false,
-    // unique:true,
   },
   product_name: {
     type: Sequelize.STRING,
