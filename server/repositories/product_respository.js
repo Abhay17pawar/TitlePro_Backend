@@ -14,6 +14,7 @@ class ProductRepository {
         catch(error){
             console.log("Product Respository...", error)
             throw error;
+            
         }
 
     }

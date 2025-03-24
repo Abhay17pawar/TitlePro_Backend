@@ -11,7 +11,13 @@ class StateRepository {
         }
         catch(error){
             console.log("State Repository....", error)
-            throw error;
+            // throw error;
+            if (error.name === 'SequelizeUniqueConstraintError') {
+                throw error;
+              } else {
+                console.error('Error creating state:', error);
+                throw error; // Re-throw other errors
+              }
         }
     }
 }

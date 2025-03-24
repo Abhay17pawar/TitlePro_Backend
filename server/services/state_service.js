@@ -12,7 +12,8 @@ class StateService {
             return response;
         }
         catch(error){
-            console.log("State Service error....", error)
+            console.log("State Service error....", error);
+            throw error;
         }
     }
 }
