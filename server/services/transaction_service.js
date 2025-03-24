@@ -11,11 +11,16 @@ class TransactionService {
     async createTransaction(data){
         try{
             const {transaction_name, product_name, productId} = data;
+            await this.getTransaction(productId)
             const newTransaction = await this.repository.createTransaction(transaction_name, product_name, productId);
             return newTransaction;
         }
         catch(error){
+            if(error.name === "NotFoundError"){
+                throw error;
+            }
             console.log("Transaction Service layer error...", error);
+            throw new InternalServerError()
         }
     }
 

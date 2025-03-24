@@ -10,7 +10,7 @@ const transactionService = new TransactionService(new TransactionRepository());
 
 async function createTransaction(req, res) {
     try{
-        console.log('API hit:', req.body); // ✅ Check if request is received
+        // console.log('API hit:', req.body); // ✅ Check if request is received
         const data = await transactionService.createTransaction(req.body)
         res.status(StatusCodes.CREATED).send({
             success:true,
@@ -21,6 +21,8 @@ async function createTransaction(req, res) {
     }
     catch(error){
         console.log("Transaction controller layer error...", error)
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
+
     }
 
 }
@@ -36,6 +38,7 @@ async function getTransactions(req, res) {
     }
     catch(error){
         console.log("Transaction controller layer error...", error)
+
     }
 
 }
