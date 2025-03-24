@@ -27,6 +27,7 @@ const { createTransactionValidator, updateTransactionValidator } = require("../m
 
 // controller for states...
 const { createState } = require("../controller/state_controller");
+const { createStateValidator } = require("../middleware/state_middleware");
 
 
 
@@ -148,7 +149,7 @@ router.patch("/transactions/:id",[updateTransactionValidator], updateTransaction
 
 
 
-router.post("/states", createState)
+router.post("/states", [createStateValidator], createState)
 
 
 
