@@ -69,8 +69,6 @@ async function updateTransaction(req, res) {
     }
     catch(error){
         console.log("Transaction controller layer error...", error)
-        console.log("Transaction controller layer status code is...", error.statusCode)
-        console.log("Transaction controller layer reason is...", error.reason)
         res.status(error.statusCode).send(errorResponse(error.reason, error))
     }
 

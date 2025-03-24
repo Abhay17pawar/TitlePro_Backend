@@ -8,6 +8,8 @@ const bodyParser = require("body-parser");
 const db = require("./server/config/db_config");
 const { PORT, DB_FORCE, DB_ALTER } = require("./server/config/server_config");
 const Transaction = require("./server/model/transaction");
+const Product = require("./server/model/product");
+const apiRouter = require("./server/router/api_router");
 
 const app = express();
 
@@ -49,6 +51,7 @@ const corsOptions = {
 
 // Routes
 app.use("", userRouter);
+app.use("/api", apiRouter)
 
 // Global Error Handler
 app.use((err, req, res, next) => {
@@ -70,6 +73,12 @@ app.listen(PORT, async () => {
         await db.sync()
         console.log("Db connected with sequelize...")
     }
-    // const allTrans = await Transaction.findAll();
-    // console.log("all transactions are", allTrans)
+
+    // const dataProduct = await Product.findOne({
+    //   where: {
+    //     product_name: "property"
+    //   }
+    // })
+    // console.log("Single data from Property..", dataProduct);
+    // console.log("id for single product is:->", dataProduct.id)
 });

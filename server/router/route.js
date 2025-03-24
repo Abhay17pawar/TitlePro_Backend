@@ -134,6 +134,8 @@ router.delete("/transactions/:id", deleteTransaction);
 router.patch("/transactions/:id",[updateTransactionValidator], updateTransaction);
 
 
-
+router.get("/ping", (req, res) => {
+    res.send({message:"ping check ok without v1 routing.."})
+})
 
 module.exports = router; 
