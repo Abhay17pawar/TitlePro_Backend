@@ -8,7 +8,6 @@ const Transaction = db.define("transaction", {
   transaction_name:{
     type: Sequelize.STRING,
     allowNull: false,
-    // unique:true,
   },
   product_name: {
     type: Sequelize.STRING,

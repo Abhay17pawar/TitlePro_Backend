@@ -1,9 +1,7 @@
-// const InternalServerError = require("../errors/inernal_server_error");
 
 const InternalServerError = require("../errors/internal_server_error");
 const NotFoundError = require("../errors/not_found_error");
 
-// const NotFoundError = require("../errors/not_found_error");
 class ProductService {
     constructor(repository) {
         this.repository = repository;
