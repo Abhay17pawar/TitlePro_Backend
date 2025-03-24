@@ -3,10 +3,11 @@ const TransactionRepository = require("../repositories/transaction_repository");
 const TransactionService = require("../services/transaction_service");
 const BadRequest = require("../errors/badd_request");
 const errorResponse = require("../utils/error_response");
+const ProductRepository = require("../repositories/product_respository");
 
 
 
-const transactionService = new TransactionService(new TransactionRepository());
+const transactionService = new TransactionService(new TransactionRepository(), new ProductRepository());
 
 async function createTransaction(req, res) {
     try{

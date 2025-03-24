@@ -4,14 +4,20 @@ const NotFoundError = require("../errors/not_found_error");
 
 
 class TransactionService {
-    constructor(repository){
+    constructor(repository, productRepository){
         this.repository = repository;
+        this.productRepository = productRepository;
     }
 
     async createTransaction(data){
         try{
             const {transaction_name, product_name, productId} = data;
             // await this.getTransaction(productId)
+            const response = await this.productRepository.getProduct(productId)
+            console.log("data is:-", response);
+            if(!response){
+                throw new NotFoundError("Product", "id", productId)
+            }
             const newTransaction = await this.repository.createTransaction(transaction_name, product_name, productId);
             return newTransaction;
         }
