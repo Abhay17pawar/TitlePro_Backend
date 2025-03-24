@@ -39,6 +39,23 @@ async function getTransactions(req, res) {
     }
 
 }
+async function getTransaction(req, res) {
+    try{
+        const data = await transactionService.getTransaction(req.params.id)
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "Transaction Fetch Successfully.. " + ReasonPhrases.OK,
+            data: data,
+        })
+    }
+    catch(error){
+        console.log("Transaction controller layer error...", error)
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
+
+    }
+
+}
 async function getTransactionWithProductId(req, res) {
     try{
         const data = await transactionService.getTransactionWithProductId(req.params.id)
@@ -96,4 +113,5 @@ module.exports = {
     deleteTransaction,
     updateTransaction,
     getTransactions,
+    getTransaction,
 }

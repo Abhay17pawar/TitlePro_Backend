@@ -22,7 +22,7 @@ const { createProduct, getProducts, deleteProduct, getProductsIncludedDeleted, u
 
 
 // controller for transaction...
-const { createTransaction, getTransactionWithProductId, deleteTransaction, updateTransaction, getTransactions } = require("../controller/transaction_controller");
+const { createTransaction, getTransactionWithProductId, deleteTransaction, updateTransaction, getTransactions, getTransaction } = require("../controller/transaction_controller");
 const { createTransactionValidator, updateTransactionValidator } = require("../middleware/transaction_middleware");
 
 
@@ -133,6 +133,7 @@ router.patch("/products/:id", updateProduct)
 router.post("/transactions", [createTransactionValidator], createTransaction);
 router.get("/transactions/", getTransactions);
 router.get("/transactions/:id", getTransactionWithProductId);
+router.get("/transactions/single/:id", getTransaction);
 router.delete("/transactions/:id", deleteTransaction);
 router.patch("/transactions/:id",[updateTransactionValidator], updateTransaction);
 

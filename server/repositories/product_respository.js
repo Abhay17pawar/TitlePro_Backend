@@ -1,5 +1,6 @@
 
 const Product = require("../model/product");
+const {Op} = require("sequelize")
 class ProductRepository {
 
     async createProduct (product_name){
@@ -53,9 +54,11 @@ class ProductRepository {
     async getProductWithQuery (product_name) {
         try{
             console.log("product name with repository...", product_name);
-            const response = Product.findOne({
+            const response = Product.findAll({
                 where: {
-                    product_name,
+                    product_name: {
+                        [Op.like]: `%${product_name}%` // Case-insensitive search
+                    }
                 }
             });
             console.log("response from db single category:", response)

@@ -1,3 +1,4 @@
+const BadRequest = require("../errors/badd_request");
 const InternalServerError = require("../errors/internal_server_error");
 const NotFoundError = require("../errors/not_found_error");
 
@@ -25,6 +26,22 @@ class TransactionService {
         }
         catch(error){
             console.log("Transaction Service layer error...", error);
+        }
+    }
+    async getTransaction(id) {
+        try{
+            const response = await this.repository.getTransaction(id);
+            if(!response){
+                throw new NotFoundError("Transaction", "id", id)
+            }
+            return response;
+        }
+        catch(error){
+            if(error.name === "NotFoundError"){
+                throw error;
+            }
+            console.log("Transaction Service layer error...", error);
+            throw new InternalServerError()
         }
     }
     async getTransactionWithProductId(productId){

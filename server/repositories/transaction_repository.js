@@ -1,8 +1,10 @@
+const BadRequest = require("../errors/badd_request");
 const Transaction = require("../model/transaction");
 class TransactionRepository {
     async createTransaction(transaction_name, product_name, productId) {
 
         try{
+            // await 
             const response = await Transaction.create({
                 transaction_name, product_name, productId
             })
@@ -20,6 +22,16 @@ class TransactionRepository {
     async getTransactions() {
         try{
             const response = await Transaction.findAll();
+            return response;
+        }
+        catch(error) {
+            console.log("Transaction Repository error...", error)
+            throw error;
+        }
+    }
+    async getTransaction(id) {
+        try{
+            const response = await Transaction.findByPk(id);
             return response;
         }
         catch(error) {
