@@ -10,6 +10,7 @@ const transactionService = new TransactionService(new TransactionRepository());
 
 async function createTransaction(req, res) {
     try{
+        console.log('API hit:', req.body); // ✅ Check if request is received
         const data = await transactionService.createTransaction(req.body)
         res.status(StatusCodes.CREATED).send({
             success:true,
