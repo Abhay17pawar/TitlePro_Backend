@@ -11,7 +11,7 @@ class TransactionService {
     async createTransaction(data){
         try{
             const {transaction_name, product_name, productId} = data;
-            await this.getTransaction(productId)
+            // await this.getTransaction(productId)
             const newTransaction = await this.repository.createTransaction(transaction_name, product_name, productId);
             return newTransaction;
         }
