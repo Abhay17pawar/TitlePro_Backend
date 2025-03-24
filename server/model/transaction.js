@@ -6,7 +6,7 @@ const Product = require("./product");
 
 const Transaction = db.define("transaction", {
   transaction_name:{
-    type: Sequelize.STRING,
+    type: Sequelize.STRING,    
     allowNull: false,
   },
   product_name: {
