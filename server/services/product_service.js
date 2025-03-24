@@ -57,9 +57,9 @@ class ProductService {
         try{
             const data = await this.repository.getProduct(id)
             console.log("Product service.. data is", data)
-            // if(!data){
-            //     throw new NotFoundError("Product", "id", id)
-            // }
+            if(!data){
+                throw new NotFoundError("Product", "id", id)
+            }
             return data;
         }
         catch(error){
@@ -67,7 +67,7 @@ class ProductService {
                 throw error;
             }
             console.log("Product Service layer....", error)
-            // throw new InternalServerError()
+            throw new InternalServerError()
         }
 
     }

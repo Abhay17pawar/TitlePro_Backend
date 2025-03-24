@@ -18,7 +18,7 @@ const orderSummaryController = require("../controller/ordersummary");
 
 
 // controller for product...
-const { createProduct, getProducts, deleteProduct, getProductsIncludedDeleted, updateProduct } = require("../controller/product_controller");
+const { createProduct, getProducts, deleteProduct, getProductsIncludedDeleted, updateProduct, getProduct } = require("../controller/product_controller");
 
 
 // controller for transaction...
@@ -117,6 +117,7 @@ router.get("/order-summaries/:orderNumber/order-status", orderSummaryController.
 router.post("/products", createProduct)
 router.get("/products", getProducts)
 router.get("/products/deleted", getProductsIncludedDeleted)
+router.get("/products/:id", getProduct)
 router.delete("/products/:id", deleteProduct)
 router.patch("/products/:id", updateProduct)
 
@@ -134,8 +135,8 @@ router.delete("/transactions/:id", deleteTransaction);
 router.patch("/transactions/:id",[updateTransactionValidator], updateTransaction);
 
 
-router.get("/ping", (req, res) => {
-    res.send({message:"ping check ok without v1 routing.."})
-})
+// router.get("/ping", (req, res) => {
+//     res.send({message:"ping check ok without v1 routing.."})
+// })
 
 module.exports = router; 
