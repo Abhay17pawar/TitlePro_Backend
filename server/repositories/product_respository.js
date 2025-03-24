@@ -50,6 +50,23 @@ class ProductRepository {
         }
 
     }
+    async getProductWithQuery (product_name) {
+        try{
+            console.log("product name with repository...", product_name);
+            const response = Product.findOne({
+                where: {
+                    product_name,
+                }
+            });
+            console.log("response from db single category:", response)
+            return response;
+        }
+        catch(error){
+            console.log("Product Respository...", error)
+            throw error;
+        }
+
+    }
 
 
 

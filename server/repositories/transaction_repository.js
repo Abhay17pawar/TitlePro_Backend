@@ -16,6 +16,18 @@ class TransactionRepository {
 
     }
 
+
+    async getTransactions() {
+        try{
+            const response = await Transaction.findAll();
+            return response;
+        }
+        catch(error) {
+            console.log("Transaction Repository error...", error)
+            throw error;
+        }
+    }
+
     async getTransactionWithProductId(productId) {
         try{
             const response = await Transaction.findAll({

@@ -73,6 +73,29 @@ class ProductService {
     }
 
 
+    async getProductWithQuery(queryData) {
+        try{
+
+            const {product_name} = queryData;
+            console.log("product_name is from service layer...", product_name)
+            const data = await this.repository.getProductWithQuery(product_name)
+            // console.log("Product service.. data is", data)
+            // if(!data){
+            //     throw new NotFoundError("Product", "id", id)
+            // }
+            return data;
+        }
+        catch(error){
+            // if(error.name === "NotFoundError"){
+            //     throw error;
+            // }
+            console.log("Product Service layer....", error)
+            throw new InternalServerError()
+        }
+
+    }
+
+
     async deleteProduct(id) {
         try{
             const data = await this.repository.deleteProduct(id)

@@ -18,11 +18,11 @@ const orderSummaryController = require("../controller/ordersummary");
 
 
 // controller for product...
-const { createProduct, getProducts, deleteProduct, getProductsIncludedDeleted, updateProduct, getProduct } = require("../controller/product_controller");
+const { createProduct, getProducts, deleteProduct, getProductsIncludedDeleted, updateProduct, getProduct, getProductWithQuery } = require("../controller/product_controller");
 
 
 // controller for transaction...
-const { createTransaction, getTransactionWithProductId, deleteTransaction, updateTransaction } = require("../controller/transaction_controller");
+const { createTransaction, getTransactionWithProductId, deleteTransaction, updateTransaction, getTransactions } = require("../controller/transaction_controller");
 const { createTransactionValidator, updateTransactionValidator } = require("../middleware/transaction_middleware");
 
 
@@ -118,6 +118,7 @@ router.post("/products", createProduct)
 router.get("/products", getProducts)
 router.get("/products/deleted", getProductsIncludedDeleted)
 router.get("/products/:id", getProduct)
+// router.get("/products/search/", getProductWithQuery)
 router.delete("/products/:id", deleteProduct)
 router.patch("/products/:id", updateProduct)
 
@@ -130,6 +131,7 @@ router.patch("/products/:id", updateProduct)
 
 
 router.post("/transactions", [createTransactionValidator], createTransaction);
+router.get("/transactions/", getTransactions);
 router.get("/transactions/:id", getTransactionWithProductId);
 router.delete("/transactions/:id", deleteTransaction);
 router.patch("/transactions/:id",[updateTransactionValidator], updateTransaction);

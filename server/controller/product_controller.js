@@ -77,6 +77,25 @@ async function getProduct(req, res) {
         res.status(error.statusCode).send(errorResponse(error.reason, error))
     }
 }
+
+async function getProductWithQuery(req, res) {
+    console.log("contorller called...", req.query)
+    console.log("query is:-", req.query.product_name)
+    try{
+        const newProduct = await productService.getProductWithQuery(req.query);
+
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "Product Fetch successfully! " + ReasonPhrases.OK,
+            data: newProduct,
+        })
+    }
+    catch(error) {
+        console.log("Product Controller layer..", error)
+        // res.status(error.statusCode).send(errorResponse(error.reason, error))
+    }
+}
 async function deleteProduct(req, res) {
     try{
         const newProduct = await productService.deleteProduct(req.params.id);
@@ -119,4 +138,5 @@ module.exports = {
     getProductsIncludedDeleted,
     updateProduct,
     getProduct,
+    getProductWithQuery,
 }
