@@ -1,6 +1,7 @@
 const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 const StateRepository = require("../repositories/state_respository");
 const StateService = require("../services/state_service");
+const errorResponse = require("../utils/error_response");
 
 
 const stateService = new StateService(new StateRepository());
@@ -18,9 +19,11 @@ async function createState(req, res) {
         })
     }
     catch(error) {
-        console.log("Product Controller layer..", error)
-        // res.status(error.statusCode).send(errorResponse(error.reason, error))
+        console.log("State Controller layer..", error)
+        res.status(StatusCodes.CONFLICT).send(errorResponse(error.errors[0].message))
+
         // res.send({errorMessage:error})
+        // res.send(error.errors[0].message)
     }
 }
 
