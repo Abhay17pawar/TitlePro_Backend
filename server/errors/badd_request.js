@@ -1,8 +1,8 @@
 const { ReasonPhrases, StatusCodes } = require("http-status-codes");
 
 class BadRequest extends Error {
-    constructor(message){
-        const finalMessage = `${message} is missing from request Body.`
+    constructor(message, invalid=null){
+        const finalMessage = (invalid) ? `${message}` : `${message} is missing from request Body.`
         super(message);
         this.statusCode = StatusCodes.BAD_REQUEST;
         this.name = "BadRequest";

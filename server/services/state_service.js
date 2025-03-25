@@ -1,3 +1,4 @@
+const BadRequest = require("../errors/badd_request");
 const InternalServerError = require("../errors/internal_server_error");
 const NotFoundError = require("../errors/not_found_error");
 
@@ -32,6 +33,7 @@ class StateService {
 
     async getState (id) {
         try{
+
             const response = await this.respository.getState(id);
             if(!response){
                 throw new NotFoundError("State", "id", id)

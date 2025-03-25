@@ -2,6 +2,7 @@ const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 const StateRepository = require("../repositories/state_respository");
 const StateService = require("../services/state_service");
 const errorResponse = require("../utils/error_response");
+const BadRequest = require("../errors/badd_request");
 
 
 const stateService = new StateService(new StateRepository());
@@ -45,6 +46,10 @@ async function getStates (req, res) {
 
 async function getState (req, res) {
     try{
+        const id = req.params.id;
+        if (!id || isNaN(id)) {
+            throw new BadRequest("Invalid state ID format", true);
+        }
         const data = await stateService.getState(req.params.id);
         res.status(StatusCodes.OK).send({
             success:true,
