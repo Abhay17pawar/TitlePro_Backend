@@ -64,6 +64,24 @@ class CountyService {
 
     }
   }
+  async getCountiesWithStateId (id) {
+    try{
+        const stateResponse = await this.stateRepository.getState(id);
+        if(!stateResponse){
+          throw new NotFoundError("State", "id", id)
+        }
+        const response = await this.respository.getCountiesWithStateId(id);
+        return response;
+    }
+    catch(error){
+        console.log("Service layer Get  County with stateId error....", error);
+        if(error.name === "NotFoundError"){
+            throw error;
+          }
+        throw new InternalServerError(); 
+
+    }
+  }
 
   async deleteCounty (id) {
     try{

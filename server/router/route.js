@@ -31,7 +31,7 @@ const { createStateValidator, updateStateValidator } = require("../middleware/st
 
 
 // controller for county...
-const { createCounty, getCounties, getCounty, deleteCounty } = require("../controller/county_controller");
+const { createCounty, getCounties, getCounty, deleteCounty, getCountiesWithStateId } = require("../controller/county_controller");
 const { createCountyValidator } = require("../middleware/county_middleware");
 
 
@@ -175,8 +175,9 @@ router.patch("/states/:id", [updateStateValidator], updateState);
 
 router.post("/counties", [createCountyValidator], createCounty);
 router.get("/counties", getCounties);
-router.get("/counties/:id", getCounty);
+router.get("/counties/single/:id", getCounty);
 router.delete("/counties/:id", deleteCounty);
+router.get("/counties/states/:id", getCountiesWithStateId);
 
 
 

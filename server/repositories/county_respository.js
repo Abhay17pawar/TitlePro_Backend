@@ -44,6 +44,25 @@ class CountyRepository {
               
         }
     }
+
+
+
+    async getCountiesWithStateId(stateId) {
+        try{
+            const response = await County.findAll({
+                where:{
+                    stateId
+                }
+            })
+            return response;
+        }
+        catch(error){
+            console.log("County Repository Get Counties with stateId Error....", error)
+            throw error;
+              
+        }
+    }
+
     async deleteCounty(id) {
         try{
             const response = await County.destroy({

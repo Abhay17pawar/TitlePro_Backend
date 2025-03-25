@@ -71,6 +71,27 @@ async function getCounty(req, res) {
 
     }
 }
+async function getCountiesWithStateId(req, res) {
+    try{
+        const id = req.params.id;
+        if (!id || isNaN(id)) {
+            throw new BadRequest(`Invalid ID:->(${id}) format`, true);
+        }
+        const data = await countySevice.getCountiesWithStateId(id);
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "Counties get Successfully... " + ReasonPhrases.OK,
+            data: data,
+        })
+
+    }
+    catch(error) {
+        console.log("County Controller layer geting one county error..", error)
+        return res.status(error.statusCode).send(errorResponse(error.reason, error));
+
+    }
+}
 async function deleteCounty(req, res) {
     try{
         const id = req.params.id;
@@ -99,4 +120,5 @@ module.exports = {
     getCounties,
     getCounty,
     deleteCounty,
+    getCountiesWithStateId,
 }

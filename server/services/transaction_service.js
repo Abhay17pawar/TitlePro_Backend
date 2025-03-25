@@ -12,7 +12,6 @@ class TransactionService {
     async createTransaction(data){
         try{
             const {transaction_name, product_name, productId} = data;
-            // await this.getTransaction(productId)
             const response = await this.productRepository.getProduct(productId)
             console.log("data is:-", response);
             if(!response){
