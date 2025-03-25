@@ -19,6 +19,32 @@ class CountyRepository {
 
 
 
+    async getCounties() {
+        try{
+            const response = await County.findAll();
+            return response;
+        }
+        catch(error){
+            console.log("County Repository Get All County Error....", error)
+            throw error; 
+              
+        }
+    }
+    
+    async getCounty(id) {
+        try{
+            const response = await County.findByPk(id);
+            return response;
+        }
+        catch(error){
+            console.log("County Repository Get County Error....", error)
+            throw error; 
+              
+        }
+    }
+
+
+
 
 
 }

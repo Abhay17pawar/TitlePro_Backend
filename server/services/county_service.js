@@ -34,6 +34,23 @@ class CountyService {
       throw InternalServerError();
     }
   }
+
+
+  async getCounties () {
+    try{
+        const response = this.respository.getCounties();
+        return response;
+    }
+    catch(error){
+        console.log("Service layer Get all County error....", error);
+        throw error;
+
+    }
+  }
+
+
+
+
 }
 
 module.exports = CountyService;
