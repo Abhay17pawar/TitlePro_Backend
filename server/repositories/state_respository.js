@@ -63,6 +63,24 @@ class StateRepository {
         }
     }
 
+    async updateState(id, state_name) {
+        try{
+            
+            const response = await State.update({
+                state_name,
+            }, {
+                where:{
+                    id:id,
+                }
+            });
+            return response
+        }
+        catch(error) {
+            console.log("Respository Layer Error updating one state..", error);
+            throw error;
+        }
+    }
+
 
 
 

@@ -69,6 +69,26 @@ class StateService {
     }
 
 
+    async updateState (id, updatedData) {
+        try{
+
+            const response = await this.respository.updateState(id, updatedData.state_name);
+            if(response[0] == 0){
+                
+                throw new NotFoundError("State", "id", id)
+            }
+            return response;
+        }
+        catch(error){
+            if(error.name === "NotFoundError"){
+                throw error;
+            }
+            console.log("Service layer updating single state error....", error);
+            throw new InternalServerError();
+        }
+    }
+
+
 
 
 

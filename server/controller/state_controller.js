@@ -83,6 +83,25 @@ async function deleteState (req, res) {
         res.status(error.statusCode).send(errorResponse(error.reason, error))
     }
 }
+async function updateState (req, res) {
+    try{
+        const id = req.params.id;
+        if (!id || isNaN(id)) {
+            throw new BadRequest("Invalid state ID format", true);
+        }
+        const data = await stateService.updateState(req.params.id, req.body);
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "State Update successfully...",
+            data: data
+        })
+    }
+    catch(error) {
+        console.log("Controller layer Update state error... ", error);
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
+    }
+}
 
 
 module.exports = {
@@ -90,4 +109,5 @@ module.exports = {
     getStates,
     getState,
     deleteState,
+    updateState,
 }
