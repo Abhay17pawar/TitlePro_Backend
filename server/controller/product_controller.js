@@ -4,11 +4,13 @@ const { ReasonPhrases, StatusCodes } = require("http-status-codes")
 const ProductRepository = require("../repositories/product_respository")
 const ProductService = require("../services/product_service")
 const errorResponse = require("../utils/error_response")
+// const NotFoundError = require("../errors/not_found_error")
+const BadRequest = require("../errors/badd_request")
 
 const productService = new ProductService(new ProductRepository())
 async function createProduct(req, res) {
     try{
-        console.log("controller called...", req.body)
+        // console.log("controller called...", req.body)
         const newProduct = await productService.createProduct(req.body)
         console.log("newProduct is", newProduct)
 
@@ -63,6 +65,10 @@ async function getProductsIncludedDeleted(req, res) {
 
 async function getProduct(req, res) {
     try{
+        let id = req.params.id;
+        if(!id || isNaN(id)){
+            throw new BadRequest(`Invalid ID:-> (${id})`, true)
+        }
         const newProduct = await productService.getProduct(req.params.id);
 
         res.status(StatusCodes.OK).send({
@@ -79,8 +85,8 @@ async function getProduct(req, res) {
 }
 
 async function getProductWithQuery(req, res) {
-    console.log("contorller called...", req.query)
-    console.log("query is:-", req.query.product_name)
+    // console.log("contorller called...", req.query)
+    // console.log("query is:-", req.query.product_name)
     try{
         const newProduct = await productService.getProductWithQuery(req.query);
 
@@ -98,7 +104,11 @@ async function getProductWithQuery(req, res) {
 }
 async function deleteProduct(req, res) {
     try{
-        const newProduct = await productService.deleteProduct(req.params.id);
+        let id = req.params.id;
+        if(!id || isNaN(id)){
+            throw new BadRequest(`Invalid ID:-> (${id})`, true)
+        }
+        const newProduct = await productService.deleteProduct(id);
 
         res.status(StatusCodes.CREATED).send({
             success:true,
@@ -115,7 +125,11 @@ async function deleteProduct(req, res) {
 
 async function updateProduct(req, res) {
     try{
-        const newProduct = await productService.updateProduct(req.params.id, req.body);
+        let id = req.params.id;
+        if(!id || isNaN(id)){
+            throw new BadRequest(`Invalid ID:-> (${id})`, true)
+        }
+        const newProduct = await productService.updateProduct(id, req.body);
 
         res.status(StatusCodes.CREATED).send({
             success:true,
@@ -126,8 +140,8 @@ async function updateProduct(req, res) {
     }
     catch(error) {
         console.log("Product Controller layer..", error)
-        // res.status(error.statusCode).send(errorResponse(error.reason, error))
-        res.send({errorMessage:error})
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
+        // res.send({errorMessage:error})
     }
 }
 

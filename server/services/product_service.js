@@ -115,12 +115,19 @@ class ProductService {
     async updateProduct(id, updatedata) {
         const {product_name} = updatedata;
         try{
+            const dataProduct = await this.getProduct(id)
+            if(!dataProduct){
+                throw new NotFoundError("Product", "id", id)
+            }
             let data = await this.repository.updateProduct(id, product_name);
             return data;
         }
         catch(error){
             console.log("Category Service layer....", error)
-            // throw new InternalServerError()
+            if(error.name === "NotFoundError"){
+                throw error;
+            }
+            throw new InternalServerError()
         }
 
     }
