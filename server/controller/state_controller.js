@@ -43,7 +43,25 @@ async function getStates (req, res) {
 }
 
 
+async function getState (req, res) {
+    try{
+        const data = await stateService.getState(req.params.id);
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "State fetch successfully...",
+            data: data
+        })
+    }
+    catch(error) {
+        console.log("Controller layer get state error... ", error);
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
+    }
+}
+
+
 module.exports = {
     createState,
     getStates,
+    getState,
 }

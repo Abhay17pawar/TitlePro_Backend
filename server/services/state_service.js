@@ -1,3 +1,5 @@
+const InternalServerError = require("../errors/internal_server_error");
+const NotFoundError = require("../errors/not_found_error");
 
 
 class StateService {
@@ -22,8 +24,26 @@ class StateService {
             return response;
         }
         catch(error){
-            console.log("Service layer creating state error....", error);
+            console.log("Service layer getting all states error....", error);
             throw error;
+        }
+    }
+
+
+    async getState (id) {
+        try{
+            const response = await this.respository.getState(id);
+            if(!response){
+                throw new NotFoundError("State", "id", id)
+            }
+            return response;
+        }
+        catch(error){
+            if(error.name === "NotFoundError"){
+                throw error;
+            }
+            console.log("Service layer getting single state error....", error);
+            throw new InternalServerError();
         }
     }
 

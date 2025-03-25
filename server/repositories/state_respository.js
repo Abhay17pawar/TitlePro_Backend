@@ -34,6 +34,19 @@ class StateRepository {
     }
 
 
+    async getState(id) {
+        try{
+            
+            const response = await State.findByPk(id);
+            return response
+        }
+        catch(error) {
+            console.log("Respository Layer Error geting one state..", error);
+            throw error;
+        }
+    }
+
+
 
 
 
