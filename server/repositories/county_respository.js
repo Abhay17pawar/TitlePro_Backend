@@ -1,3 +1,4 @@
+
 const County = require("../model/county");
 
 class CountyRepository {
@@ -30,15 +31,16 @@ class CountyRepository {
               
         }
     }
-    
+
     async getCounty(id) {
         try{
             const response = await County.findByPk(id);
+
             return response;
         }
         catch(error){
             console.log("County Repository Get County Error....", error)
-            throw error; 
+            throw error;
               
         }
     }

@@ -47,6 +47,23 @@ class CountyService {
 
     }
   }
+  async getCounty (id) {
+    try{
+        const response = await this.respository.getCounty(id);
+        if(!response){
+            throw new NotFoundError("County", "id", id)
+        }
+        return response;
+    }
+    catch(error){
+        console.log("Service layer Get One County error....", error);
+        if(error.name === "NotFoundError"){
+            throw error;
+        }
+        throw new InternalServerError(); 
+
+    }
+  }
 
 
 

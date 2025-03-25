@@ -3,6 +3,7 @@ const CountyRepository = require("../repositories/county_respository");
 const CountyService = require("../services/county_service");
 const errorResponse = require("../utils/error_response");
 const StateRepository = require("../repositories/state_respository");
+const BadRequest = require("../errors/badd_request");
 
 
 const countySevice = new CountyService(new CountyRepository(), new StateRepository());
@@ -49,8 +50,31 @@ async function getCounties(req, res) {
     }
 }
 
+async function getCounty(req, res) {
+    try{
+        const id = req.params.id;
+        if (!id || isNaN(id)) {
+            throw new BadRequest(`Invalid ID:->(${id}) format`, true);
+        }
+        const data = await countySevice.getCounty(id);
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "County get Successfully... " + ReasonPhrases.OK,
+            data: data,
+        })
+
+    }
+    catch(error) {
+        console.log("County Controller layer geting one county error..", error)
+        return res.status(error.statusCode).send(errorResponse(error.reason, error));
+
+    }
+}
+
 
 module.exports = {
     createCounty,
     getCounties,
+    getCounty,
 }
