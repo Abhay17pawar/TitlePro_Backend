@@ -1,12 +1,10 @@
 
-// const {StatusCodes, ReasonPhrases} = require("http-status-codes");
-// const errorResponse = require("../utils/error_response");
+
 
 const { StatusCodes, ReasonPhrases } = require("http-status-codes")
 const errorResponse = require("../utils/error_response")
 const BadRequest = require("../errors/badd_request")
 
-// const BadRequest = require("../errors/bad_request_error");
 function createTransactionValidator(req, res, next) {
 
     if(!req.body.product_name) {

@@ -30,6 +30,11 @@ const { createState, getStates, getState, deleteState, updateState } = require("
 const { createStateValidator, updateStateValidator } = require("../middleware/state_middleware");
 
 
+// controller for county...
+const { createCounty } = require("../controller/county_controller");
+const { createCountyValidator } = require("../middleware/county_middleware");
+
+
 
 
 
@@ -163,7 +168,12 @@ router.patch("/states/:id", [updateStateValidator], updateState);
 
 
 
+// ********************************************************************************************************
+//                                      County Management Routes
+// ********************************************************************************************************
 
+
+router.post("/counties", [createCountyValidator], createCounty);
 
 
 

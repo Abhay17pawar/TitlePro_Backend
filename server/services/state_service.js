@@ -1,4 +1,3 @@
-const BadRequest = require("../errors/badd_request");
 const InternalServerError = require("../errors/internal_server_error");
 const NotFoundError = require("../errors/not_found_error");
 
