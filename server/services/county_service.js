@@ -65,6 +65,24 @@ class CountyService {
     }
   }
 
+  async deleteCounty (id) {
+    try{
+        const response = await this.respository.deleteCounty(id);
+        if(!response){
+            throw new NotFoundError("County", "id", id)
+        }
+        return response;
+    }
+    catch(error){
+        console.log("Service layer Delete One County error....", error);
+        if(error.name === "NotFoundError"){
+            throw error;
+        }
+        throw new InternalServerError(); 
+
+    }
+  }
+
 
 
 

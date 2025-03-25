@@ -44,6 +44,22 @@ class CountyRepository {
               
         }
     }
+    async deleteCounty(id) {
+        try{
+            const response = await County.destroy({
+                where:{
+                    id:id,
+                }
+            });
+            console.log("response of deletcounty", response)
+            return response;
+        }
+        catch(error){
+            console.log("County Repository Delete County Error....", error)
+            throw error;
+              
+        }
+    }
 
 
 
