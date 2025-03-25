@@ -49,6 +49,25 @@ class StateService {
         }
     }
 
+    
+    async deleteState (id) {
+        try{
+
+            const response = await this.respository.deleteState(id);
+            if(!response){
+                throw new NotFoundError("State", "id", id)
+            }
+            return response;
+        }
+        catch(error){
+            if(error.name === "NotFoundError"){
+                throw error;
+            }
+            console.log("Service layer getting single state error....", error);
+            throw new InternalServerError();
+        }
+    }
+
 
 
 

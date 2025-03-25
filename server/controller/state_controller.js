@@ -64,9 +64,30 @@ async function getState (req, res) {
     }
 }
 
+async function deleteState (req, res) {
+    try{
+        const id = req.params.id;
+        if (!id || isNaN(id)) {
+            throw new BadRequest("Invalid state ID format", true);
+        }
+        const data = await stateService.deleteState(req.params.id);
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "State delete successfully...",
+            data: data
+        })
+    }
+    catch(error) {
+        console.log("Controller layer delete state error... ", error);
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
+    }
+}
+
 
 module.exports = {
     createState,
     getStates,
     getState,
+    deleteState,
 }

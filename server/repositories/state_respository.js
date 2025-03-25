@@ -47,6 +47,23 @@ class StateRepository {
     }
 
 
+    async deleteState(id) {
+        try{
+            
+            const response = await State.destroy({
+                where:{
+                    id:id,
+                }
+            });
+            return response
+        }
+        catch(error) {
+            console.log("Respository Layer Error deleting one state..", error);
+            throw error;
+        }
+    }
+
+
 
 
 
