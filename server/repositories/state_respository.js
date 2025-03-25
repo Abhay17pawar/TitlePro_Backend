@@ -14,12 +14,34 @@ class StateRepository {
             // throw error;
             if (error.name === 'SequelizeUniqueConstraintError') {
                 throw error;
-              } else {
-                console.error('Error creating state:', error);
+              } 
+              else {
+                console.error('Respository layer Error creating state:', error);
                 throw error; // Re-throw other errors
               }
         }
     }
+
+    async getStates() {
+        try{
+            const response = await State.findAll();
+            return response;
+        }
+        catch(error) {
+            console.log("Respository Layer Error geting all state..", error);
+            throw error;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
 }
 
 

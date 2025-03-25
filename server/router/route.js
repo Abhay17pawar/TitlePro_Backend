@@ -26,7 +26,7 @@ const { createTransaction, getTransactionWithProductId, deleteTransaction, updat
 const { createTransactionValidator, updateTransactionValidator } = require("../middleware/transaction_middleware");
 
 // controller for states...
-const { createState } = require("../controller/state_controller");
+const { createState, getStates } = require("../controller/state_controller");
 const { createStateValidator } = require("../middleware/state_middleware");
 
 
@@ -147,9 +147,15 @@ router.patch("/transactions/:id",[updateTransactionValidator], updateTransaction
 // })
 
 
+// ********************************************************************************************************
+//                                      States Management Routes
+// ********************************************************************************************************
+
+
 
 
 router.post("/states", [createStateValidator], createState)
+router.get("/states", getStates)
 
 
 

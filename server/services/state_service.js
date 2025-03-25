@@ -12,10 +12,27 @@ class StateService {
             return response;
         }
         catch(error){
-            console.log("State Service error....", error);
+            console.log("Service layer creating state error....", error);
             throw error;
         }
     }
+    async getStates () {
+        try{
+            const response = await this.respository.getStates();
+            return response;
+        }
+        catch(error){
+            console.log("Service layer creating state error....", error);
+            throw error;
+        }
+    }
+
+
+
+
+
+
+
 }
 
 

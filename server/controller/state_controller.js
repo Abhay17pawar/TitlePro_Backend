@@ -22,12 +22,28 @@ async function createState(req, res) {
         console.log("State Controller layer..", error)
         res.status(StatusCodes.CONFLICT).send(errorResponse(error.errors[0].message))
 
-        // res.send({errorMessage:error})
-        // res.send(error.errors[0].message)
+    }
+}
+
+
+
+async function getStates (req, res) {
+    try{
+        const data = await stateService.getStates();
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "All states fetch successfully...",
+            data: data
+        })
+    }
+    catch(error) {
+        console.log("Controller layer get all states error... ", error);
     }
 }
 
 
 module.exports = {
     createState,
+    getStates,
 }
