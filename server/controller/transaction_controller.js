@@ -63,7 +63,11 @@ async function getTransaction(req, res) {
 }
 async function getTransactionWithProductId(req, res) {
     try{
-        const data = await transactionService.getTransactionWithProductId(req.params.id)
+        const id = req.params.id;
+        if (!id || isNaN(id)) {
+            throw new BadRequest(`Invalid ID :-> (${id}) `, true);
+        }
+        const data = await transactionService.getTransactionWithProductId(id)
         res.status(StatusCodes.OK).send({
             success:true,
             error:{},

@@ -61,11 +61,20 @@ class TransactionService {
     }
     async getTransactionWithProductId(productId){
         try{
+            const response = await this.productRepository.getProduct(productId)
+            if(!response){
+                throw new NotFoundError("Product", "id", productId)
+            }
             const newTransaction = await this.repository.getTransactionWithProductId(productId);
+
             return newTransaction;
         }
         catch(error){
             console.log("Error Inside Transaction Service during getTransactionWithProductId...", error)
+            if(error.name === "NotFoundError"){
+                throw error;
+            }
+            throw new InternalServerError()
         }
     }
     async deleteTransaction(id){
