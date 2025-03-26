@@ -35,7 +35,7 @@ const corsOptions = {
         callback(new Error('Not allowed by CORS'));
       }
     },
-    methods: 'GET, POST, PATCH, DELETE, OPTIONS',  // Specify allowed methods, including OPTIONS for preflight requests
+    methods: 'GET, POST, PUT, DELETE, OPTIONS',  // Specify allowed methods, including OPTIONS for preflight requests
     allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',  // Allowed headers
     credentials: true,  // Allow sending cookies or authentication headers
   };
