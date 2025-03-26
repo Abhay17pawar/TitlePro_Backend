@@ -1,4 +1,5 @@
 
+const ConflictError = require("../errors/conflict_error");
 const InternalServerError = require("../errors/internal_server_error");
 const NotFoundError = require("../errors/not_found_error");
 
@@ -9,13 +10,15 @@ class ProductService {
     async createProduct(productDetails) {
         try{
             const {product_name} = productDetails;
-            // console.log("service layer called..", product_name, productDetails)
             let newProduct = await this.repository.createProduct(product_name);
             return newProduct;
         }
         catch(error){
-            console.log("Product Service layer....", error)
-            // throw new InternalServerError()
+            console.log("Error Inside Product Service during createProduct...", error)
+            if(error.name === "SequelizeUniqueConstraintError"){
+                throw new ConflictError(error.errors[0].message)
+            }
+            throw new InternalServerError()
         }
 
     }
@@ -26,8 +29,8 @@ class ProductService {
             return data;
         }
         catch(error){
-            console.log("Product Service layer....", error)
-            // throw new InternalServerError()
+            console.log("Error Inside Product Service during getProducts...", error)
+            throw new InternalServerError()
         }
 
     }
@@ -35,18 +38,14 @@ class ProductService {
     async getProductsIncludedDeleted() {
         try{
             const data = await this.repository.getProductsIncludedDeleted()
-            // console.log("Product service.. data is", data)
-            // if(!data){
-            //     throw new NotFoundError("Product", "id", id)
-            // }
             return data;
         }
         catch(error){
             if(error.name === "NotFoundError"){
                 throw error;
             }
-            console.log("Product Service layer....", error)
-            // throw new InternalServerError()
+            console.log("Error Inside Product Service during getProductsIncludedDeleted...", error)
+            throw new InternalServerError()
         }
 
     }
@@ -64,7 +63,7 @@ class ProductService {
             if(error.name === "NotFoundError"){
                 throw error;
             }
-            console.log("Product Service layer....", error)
+            console.log("Error Inside Product Service during getProduct...", error)
             throw new InternalServerError()
         }
 
@@ -77,17 +76,12 @@ class ProductService {
             const {product_name} = queryData;
             console.log("product_name is from service layer...", product_name)
             const data = await this.repository.getProductWithQuery(product_name)
-            // console.log("Product service.. data is", data)
-            // if(!data){
-            //     throw new NotFoundError("Product", "id", id)
-            // }
+
             return data;
         }
         catch(error){
-            // if(error.name === "NotFoundError"){
-            //     throw error;
-            // }
-            console.log("Product Service layer....", error)
+
+            console.log("Error Inside Product Service during getProductWithQuery...", error)
             throw new InternalServerError()
         }
 
@@ -107,7 +101,7 @@ class ProductService {
             if(error.name === "NotFoundError"){
                 throw error;
             }
-            console.log("Product Service layer....", error)
+            console.log("Error Inside Product Service during deleteProduct...", error)
             throw new InternalServerError()
         }
     }
@@ -123,7 +117,7 @@ class ProductService {
             return data;
         }
         catch(error){
-            console.log("Category Service layer....", error)
+            console.log("Error Inside Product Service during updateProduct...", error)
             if(error.name === "NotFoundError"){
                 throw error;
             }

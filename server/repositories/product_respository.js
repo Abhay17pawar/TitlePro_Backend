@@ -12,7 +12,7 @@ class ProductRepository {
             return response;
         }
         catch(error){
-            console.log("Product Respository...", error)
+            console.log("Error Inside Product Respository during createProduct...", error)
             throw error;
             
         }
@@ -24,7 +24,7 @@ class ProductRepository {
             return response;
         }
         catch(error){
-            console.log("Product Respository...", error)
+            console.log("Error Inside Product Respository during getProducts...", error)
             throw error;
         }
 
@@ -35,7 +35,7 @@ class ProductRepository {
             return response;
         }
         catch(error){
-            console.log("Product Respository...", error)
+            console.log("Error Inside Product Respository during getProductsIncludedDeleted...", error)
             throw error;
         }
 
@@ -47,7 +47,7 @@ class ProductRepository {
             return response;
         }
         catch(error){
-            console.log("Product Respository...", error)
+            console.log("Error Inside Product Respository during getProduct...", error)
             throw error;
         }
 
@@ -66,7 +66,7 @@ class ProductRepository {
             return response;
         }
         catch(error){
-            console.log("Product Respository...", error)
+            console.log("Error Inside Product Respository during getProductWithQuery...", error)
             throw error;
         }
 
@@ -84,7 +84,7 @@ class ProductRepository {
             return responose;
         }
         catch(error){
-            console.log("Product Respository...", error)
+            console.log("Error Inside Product Respository during deleteProduct...", error)
             throw error;
         }
 
@@ -101,7 +101,7 @@ class ProductRepository {
             })
         }
         catch(error){
-            console.log("Product Respository...", error)
+            console.log("Error Inside Product Respository during updateProduct...", error)
             throw error;
         }
 
@@ -117,7 +117,7 @@ class ProductRepository {
             return data;
         }
         catch(error){
-            console.log("Category Service layer....", error)
+            console.log("Error Inside Product Respository during getProductsForCategory...", error)
             throw new InternalServerError()
         }
 
