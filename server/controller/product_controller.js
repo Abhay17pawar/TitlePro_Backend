@@ -108,7 +108,7 @@ async function deleteProduct(req, res) {
         res.status(StatusCodes.CREATED).send({
             success:true,
             error:{},
-            message: "Delete Product successfully!" + ReasonPhrases.OK,
+            message: "Delete Product successfully...",
             data: newProduct,
         })
     }
@@ -129,7 +129,7 @@ async function updateProduct(req, res) {
         res.status(StatusCodes.CREATED).send({
             success:true,
             error:{},
-            message: " Product Update successfully!" + ReasonPhrases.OK,
+            message: " Product Update successfully...",
             data: newProduct,
         }) 
     }

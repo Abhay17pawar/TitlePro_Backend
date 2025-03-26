@@ -33,7 +33,7 @@ const { createStateValidator, updateStateValidator } = require("../middleware/st
 // controller for county...
 const { createCounty, getCounties, getCounty, deleteCounty, getCountiesWithStateId } = require("../controller/county_controller");
 const { createCountyValidator } = require("../middleware/county_middleware");
-const { createProductValidator } = require("../middleware/product_middleware");
+const { createProductValidator, updateProductValidator } = require("../middleware/product_middleware");
 
 
 
@@ -130,7 +130,7 @@ router.get("/products/deleted", getProductsIncludedDeleted)
 router.get("/products/:id", getProduct)
 // router.get("/products/search/", getProductWithQuery)
 router.delete("/products/:id", deleteProduct)
-router.patch("/products/:id", updateProduct)
+router.patch("/products/:id", [updateProductValidator], updateProduct)
 
 
 

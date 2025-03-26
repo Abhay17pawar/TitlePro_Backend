@@ -99,6 +99,7 @@ class ProductRepository {
                     id:id
                 }
             })
+            return response;
         }
         catch(error){
             console.log("Error Inside Product Respository during updateProduct...", error)
