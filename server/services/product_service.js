@@ -2,6 +2,7 @@
 const ConflictError = require("../errors/conflict_error");
 const InternalServerError = require("../errors/internal_server_error");
 const NotFoundError = require("../errors/not_found_error");
+const Sequelize = require("sequelize");
 
 class ProductService {
     constructor(repository) {
@@ -15,9 +16,10 @@ class ProductService {
         }
         catch(error){
             console.log("Error Inside Product Service during createProduct...", error)
-            if(error.name === "SequelizeUniqueConstraintError"){
-                throw new ConflictError(error.errors[0].message)
+            if(error instanceof Sequelize.UniqueConstraintError){
+                throw new ConflictError(error.errors[0].message|| "Duplicate entry for product")
             }
+            
             throw new InternalServerError()
         }
 

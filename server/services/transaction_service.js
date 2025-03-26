@@ -1,6 +1,8 @@
 const BadRequest = require("../errors/badd_request");
+const ConflictError = require("../errors/conflict_error");
 const InternalServerError = require("../errors/internal_server_error");
 const NotFoundError = require("../errors/not_found_error");
+const Sequelize = require("sequelize");
 
 
 class TransactionService {
@@ -23,6 +25,9 @@ class TransactionService {
         catch(error){
             if(error.name === "NotFoundError"){
                 throw error;
+            }
+            if(error instanceof Sequelize.UniqueConstraintError){
+                throw new ConflictError(error.errors[0].message|| "Duplicate entry for product")
             }
             console.log("Transaction Service layer error...", error);
             throw new InternalServerError()
