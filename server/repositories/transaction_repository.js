@@ -1,4 +1,6 @@
 const BadRequest = require("../errors/badd_request");
+const InternalServerError = require("../errors/internal_server_error");
+const NotFoundError = require("../errors/not_found_error");
 const Transaction = require("../model/transaction");
 class TransactionRepository {
     async createTransaction(transaction_name, product_name, productId) {
@@ -35,7 +37,7 @@ class TransactionRepository {
         }
         catch(error) {
             console.log("Error Inside Transaction Respository during getTransaction...", error)
-            throw error;
+            throw new InternalServerError();
         }
     }
 
@@ -45,7 +47,6 @@ class TransactionRepository {
                 where: { productId }, // Filter by p_id
                 attributes: ["transaction_name"], // Select only t_name field
             });
-            console.log("response of creat transaction", response);
             return response;
         }
         catch(error) {
