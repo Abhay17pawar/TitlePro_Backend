@@ -13,7 +13,7 @@ const Transaction = db.define("transaction", {
   transaction_name:{
     type: Sequelize.STRING,    
     allowNull: false,
-    unique:true,
+    // unique:true,
   },
   product_name: {
     type: Sequelize.STRING,
@@ -28,9 +28,16 @@ const Transaction = db.define("transaction", {
     }
 }
 }, {
+  indexes: [
+      {
+          unique: true,  // Ensures uniqueness
+          fields: ['transaction_name', 'product_name'] // Prevents duplicate product for same transaction
+      }
+  ],
   timestamps: true,    // Enables createdAt & updatedAt
   paranoid: true       // Enables deletedAt for soft delete
 })
 
 
 module.exports = Transaction;
+

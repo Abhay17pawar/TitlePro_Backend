@@ -15,7 +15,6 @@ class TransactionService {
         try{
             const {transaction_name, product_name, productId} = data;
             const response = await this.productRepository.getProduct(productId)
-            console.log("data is:-", response);
             if(!response){
                 throw new NotFoundError("Product", "id", productId)
             }
@@ -29,7 +28,7 @@ class TransactionService {
             if(error instanceof Sequelize.UniqueConstraintError){
                 throw new ConflictError(error.errors[0].message|| "Duplicate entry for product")
             }
-            console.log("Transaction Service layer error...", error);
+            console.log("Error Inside Transaction Service during createTransaction...", error)
             throw new InternalServerError()
         }
     }
@@ -40,7 +39,8 @@ class TransactionService {
             return response;
         }
         catch(error){
-            console.log("Transaction Service layer error...", error);
+            console.log("Error Inside Transaction Service during getTransactions...", error)
+            throw new InternalServerError()
         }
     }
     async getTransaction(id) {
@@ -55,7 +55,7 @@ class TransactionService {
             if(error.name === "NotFoundError"){
                 throw error;
             }
-            console.log("Transaction Service layer error...", error);
+            console.log("Error Inside Transaction Service during getTransaction...", error)
             throw new InternalServerError()
         }
     }
@@ -65,7 +65,7 @@ class TransactionService {
             return newTransaction;
         }
         catch(error){
-            console.log("Transaction Service layer error...", error);
+            console.log("Error Inside Transaction Service during getTransactionWithProductId...", error)
         }
     }
     async deleteTransaction(id){
@@ -80,7 +80,7 @@ class TransactionService {
             if(error.name === "NotFoundError"){
                 throw error;
             }
-            console.log("Transaction Service layer error...", error);
+            console.log("Error Inside Transaction Service during deleteTransaction...", error)
             throw new InternalServerError()
         }
     }
@@ -97,7 +97,7 @@ class TransactionService {
             if(error.name === "NotFoundError"){
                 throw error;
             }
-            console.log("Transaction Service layer error...", error);
+            console.log("Error Inside Transaction Service during updateTransaction...", error)
             throw new InternalServerError()
         }
     }

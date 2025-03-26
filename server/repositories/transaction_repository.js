@@ -4,7 +4,6 @@ class TransactionRepository {
     async createTransaction(transaction_name, product_name, productId) {
 
         try{
-            // await 
             const response = await Transaction.create({
                 transaction_name, product_name, productId
             })
@@ -12,7 +11,7 @@ class TransactionRepository {
             return response;
         }
         catch(error) {
-            console.log("Transaction Repository error...", error)
+            console.log("Error Inside Transaction Respository during createTransaction...", error)
             throw error;
         }
 
@@ -25,7 +24,7 @@ class TransactionRepository {
             return response;
         }
         catch(error) {
-            console.log("Transaction Repository error...", error)
+            console.log("Error Inside Transaction Respository during getTransactions...", error)
             throw error;
         }
     }
@@ -35,7 +34,7 @@ class TransactionRepository {
             return response;
         }
         catch(error) {
-            console.log("Transaction Repository error...", error)
+            console.log("Error Inside Transaction Respository during getTransaction...", error)
             throw error;
         }
     }
@@ -50,7 +49,7 @@ class TransactionRepository {
             return response;
         }
         catch(error) {
-            console.log("Transaction Repository error...", error)
+            console.log("Error Inside Transaction Respository during getTransactionWithProductId...", error)
             throw error;
         }
     }
@@ -66,7 +65,7 @@ class TransactionRepository {
             return response;
         }
         catch(error) {
-            console.log("Transaction Repository error...", error)
+            console.log("Error Inside Transaction Respository during deleteTransaction...", error)
             throw error;
         }
     }
@@ -84,7 +83,7 @@ class TransactionRepository {
             return response;
         }
         catch(error) {
-            console.log("Transaction Repository error...", error)
+            console.log("Error Inside Transaction Respository during updateTransaction...", error)
             throw error;
         }
     }

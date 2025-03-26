@@ -11,17 +11,16 @@ const transactionService = new TransactionService(new TransactionRepository(), n
 
 async function createTransaction(req, res) {
     try{
-        // console.log('API hit:', req.body); // ✅ Check if request is received
         const data = await transactionService.createTransaction(req.body)
         res.status(StatusCodes.CREATED).send({
             success:true,
             error:{},
-            message: "Transaction Created" + ReasonPhrases.OK,
+            message: "Transaction Created... " + ReasonPhrases.OK,
             data: data,
         })
     }
     catch(error){
-        console.log("Transaction controller layer error...", error)
+        console.log("Error Inside Transaction Controller during createTransaction...", error)
         res.status(error.statusCode).send(errorResponse(error.reason, error))
 
     }
@@ -33,12 +32,14 @@ async function getTransactions(req, res) {
         res.status(StatusCodes.OK).send({
             success:true,
             error:{},
-            message: "Transaction Fetch Successfully.. " + ReasonPhrases.OK,
+            message: "Transaction Fetch Successfully... ",
             data: data,
         })
     }
     catch(error){
-        console.log("Transaction controller layer error...", error)
+        console.log("Error Inside Transaction Controller during getTransactions...", error)
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
+
 
     }
 
@@ -49,12 +50,12 @@ async function getTransaction(req, res) {
         res.status(StatusCodes.OK).send({
             success:true,
             error:{},
-            message: "Transaction Fetch Successfully.. " + ReasonPhrases.OK,
+            message: "Transaction Fetch Successfully... ",
             data: data,
         })
     }
     catch(error){
-        console.log("Transaction controller layer error...", error)
+        console.log("Error Inside Transaction Controller during getTransaction...", error)
         res.status(error.statusCode).send(errorResponse(error.reason, error))
 
     }
@@ -66,12 +67,14 @@ async function getTransactionWithProductId(req, res) {
         res.status(StatusCodes.OK).send({
             success:true,
             error:{},
-            message: "Transaction Fetch Successfully.. " + ReasonPhrases.OK,
+            message: "Transaction Fetch Successfully... ",
             data: data,
         })
     }
     catch(error){
-        console.log("Transaction controller layer error...", error)
+        console.log("Error Inside Transaction Controller during getTransactionWithProductId...", error)
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
+
     }
 
 }
@@ -83,12 +86,12 @@ async function deleteTransaction(req, res) {
         res.status(StatusCodes.OK).send({
             success:true,
             error:{},
-            message: "Transaction Delete Successfully.. " + ReasonPhrases.OK,
+            message: "Transaction Delete Successfully... ",
             data: data,
         })
     }
     catch(error){
-        console.log("Transaction controller layer error...", error)
+        console.log("Error Inside Transaction Controller during deleteTransaction...", error)
         res.status(error.statusCode).send(errorResponse(error.reason, error))
 
     }
@@ -100,12 +103,12 @@ async function updateTransaction(req, res) {
         res.status(StatusCodes.OK).send({
             success:true,
             error:{},
-            message: "Transaction Update Successfully.. " + ReasonPhrases.OK,
+            message: "Transaction Update Successfully... ",
             data: data,
         })
     }
     catch(error){
-        console.log("Transaction controller layer error...", error)
+        console.log("Error Inside Transaction Controller during getTransactionWithProductId...", error)
         res.status(error.statusCode).send(errorResponse(error.reason, error))
     }
 
