@@ -28,12 +28,12 @@ const Transaction = db.define("transaction", {
     }
 }
 }, {
-  indexes: [
-      {
-          unique: true,  // Ensures uniqueness
-          fields: ['transaction_name', 'product_name'] // Prevents duplicate product for same transaction
-      }
-  ],
+  // indexes: [
+  //     {
+  //         unique: true,  // Ensures uniqueness
+  //         fields: ['transaction_name', 'product_name'] // Prevents duplicate product for same transaction
+  //     }
+  // ],
   timestamps: true,    // Enables createdAt & updatedAt
   paranoid: true       // Enables deletedAt for soft delete
 })

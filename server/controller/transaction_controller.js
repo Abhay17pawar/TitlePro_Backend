@@ -46,7 +46,11 @@ async function getTransactions(req, res) {
 }
 async function getTransaction(req, res) {
     try{
-        const data = await transactionService.getTransaction(req.params.id)
+        const id = req.params.id;
+        if (!id || isNaN(id)) {
+            throw new BadRequest(`Invalid ID :-> (${id}) `, true);
+        }
+        const data = await transactionService.getTransaction(id)
         res.status(StatusCodes.OK).send({
             success:true,
             error:{},
@@ -103,7 +107,11 @@ async function deleteTransaction(req, res) {
 }
 async function updateTransaction(req, res) {
     try{
-        const data = await transactionService.updateTransaction(req.params.id, req.body)
+        const id = req.params.id;
+        if (!id || isNaN(id)) {
+            throw new BadRequest(`Invalid ID :-> (${id}) `, true);
+        }
+        const data = await transactionService.updateTransaction(id, req.body)
         res.status(StatusCodes.OK).send({
             success:true,
             error:{},
