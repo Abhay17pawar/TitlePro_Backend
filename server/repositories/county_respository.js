@@ -77,6 +77,22 @@ class CountyRepository {
               
         }
     }
+    async updateCounty(id, county_name) {
+        try{
+            const response = await County.update({county_name}, {
+                where:{
+                    id:id,
+                }
+            });
+            console.log("response of deletcounty", response)
+            return response;
+        }
+        catch(error){
+            console.log("Error inside County Repository layer during updateCounty...", error)
+            throw error;
+              
+        }
+    }
 
 
 

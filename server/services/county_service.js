@@ -102,6 +102,24 @@ class CountyService {
 
     }
   }
+  async updateCounty (id, countyDetails) {
+    try{
+        const {county_name} = countyDetails;
+        const response = await this.respository.updateCounty(id, county_name);
+        if(!response){
+            throw new NotFoundError("County", "id", id)
+        }
+        return response;
+    }
+    catch(error){
+      console.log("Error inside Service layer during updateCounty...", error);
+        if(error.name === "NotFoundError"){
+            throw error;
+        }
+        throw new InternalServerError(); 
+
+    }
+  }
 
 
 

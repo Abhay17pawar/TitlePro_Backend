@@ -111,6 +111,27 @@ async function deleteCounty(req, res) {
 
     }
 }
+async function updateCounty(req, res) {
+    try{
+        const id = req.params.id;
+        if (!id || isNaN(id)) {
+            throw new BadRequest(`Invalid ID:->(${id}) format`, true);
+        }
+        const data = await countySevice.updateCounty(id, req.body);
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "County Update Successfully... ",
+            data: data,
+        })
+
+    }
+    catch(error) {
+        console.log("Error inside County Controller layer  updateCounty...", error)
+        return res.status(error.statusCode).send(errorResponse(error.reason, error));
+
+    }
+}
 
 
 module.exports = {
@@ -119,4 +140,5 @@ module.exports = {
     getCounty,
     deleteCounty,
     getCountiesWithStateId,
+    updateCounty,
 }
