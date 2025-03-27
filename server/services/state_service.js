@@ -1,7 +1,7 @@
 const InternalServerError = require("../errors/internal_server_error");
 const NotFoundError = require("../errors/not_found_error");
-
-
+const Sequelize = require("sequelize");
+const ConflictError = require("../errors/conflict_error")
 class StateService {
     constructor(respository){
         this.respository = respository;
@@ -14,8 +14,11 @@ class StateService {
             return response;
         }
         catch(error){
-            console.log("Service layer creating state error....", error);
-            throw error;
+            console.error('Error inside Service layer during createState...', error);
+            if(error instanceof Sequelize.UniqueConstraintError){
+                throw new ConflictError(error.errors[0].message|| "Duplicate entry for product")
+            }
+            throw new InternalServerError();
         }
     }
     async getStates () {
@@ -24,7 +27,7 @@ class StateService {
             return response;
         }
         catch(error){
-            console.log("Service layer getting all states error....", error);
+            console.error('Error inside Service layer during getStates...', error);
             throw error;
         }
     }
@@ -43,7 +46,7 @@ class StateService {
             if(error.name === "NotFoundError"){
                 throw error;
             }
-            console.log("Service layer getting single state error....", error);
+            console.error('Error inside Service layer during getState...', error);
             throw new InternalServerError();
         }
     }
@@ -62,7 +65,7 @@ class StateService {
             if(error.name === "NotFoundError"){
                 throw error;
             }
-            console.log("Service layer getting single state error....", error);
+            console.error('Error inside Service layer during deleteState...', error);
             throw new InternalServerError();
         }
     }
@@ -82,7 +85,7 @@ class StateService {
             if(error.name === "NotFoundError"){
                 throw error;
             }
-            console.log("Service layer updating single state error....", error);
+            console.error('Error inside Service layer during updateState...', error);
             throw new InternalServerError();
         }
     }

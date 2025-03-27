@@ -10,15 +10,15 @@ class StateRepository {
             return response;
         }
         catch(error){
-            console.log("State Repository....", error)
-            // throw error;
-            if (error.name === 'SequelizeUniqueConstraintError') {
-                throw error;
-              } 
-              else {
-                console.error('Respository layer Error creating state:', error);
-                throw error; // Re-throw other errors
-              }
+                console.error('Error inside Respository layer during createState...', error);
+            // if (error.name === 'SequelizeUniqueConstraintError') {
+            //     throw error;
+            //   } 
+            //   else {
+            //     console.error('Error inside Respository layer during createState...', error);
+            //     throw error; 
+            //   }
+            throw error;
         }
     }
 
@@ -28,7 +28,7 @@ class StateRepository {
             return response;
         }
         catch(error) {
-            console.log("Respository Layer Error geting all state..", error);
+            console.error('Error inside Respository layer during getStates...', error);
             throw error;
         }
     }
@@ -41,7 +41,7 @@ class StateRepository {
             return response
         }
         catch(error) {
-            console.log("Respository Layer Error geting one state..", error);
+            console.error('Error inside Respository layer during getState...', error);
             throw error;
         }
     }
@@ -58,7 +58,7 @@ class StateRepository {
             return response
         }
         catch(error) {
-            console.log("Respository Layer Error deleting one state..", error);
+            console.error('Error inside Respository layer during deleteState...', error);
             throw error;
         }
     }
@@ -76,7 +76,7 @@ class StateRepository {
             return response
         }
         catch(error) {
-            console.log("Respository Layer Error updating one state..", error);
+            console.error('Error inside Respository layer during updateState...', error);
             throw error;
         }
     }

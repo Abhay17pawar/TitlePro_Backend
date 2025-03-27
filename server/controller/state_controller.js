@@ -20,8 +20,8 @@ async function createState(req, res) {
         })
     }
     catch(error) {
-        console.log("State Controller layer..", error)
-        res.status(StatusCodes.CONFLICT).send(errorResponse(error.errors[0].message))
+        console.error('Error inside Controller layer during createState...', error);
+        res.status(StatusCodes.CONFLICT).send(errorResponse(error.reason, error))
 
     }
 }
@@ -39,7 +39,7 @@ async function getStates (req, res) {
         })
     }
     catch(error) {
-        console.log("Controller layer get all states error... ", error);
+        console.error('Error inside Controller layer during getStates...', error);
     }
 }
 
@@ -59,7 +59,7 @@ async function getState (req, res) {
         })
     }
     catch(error) {
-        console.log("Controller layer get state error... ", error);
+        console.error('Error inside Controller layer during getState...', error);
         res.status(error.statusCode).send(errorResponse(error.reason, error))
     }
 }
@@ -79,7 +79,7 @@ async function deleteState (req, res) {
         })
     }
     catch(error) {
-        console.log("Controller layer delete state error... ", error);
+        console.error('Error inside Controller layer during deleteState...', error);
         res.status(error.statusCode).send(errorResponse(error.reason, error))
     }
 }
@@ -98,7 +98,7 @@ async function updateState (req, res) {
         })
     }
     catch(error) {
-        console.log("Controller layer Update state error... ", error);
+        console.error('Error inside Controller layer during updateState...', error);
         res.status(error.statusCode).send(errorResponse(error.reason, error))
     }
 }
