@@ -25,6 +25,16 @@ class StateRepository {
             throw error;
         }
     }
+    async getAllStates() {
+        try{
+            const response = await State.findAll({paranoid:false});
+            return response;
+        }
+        catch(error) {
+            console.error('Error inside Respository layer during getAllStates...', error);
+            throw error;
+        }
+    }
 
 
     async getState(id) {

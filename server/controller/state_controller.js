@@ -34,7 +34,22 @@ async function getStates (req, res) {
         res.status(StatusCodes.OK).send({
             success:true,
             error:{},
-            message: "All states fetch successfully...",
+            message: (!data.length) ? "No data is present..." : "All states fetch successfully...",
+            data: data
+        })
+    }
+    catch(error) {
+        console.error('Error inside Controller layer during getStates...', error);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(errorResponse(error.reason, error));
+    }
+}
+async function getAllStates (req, res) {
+    try{
+        const data = await stateService.getAllStates();
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: (!data.length) ? "No data is present..." : "All states included deleted fetch successfully...",
             data: data
         })
     }
@@ -111,4 +126,5 @@ module.exports = {
     getState,
     deleteState,
     updateState,
+    getAllStates,
 }

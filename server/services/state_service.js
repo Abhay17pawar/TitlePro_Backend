@@ -32,6 +32,17 @@ class StateService {
         }
     }
 
+    async getAllStates () {
+        try{
+            const response = await this.respository.getAllStates();
+            return response;
+        }
+        catch(error){
+            console.error('Error inside Service layer during getAllStates...', error);
+            throw new InternalServerError();
+        }
+    }
+
 
     async getState (id) {
         try{
