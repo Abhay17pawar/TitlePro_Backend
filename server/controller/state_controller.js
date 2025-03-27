@@ -49,7 +49,7 @@ async function getState (req, res) {
     try{
         const id = req.params.id;
         if (!id || isNaN(id)) {
-            throw new BadRequest("Invalid state ID format", true);
+            throw new BadRequest(`Invalid ID:-> ${id}`, true);
         }
         const data = await stateService.getState(req.params.id);
         res.status(StatusCodes.OK).send({
