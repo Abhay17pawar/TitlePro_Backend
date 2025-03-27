@@ -40,6 +40,7 @@ async function getStates (req, res) {
     }
     catch(error) {
         console.error('Error inside Controller layer during getStates...', error);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(errorResponse(error.reason, error));
     }
 }
 

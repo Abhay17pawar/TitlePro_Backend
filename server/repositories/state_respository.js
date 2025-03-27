@@ -10,14 +10,7 @@ class StateRepository {
             return response;
         }
         catch(error){
-                console.error('Error inside Respository layer during createState...', error);
-            // if (error.name === 'SequelizeUniqueConstraintError') {
-            //     throw error;
-            //   } 
-            //   else {
-            //     console.error('Error inside Respository layer during createState...', error);
-            //     throw error; 
-            //   }
+            console.error('Error inside Respository layer during createState...', error);
             throw error;
         }
     }

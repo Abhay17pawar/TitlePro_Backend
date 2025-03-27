@@ -28,7 +28,7 @@ class StateService {
         }
         catch(error){
             console.error('Error inside Service layer during getStates...', error);
-            throw error;
+            throw new InternalServerError();
         }
     }
 
