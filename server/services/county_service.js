@@ -1,6 +1,7 @@
+const  Sequelize  = require("sequelize");
 const InternalServerError = require("../errors/internal_server_error");
 const NotFoundError = require("../errors/not_found_error");
-
+const ConflictError = require("../errors/conflict_error")
 
 
 class CountyService {
@@ -24,9 +25,12 @@ class CountyService {
       );
       return response;
     } catch (error) {
-      console.log("Service layer creating County error....", error);
-      if (error.name === "SequelizeUniqueConstraintError") {
-        throw error;
+      console.log("Error inside Service layer during createCounty...", error);
+      // if (error.name === "SequelizeUniqueConstraintError") {
+      //   throw error;
+      // }
+      if(error instanceof Sequelize.UniqueConstraintError){
+        throw new ConflictError(error.errors[0].message || "Duplicate entry is not Allowed")
       }
       if(error.name === "NotFoundError"){
         throw error;
@@ -42,8 +46,8 @@ class CountyService {
         return response;
     }
     catch(error){
-        console.log("Service layer Get all County error....", error);
-        throw error;
+      console.log("Error inside Service layer during getCounties...", error);
+        throw new InternalServerError();
 
     }
   }
@@ -56,7 +60,7 @@ class CountyService {
         return response;
     }
     catch(error){
-        console.log("Service layer Get One County error....", error);
+      console.log("Error inside Service layer during getCounty...", error);
         if(error.name === "NotFoundError"){
             throw error;
         }
@@ -74,7 +78,7 @@ class CountyService {
         return response;
     }
     catch(error){
-        console.log("Service layer Get  County with stateId error....", error);
+      console.log("Error inside Service layer during getCountiesWithStateId...", error);
         if(error.name === "NotFoundError"){
             throw error;
           }
@@ -92,7 +96,7 @@ class CountyService {
         return response;
     }
     catch(error){
-        console.log("Service layer Delete One County error....", error);
+      console.log("Error inside Service layer during deleteCounty...", error);
         if(error.name === "NotFoundError"){
             throw error;
         }

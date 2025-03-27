@@ -24,10 +24,10 @@ async function createCounty(req, res) {
     }
     catch(error) {
         console.log("County Controller layer creating county error..", error)
-        if(error.name === "NotFoundError"){
-           return res.status(error.statusCode).send(errorResponse(error.reason, error))
-        }
-        return res.status(StatusCodes.CONFLICT).send(errorResponse(error.errors[0].message))
+        // if(error.name === "NotFoundError"){
+        //    return res.status(error.statusCode).send(errorResponse(error.reason, error))
+        // }
+        return res.status(error.statusCode).send(errorResponse(error.reason, error))
 
     }
 }

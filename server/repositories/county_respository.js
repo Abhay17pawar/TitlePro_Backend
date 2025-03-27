@@ -11,9 +11,8 @@ class CountyRepository {
             return response;
         }
         catch(error){
-            console.log("County Repository Create County Error....", error)
-
-            throw error; // Re-throw other errors
+            console.log("Error inside County Repository layer during createCounty...", error)
+            throw error;
               
         }
     }
@@ -26,7 +25,7 @@ class CountyRepository {
             return response;
         }
         catch(error){
-            console.log("County Repository Get All County Error....", error)
+            console.log("Error inside County Repository layer during createCounty...", error)
             throw error; 
               
         }
@@ -39,7 +38,7 @@ class CountyRepository {
             return response;
         }
         catch(error){
-            console.log("County Repository Get County Error....", error)
+            console.log("Error inside County Repository layer during createCounty...", error)
             throw error;
               
         }
@@ -57,7 +56,7 @@ class CountyRepository {
             return response;
         }
         catch(error){
-            console.log("County Repository Get Counties with stateId Error....", error)
+            console.log("Error inside County Repository layer during createCounty...", error)
             throw error;
               
         }
@@ -74,7 +73,7 @@ class CountyRepository {
             return response;
         }
         catch(error){
-            console.log("County Repository Delete County Error....", error)
+            console.log("Error inside County Repository layer during createCounty...", error)
             throw error;
               
         }

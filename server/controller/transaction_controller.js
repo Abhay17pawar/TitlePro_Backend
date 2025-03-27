@@ -15,7 +15,7 @@ async function createTransaction(req, res) {
         res.status(StatusCodes.CREATED).send({
             success:true,
             error:{},
-            message: "Transaction Created... " + ReasonPhrases.OK,
+            message: "Transaction Created... ",
             data: data,
         })
     }

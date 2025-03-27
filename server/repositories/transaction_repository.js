@@ -1,6 +1,4 @@
-const BadRequest = require("../errors/badd_request");
 const InternalServerError = require("../errors/internal_server_error");
-const NotFoundError = require("../errors/not_found_error");
 const Transaction = require("../model/transaction");
 class TransactionRepository {
     async createTransaction(transaction_name, product_name, productId) {
@@ -44,8 +42,8 @@ class TransactionRepository {
     async getTransactionWithProductId(productId) {
         try{
             const response = await Transaction.findAll({
-                where: { productId }, // Filter by p_id
-                attributes: ["transaction_name"], // Select only t_name field
+                where: { productId }, 
+                attributes: ["transaction_name"], 
             });
             return response;
         }
