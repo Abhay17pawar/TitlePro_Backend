@@ -34,7 +34,6 @@ class CountyRepository {
     async getCounty(id) {
         try{
             const response = await County.findByPk(id);
-
             return response;
         }
         catch(error){

@@ -178,6 +178,7 @@ router.patch("/states/:id", [updateStateValidator], updateState);
 
 router.post("/counties", [createCountyValidator], createCounty);
 router.get("/counties", getCounties);
+// router.get("/counties/:id", );
 router.get("/counties/single/:id", getCounty);
 router.delete("/counties/:id", deleteCounty);
 router.get("/counties/states/:id", getCountiesWithStateId);
