@@ -26,9 +26,7 @@ class CountyService {
       return response;
     } catch (error) {
       console.log("Error inside Service layer during createCounty...", error);
-      // if (error.name === "SequelizeUniqueConstraintError") {
-      //   throw error;
-      // }
+
       if(error instanceof Sequelize.UniqueConstraintError){
         throw new ConflictError(error.errors[0].message || "Duplicate entry is not Allowed")
       }

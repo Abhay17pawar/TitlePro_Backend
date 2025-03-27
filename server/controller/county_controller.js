@@ -24,9 +24,6 @@ async function createCounty(req, res) {
     }
     catch(error) {
         console.log("County Controller layer creating county error..", error)
-        // if(error.name === "NotFoundError"){
-        //    return res.status(error.statusCode).send(errorResponse(error.reason, error))
-        // }
         return res.status(error.statusCode).send(errorResponse(error.reason, error))
 
     }
@@ -39,13 +36,14 @@ async function getCounties(req, res) {
         res.status(StatusCodes.OK).send({
             success:true,
             error:{},
-            message: "All County get Successfully... " + ReasonPhrases.OK,
+            message: (!data.length) ? "Data is empty..." : "Counties get Successfully... ",
             data: data,
         })
 
     }
     catch(error) {
         console.log("County Controller layer geting all counties error..", error)
+        return res.status(error.statusCode).send(errorResponse(error.reason, error))
 
     }
 }

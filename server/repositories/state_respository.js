@@ -65,6 +65,22 @@ class StateRepository {
             throw error;
         }
     }
+    
+    async restoreDeleteState(state_name) {
+        try{
+            
+            const response = await State.restore({
+                where:{
+                    state_name,
+                }
+            });
+            return response;
+        }
+        catch(error) {
+            console.error('Error inside Respository layer during restoreDeleteState...', error);
+            throw error;
+        }
+    }
 
     async updateState(id, state_name) {
         try{
