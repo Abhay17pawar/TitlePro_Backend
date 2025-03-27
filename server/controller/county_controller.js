@@ -42,7 +42,7 @@ async function getCounties(req, res) {
 
     }
     catch(error) {
-        console.log("County Controller layer geting all counties error..", error)
+        console.log("County Controller layer geting all counties error...", error)
         return res.status(error.statusCode).send(errorResponse(error.reason, error))
 
     }
