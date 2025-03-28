@@ -86,6 +86,23 @@ class TransactionRepository {
             throw error;
         }
     }
+
+    async updateTransactionWithProductName(id, product_name){
+        try{
+            const response = await Transaction.update({
+                product_name,
+            }, {
+                where:{
+                    productId:id,
+                }
+            });
+            return response;
+        }
+        catch(error) {
+            console.log("Error Inside Transaction Respository during updateTransaction...", error)
+            throw error;
+        }
+    }
 }
 
 module.exports = TransactionRepository;

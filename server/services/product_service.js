@@ -5,8 +5,9 @@ const NotFoundError = require("../errors/not_found_error");
 const Sequelize = require("sequelize");
 
 class ProductService {
-    constructor(repository) {
+    constructor(repository, transactionRepository) {
         this.repository = repository;
+        this.transactionRepository = transactionRepository;
     }
     async createProduct(productDetails) {
         try{
@@ -112,6 +113,7 @@ class ProductService {
         const {product_name} = updatedata;
         try{
             let data = await this.repository.updateProduct(id, product_name);
+            await this.transactionRepository.updateTransactionWithProductName(id, product_name);
             return data;
         }
         catch(error){

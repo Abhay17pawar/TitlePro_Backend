@@ -4,8 +4,9 @@ const { ReasonPhrases, StatusCodes } = require("http-status-codes")
 const ProductRepository = require("../repositories/product_respository")
 const ProductService = require("../services/product_service")
 const errorResponse = require("../utils/error_response")
+const TransactionRepository = require("../repositories/transaction_repository")
 
-const productService = new ProductService(new ProductRepository())
+const productService = new ProductService(new ProductRepository(), new TransactionRepository())
 async function createProduct(req, res) {
     try{
         console.log("controller called...", req.body)
@@ -27,10 +28,11 @@ async function getProducts(req, res) {
     try{
         const newProduct = await productService.getProducts()
 
-        res.status(StatusCodes.CREATED).send({
+
+        res.status(StatusCodes.OK).send({
             success:true,
             error:{},
-            message: "Product Fetch successfully!" + ReasonPhrases.OK,
+            message: (!newProduct.length) ? "No Products Available..." : "Product Fetch successfully...",
             data: newProduct,
         })
     }

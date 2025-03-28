@@ -32,7 +32,7 @@ async function getTransactions(req, res) {
         res.status(StatusCodes.OK).send({
             success:true,
             error:{},
-            message: "Transaction Fetch Successfully... ",
+            message:(!data.length) ? "No Transactions Available..." :  "Transaction Fetch Successfully... ",
             data: data,
         })
     }
