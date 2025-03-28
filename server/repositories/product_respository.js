@@ -1,23 +1,56 @@
 
+const ConflictError = require("../errors/conflict_error");
 const Product = require("../model/product");
 const {Op} = require("sequelize")
 class ProductRepository {
 
-    async createProduct (product_name){
+    // async createProduct (product_name){
 
-        try{
-            const response = await Product.create({
-                product_name,
-            });
-            return response;
-        }
-        catch(error){
-            console.log("Error Inside Product Respository during createProduct...", error)
-            throw error;
+    //     try{
+    //         const response = await Product.create({
+    //             product_name,
+    //         });
+    //         return response;
+    //     }
+    //     catch(error){
+    //         console.log("Error Inside Product Respository during createProduct...", error)
+    //         throw error;
             
-        }
+    //     }
 
+    // }
+
+
+    async  createProduct(product_name) {
+        try {
+            // Check if the product exists (including soft-deleted ones)
+            const existingProduct = await Product.findOne({
+                where: { product_name },
+                paranoid: false // Include soft-deleted records
+            });
+            // console.log("Existing Product...", existingProduct)
+            // console.log("Existing deletedAt...", existingProduct.deletedAt)
+            if (existingProduct) {
+                // If it's soft-deleted, restore it
+                if (existingProduct.deletedAt) {
+                    await existingProduct.restore();
+                    return existingProduct; // Return the restored product
+                } 
+                throw new ConflictError("Duplicate entry is not allowed...");
+                // console.log("erro is:-", error)
+            }
+    
+            // If not found, create a new product
+            const newProduct = await Product.create({ product_name });
+            return newProduct;
+        } catch (error) {
+            console.error("Error in createOrRestoreProduct:", error);
+            if(error.name === "ConflictError"){
+                throw error;
+            }
+        }
     }
+    
     async getProducts () {
         try{
             const response = await Product.findAll();
