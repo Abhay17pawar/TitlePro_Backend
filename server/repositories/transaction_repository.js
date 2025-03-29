@@ -3,16 +3,29 @@ const Transaction = require("../model/transaction");
 class TransactionRepository {
     async createTransaction(transaction_name, product_name, productId) {
 
-        try{
-            const response = await Transaction.create({
-                transaction_name, product_name, productId
-            })
-            console.log("response of creat transaction", response);
-            return response;
-        }
-        catch(error) {
-            console.log("Error Inside Transaction Respository during createTransaction...", error)
-            throw error;
+        try {
+            // Check if the transaction exists (including soft-deleted ones)
+            const existingProduct = await Transaction.findOne({
+                where: { transaction_name },
+                paranoid: false // Include soft-deleted records
+            });
+            if (existingProduct) {
+                // If it's soft-deleted, restore it
+                if (existingProduct.deletedAt) {
+                    await existingProduct.restore();
+                    return existingProduct; // Return the restored product
+                } 
+                throw new ConflictError("Duplicate entry is not allowed...");
+            }
+    
+            // If not found, create a new transaction
+            const newProduct = await Transaction.create({ transaction_name, product_name, productId });
+            return newProduct;
+        } catch (error) {
+            console.error("Error in create Transaction:-> ", error);
+            if(error.name === "ConflictError"){
+                throw error;
+            }
         }
 
     }

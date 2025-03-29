@@ -4,22 +4,7 @@ const Product = require("../model/product");
 const {Op} = require("sequelize")
 class ProductRepository {
 
-    // async createProduct (product_name){
-
-    //     try{
-    //         const response = await Product.create({
-    //             product_name,
-    //         });
-    //         return response;
-    //     }
-    //     catch(error){
-    //         console.log("Error Inside Product Respository during createProduct...", error)
-    //         throw error;
-            
-    //     }
-
-    // }
-
+    
 
     async  createProduct(product_name) {
         try {
