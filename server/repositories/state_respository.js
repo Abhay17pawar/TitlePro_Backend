@@ -2,19 +2,46 @@ const State = require("../model/state")
 
 class StateRepository {
 
-    async createState(state_name){
-        try{
-            const response = await State.create({
-                state_name
+    // async createState(state_name){
+    //     try{
+    //         const response = await State.create({
+    //             state_name
+    //         });
+    //         return response;
+    //     }
+    //     catch(error){
+    //         console.error('Error inside Respository layer during createState...', error);
+    //         throw error;
+    //     }
+    // }
+
+    async  createState(state_name) {
+        try {
+            // Check if the product exists (including soft-deleted ones)
+            const existingProduct = await State.findOne({
+                where: { state_name },
+                paranoid: false // Include soft-deleted records
             });
-            return response;
-        }
-        catch(error){
-            console.error('Error inside Respository layer during createState...', error);
-            throw error;
+            if (existingProduct) {
+                // If it's soft-deleted, restore it
+                if (existingProduct.deletedAt) {
+                    await existingProduct.restore();
+                    return existingProduct; // Return the restored product
+                } 
+                throw new ConflictError("Duplicate entry is not allowed...");
+                // console.log("erro is:-", error)
+            }
+    
+            // If not found, create a new product
+            const newProduct = await State.create({ state_name });
+            return newProduct;
+        } catch (error) {
+            console.error("Error in createOrRestoreProduct:", error);
+            if(error.name === "ConflictError"){
+                throw error;
+            }
         }
     }
-
     async getStates() {
         try{
             const response = await State.findAll();

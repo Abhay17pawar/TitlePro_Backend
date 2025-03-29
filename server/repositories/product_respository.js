@@ -28,8 +28,6 @@ class ProductRepository {
                 where: { product_name },
                 paranoid: false // Include soft-deleted records
             });
-            // console.log("Existing Product...", existingProduct)
-            // console.log("Existing deletedAt...", existingProduct.deletedAt)
             if (existingProduct) {
                 // If it's soft-deleted, restore it
                 if (existingProduct.deletedAt) {

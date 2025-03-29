@@ -19,6 +19,9 @@ class StateService {
             if(error instanceof Sequelize.UniqueConstraintError){
                 throw new ConflictError(error.errors[0].message|| "Duplicate entry for product")
             }
+            if(error.name === "ConflictError"){
+                throw error;
+            }
             throw new InternalServerError();
         }
     }
