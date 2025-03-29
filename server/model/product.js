@@ -6,6 +6,10 @@ const Product = db.define("product", {
         type: Sequelize.STRING,
         allowNull: false,
         unique:true,
+        validate:{
+            len:[3, 20],
+            is: /^[A-Za-z/]+$/i, // Allows only letters and '/'
+        },
     }
 }, {
     timestamps: true,    // Enables createdAt & updatedAt

@@ -1,4 +1,4 @@
-const { body, param, validationResult } = require('express-validator');
+const { param, validationResult } = require('express-validator');
 const ContactType = require("../model/contactType");
 
 // Create Contact Type 

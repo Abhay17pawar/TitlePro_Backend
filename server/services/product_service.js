@@ -1,5 +1,7 @@
 
+const BadRequest = require("../errors/badd_request");
 const ConflictError = require("../errors/conflict_error");
+const CustomError = require("../errors/custom_error");
 const InternalServerError = require("../errors/internal_server_error");
 const NotFoundError = require("../errors/not_found_error");
 const Sequelize = require("sequelize");
@@ -22,6 +24,11 @@ class ProductService {
             }
             if(error.name === "ConflictError"){
                 throw error;
+            }
+            if(error.name === "SequelizeValidationError"){
+                console.log("error is:", error)
+                let reason = error.errors[0].value;
+                throw new CustomError(`Product name (${reason}) is invalid...`,)
             }
             
             throw new InternalServerError()

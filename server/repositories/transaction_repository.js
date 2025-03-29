@@ -1,4 +1,5 @@
 const InternalServerError = require("../errors/internal_server_error");
+const ConflictError = require("../errors/conflict_error");
 const Transaction = require("../model/transaction");
 class TransactionRepository {
     async createTransaction(transaction_name, product_name, productId) {

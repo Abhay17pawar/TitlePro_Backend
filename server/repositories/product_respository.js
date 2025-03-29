@@ -1,10 +1,11 @@
 
 const ConflictError = require("../errors/conflict_error");
+const InternalServerError = require("../errors/internal_server_error");
 const Product = require("../model/product");
 const {Op} = require("sequelize")
 class ProductRepository {
 
-    
+
 
     async  createProduct(product_name) {
         try {
@@ -28,7 +29,7 @@ class ProductRepository {
             return newProduct;
         } catch (error) {
             console.error("Error in createOrRestoreProduct:", error);
-            if(error.name === "ConflictError"){
+            if(error.name === "ConflictError" || error.name === "SequelizeValidationError"){
                 throw error;
             }
         }

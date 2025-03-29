@@ -1,19 +1,8 @@
 const State = require("../model/state")
-
+const ConflictError = require("../errors/conflict_error")
 class StateRepository {
 
-    // async createState(state_name){
-    //     try{
-    //         const response = await State.create({
-    //             state_name
-    //         });
-    //         return response;
-    //     }
-    //     catch(error){
-    //         console.error('Error inside Respository layer during createState...', error);
-    //         throw error;
-    //     }
-    // }
+
 
     async  createState(state_name) {
         try {

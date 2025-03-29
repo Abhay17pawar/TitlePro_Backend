@@ -1,6 +1,6 @@
 
 const County = require("../model/county");
-
+const ConflictError = require("../errors/conflict_error")
 class CountyRepository {
 
     async createCounty (county_name, state_name, stateId){

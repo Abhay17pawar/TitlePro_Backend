@@ -10,8 +10,11 @@ const productService = new ProductService(new ProductRepository(), new Transacti
 async function createProduct(req, res) {
     try{
         console.log("controller called...", req.body)
-        const newProduct = await productService.createProduct(req.body)
-
+        let newProduct = await productService.createProduct(req.body)
+        // newProduct = newProduct.map((data) => {
+        //     return { id: data.id, product:data.product_name}
+        // })
+        newProduct = {id:newProduct.id, product:newProduct.product_name};
         res.status(StatusCodes.CREATED).send({
             success:true,
             error:{},
@@ -26,8 +29,10 @@ async function createProduct(req, res) {
 }
 async function getProducts(req, res) {
     try{
-        const newProduct = await productService.getProducts()
-
+        let newProduct = await productService.getProducts()
+        newProduct = newProduct.map((data) => {
+            return { id: data.id, product:data.product_name}
+        })
 
         res.status(StatusCodes.OK).send({
             success:true,
@@ -44,7 +49,10 @@ async function getProducts(req, res) {
 }
 async function getProductsIncludedDeleted(req, res) {
     try{
-        const newProduct = await productService.getProductsIncludedDeleted()
+        let newProduct = await productService.getProductsIncludedDeleted()
+        newProduct = newProduct.map((data) => {
+            return { id: data.id, product:data.product_name}
+        })
 
         res.status(StatusCodes.CREATED).send({
             success:true,
@@ -63,7 +71,9 @@ async function getProductsIncludedDeleted(req, res) {
 
 async function getProduct(req, res) {
     try{
-        const newProduct = await productService.getProduct(req.params.id);
+        let newProduct = await productService.getProduct(req.params.id);
+        newProduct = {id:newProduct.id, product:newProduct.product_name};
+
 
         res.status(StatusCodes.OK).send({
             success:true,

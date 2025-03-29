@@ -1,4 +1,4 @@
-const { StatusCodes, ReasonPhrases } = require("http-status-codes");
+const { StatusCodes } = require("http-status-codes");
 const TransactionRepository = require("../repositories/transaction_repository");
 const TransactionService = require("../services/transaction_service");
 const BadRequest = require("../errors/badd_request");

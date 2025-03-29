@@ -18,7 +18,7 @@ const orderSummaryController = require("../controller/ordersummary");
 
 
 // controller for product...
-const { createProduct, getProducts, deleteProduct, getProductsIncludedDeleted, updateProduct, getProduct, getProductWithQuery } = require("../controller/product_controller");
+const { createProduct, getProducts, deleteProduct, getProductsIncludedDeleted, updateProduct, getProduct } = require("../controller/product_controller");
 
 
 // controller for transaction...
