@@ -1,5 +1,6 @@
 
 const ConflictError = require("../errors/conflict_error");
+const InternalServerError = require("../errors/internal_server_error");
 // const InternalServerError = require("../errors/internal_server_error");
 const DataSource = require("../model/data_source");
 // const {Op} = require("sequelize")
@@ -43,28 +44,28 @@ class DataSourceRepository {
         }
     }
     
-    async getProducts () {
+    async getDataSources () {
         try{
             const response = await DataSource.findAll();
             return response;
         }
         catch(error){
             console.log("Error Inside DataSource Respository during getProducts...", error)
-            throw error;
+            throw new InternalServerError();
         }
 
     }
-    async getProductsIncludedDeleted () {
-        try{
-            const response = await DataSource.findAll({paranoid:false});
-            return response;
-        }
-        catch(error){
-            console.log("Error Inside DataSource Respository during getProductsIncludedDeleted...", error)
-            throw error;
-        }
+    // async getProductsIncludedDeleted () {
+    //     try{
+    //         const response = await DataSource.findAll({paranoid:false});
+    //         return response;
+    //     }
+    //     catch(error){
+    //         console.log("Error Inside DataSource Respository during getProductsIncludedDeleted...", error)
+    //         throw error;
+    //     }
 
-    }
+    // }
     async getProduct (id) {
         try{
             const response = DataSource.findByPk(id);
@@ -81,7 +82,7 @@ class DataSourceRepository {
 
 
 
-    async deleteProduct (id) {
+    async deleteDataSource (id) {
         try{
             const responose = await DataSource.destroy({
                 where:{
@@ -97,7 +98,7 @@ class DataSourceRepository {
 
     }
 
-    async updateProduct(id, source_name) {
+    async updateDataSource(id, source_name) {
         try{
             const response = await DataSource.update({
                 source_name,

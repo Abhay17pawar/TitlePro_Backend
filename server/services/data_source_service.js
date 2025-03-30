@@ -39,6 +39,19 @@ class DataSourceService {
 
 
 
+    async getDataSources(){
+        try{
+            const response = await this.repository.getDataSources();
+            return response;
+        }
+        catch(error) {
+            console.log("Error Inside Product Service during getDataSources...", error)
+            throw error;
+
+        }
+    }
+
+
 
 }
 

@@ -25,9 +25,28 @@ async function createDataSource(req, res) {
         res.status(error.statusCode).send(errorResponse(error.reason, error))
     }
 }
+async function getDataSources(req, res) {
+    try{
+        let newProduct = await dataSourceService.getDataSources()
+        newProduct = newProduct.map((data) => {
+            return {id:data.id, sourceName:data.source_name};
+        })
+        res.status(StatusCodes.CREATED).send({
+            success:true,
+            error:{},
+            message: "Source Fetch Successfully ",
+            data: newProduct,
+        })
+    }
+    catch(error) {
+        console.log("Error Inside Data Source Controller during getDataSources...", error)
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
+    }
+}
 
 
 
 module.exports = {
     createDataSource,
+    getDataSources,
 }

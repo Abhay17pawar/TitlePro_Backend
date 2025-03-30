@@ -34,7 +34,7 @@ const { createStateValidator, updateStateValidator, restoreStateValidator } = re
 const { createCounty, getCounties, getCounty, deleteCounty, getCountiesWithStateId, updateCounty } = require("../controller/county_controller");
 const { createCountyValidator, updateCountyValidator } = require("../middleware/county_middleware");
 const { createProductValidator, updateProductValidator } = require("../middleware/product_middleware");
-const { createDataSource } = require("../controller/data_source_controller");
+const { createDataSource, getDataSources } = require("../controller/data_source_controller");
 const { createDataSourceValidator } = require("../middleware/data_source_middleware");
 
 
@@ -195,6 +195,7 @@ router.get("/counties/states/:id", getCountiesWithStateId);
 
 
 router.post("/datasource", [createDataSourceValidator], createDataSource);
+router.get("/datasource", getDataSources);
 
 
 
