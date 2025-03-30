@@ -61,7 +61,7 @@ router.post("/contacts",auth, contactController.createContact);
 // get a single contact
 router.get("/contacts/:name",auth, contactController.getContactByName);
 // Update a contact
-router.patch("/contacts/:email",auth, contactController.updateContact);
+router.patch("/contacts/:id",auth, contactController.updateContact);
 // Soft delete a contact
 router.delete("/contacts/:id",auth, contactController.deleteContact);
 

@@ -88,18 +88,40 @@ const Contact = {
   },
 
   // Update contact details
-  update: async (email, { name, email: newEmail, phone, type, address, city, county, status }) => {
-    const query = `
-      UPDATE contacts 
-      SET name = $1, email = $2, phone = $3, type = $4, address = $5, city = $6, county = $7, status = $8, updated_at = NOW()
-      WHERE email = $9 AND deleted_at IS NULL 
-      RETURNING *;
-    `;
-    const values = [name, newEmail, phone, type, address, city, county, status, email];
-    const result = await pool.query(query, values);
-    return result.rows[0];
-},
+//   update: async (email, { name, email: newEmail, phone, type, address, city, county, status }) => {
+//     const query = `
+//       UPDATE contacts 
+//       SET name = $1, email = $2, phone = $3, type = $4, address = $5, city = $6, county = $7, status = $8, updated_at = NOW()
+//       WHERE email = $9 AND deleted_at IS NULL 
+//       RETURNING *;
+//     `;
+//     const values = [name, newEmail, phone, type, address, city, county, status, email];
+//     const result = await pool.query(query, values);
+//     return result.rows[0];
+// },
 
+
+update: async (id, { name, email, phone, type, address, city, county, status }) => {
+  // First check if contact exists
+  const checkQuery = 'SELECT id FROM contacts WHERE id = $1 AND deleted_at IS NULL';
+  const checkResult = await pool.query(checkQuery, [id]);
+  
+  if (checkResult.rows.length === 0) {
+    throw new Error('Contact not found');
+  }
+
+  // If contact exists, proceed with update
+  const updateQuery = `
+    UPDATE contacts 
+    SET name = $1, email = $2, phone = $3, type = $4, address = $5, city = $6, county = $7, status = $8, updated_at = NOW()
+    WHERE id = $9 AND deleted_at IS NULL 
+    RETURNING *;
+  `;
+  const values = [name, email, phone, type, address, city, county, status, id];
+  const result = await pool.query(updateQuery, values);
+  
+  return result.rows[0];
+},
 
   // Soft delete a contact
   // softDelete: async (name) => {

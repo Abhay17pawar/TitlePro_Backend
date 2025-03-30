@@ -69,7 +69,7 @@ exports.updateContact = async (req, res) => {
       return res.status(400).json({ success: false, errors: errors.array() });
     }
 
-    const updatedContact = await Contact.update(req.params.email, req.body);
+    const updatedContact = await Contact.update(req.params.id, req.body);
     if (!updatedContact) return res.status(404).json({ success: false, message: "Contact not found" });
     return res.status(200).json({ success: true, data: updatedContact });
   } catch (error) {
