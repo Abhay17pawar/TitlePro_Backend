@@ -17,7 +17,7 @@ async function createDataSource(req, res) {
         res.status(StatusCodes.CREATED).send({
             success:true,
             error:{},
-            message: "Source Created Successfully ",
+            message:  "Source Created Successfully ",
             data: newProduct,
         })
     }
@@ -35,7 +35,7 @@ async function getDataSources(req, res) {
         res.status(StatusCodes.OK).send({
             success:true,
             error:{},
-            message: "Source Fetch Successfully ",
+            message: (!newProduct.length) ? "Data is not available..." : "Source Fetch Successfully ",
             data: newProduct,
         })
     }
