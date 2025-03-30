@@ -66,20 +66,22 @@ const ContactType = {
     }
   },
   
-  // softDelete: async (id) => {
-  //   try {
-  //     const query = `
-  //       DELETE FROM contact_type 
-  //       WHERE id = $1 
-  //       RETURNING *;
-  //     `;
-  //     const result = await pool.query(query, [id]);
-  //     return result.rows[0];
-  //   } catch (error) {
-  //     console.error("Error deleting contact type:", error.message);
-  //     throw error;
-  //   }
-  // }
+
+  update: async (id, contact_type) => {
+    try {
+      const query = `
+        UPDATE contact_type 
+        SET contact_type = $1
+        WHERE id = $2 
+        RETURNING *;
+      `;
+      const result = await pool.query(query, [contact_type, id]);
+      return result.rows[0];
+    } catch (error) {
+      console.error("Error updating contact type:", error.message);
+      throw error;
+    }
+  },
 
 
   // Restore a soft deleted contact type

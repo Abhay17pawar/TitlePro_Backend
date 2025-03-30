@@ -14,7 +14,7 @@ const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
         
       },
     },
-    pool: {
+    // pool: {
     //   max: 10,
     //   min: 0,
     //   acquire: 30000, // Increase connection acquire timeout (30 seconds)

@@ -80,8 +80,9 @@ exports.restoreContactType = [
       }
 
       const { id } = req.params;
+      const {contact_type} = req.body;
 
-      const restoredContactType = await ContactType.restore(id);
+      const restoredContactType = await ContactType.update(id, contact_type);
       if (!restoredContactType) {
         return res.status(404).json({ success: false, message: "Contact type not found or already restored" });
       }
