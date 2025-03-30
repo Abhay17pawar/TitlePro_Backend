@@ -93,7 +93,7 @@ class DataSourceRepository {
         }
         catch(error){
             console.log("Error Inside DataSource Respository during deleteProduct...", error)
-            throw error;
+            throw new InternalServerError();
         }
 
     }

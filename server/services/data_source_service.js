@@ -2,6 +2,7 @@ const ConflictError = require("../errors/conflict_error");
 const CustomError = require("../errors/custom_error");
 const InternalServerError = require("../errors/internal_server_error");
 const Sequelize = require("sequelize");
+const NotFoundError = require("../errors/not_found_error");
 
 
 
@@ -46,6 +47,23 @@ class DataSourceService {
         }
         catch(error) {
             console.log("Error Inside Product Service during getDataSources...", error)
+            throw error;
+
+        }
+    }
+    async deleteDataSource(id){
+        try{
+            const response = await this.repository.deleteDataSource(id);
+            if(!response){
+                throw new NotFoundError("DataSource", "id", id)
+            }
+            return response;
+        }
+        catch(error) {
+            console.log("Error Inside Product Service during getDataSources...", error)
+            if(error.name === "NotFoundError"){
+                throw error;
+            }
             throw error;
 
         }
