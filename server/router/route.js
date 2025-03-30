@@ -63,7 +63,7 @@ router.get("/contacts/:name",auth, contactController.getContactByName);
 // Update a contact
 router.patch("/contacts/:email",auth, contactController.updateContact);
 // Soft delete a contact
-router.delete("/contacts/:name",auth, contactController.deleteContact);
+router.delete("/contacts/:id",auth, contactController.deleteContact);
 
 
 // ********************************************************************************************************
