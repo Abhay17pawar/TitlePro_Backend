@@ -60,11 +60,30 @@ class DataSourceService {
             return response;
         }
         catch(error) {
-            console.log("Error Inside Product Service during getDataSources...", error)
+            console.log("Error Inside Product Service during deleteDataSource...", error)
             if(error.name === "NotFoundError"){
                 throw error;
             }
             throw error;
+
+        }
+    }
+    async updateDataSource(id, dataSource) {
+
+        try{
+            const {source_name} = dataSource;
+            const response = await this.repository.updateDataSource(id, source_name);
+            if(response[0] == 0){
+                throw new NotFoundError("Source", "id", id)
+            }
+            return response;
+        }
+        catch(error) {
+            console.log("Error Inside Product Service during updateDataSource...", error)
+            if(error.name === "NotFoundError"){
+                throw error;
+            }
+            throw InternalServerError();
 
         }
     }

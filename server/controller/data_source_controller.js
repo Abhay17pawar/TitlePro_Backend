@@ -13,7 +13,7 @@ async function createDataSource(req, res) {
     try{
         let newProduct = await dataSourceService.createDataSource(req.body)
 
-        newProduct = {id:newProduct.id, sourceName:newProduct.source_name};
+        newProduct = {id:newProduct.id, source_name:newProduct.source_name};
         res.status(StatusCodes.CREATED).send({
             success:true,
             error:{},
@@ -30,7 +30,7 @@ async function getDataSources(req, res) {
     try{
         let newProduct = await dataSourceService.getDataSources()
         newProduct = newProduct.map((data) => {
-            return {id:data.id, sourceName:data.source_name};
+            return {id:data.id, source_name:data.source_name};
         })
         res.status(StatusCodes.OK).send({
             success:true,
@@ -51,9 +51,7 @@ async function deleteDataSource(req, res) {
             throw new BadRequest(`Invalid ID:-> (${id})`, true);
         }
         let newProduct = await dataSourceService.deleteDataSource(id)
-        // newProduct = newProduct.map((data) => {
-        //     return {id:data.id, sourceName:data.source_name};
-        // })
+
         res.status(StatusCodes.OK).send({
             success:true,
             error:{},
@@ -66,6 +64,26 @@ async function deleteDataSource(req, res) {
         res.status(error.statusCode).send(errorResponse(error.reason, error))
     }
 }
+async function updateDataSource(req, res) {
+    try{
+        const id = req.params.id;
+        if (!id || isNaN(id)) {
+            throw new BadRequest(`Invalid ID:-> (${id})`, true);
+        }
+        let newProduct = await dataSourceService.updateDataSource(id, req.body)
+
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "Source Update Successfully ",
+            data: newProduct,
+        })
+    }
+    catch(error) {
+        console.log("Error Inside Data Source Controller during updateDataSource...", error)
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
+    }
+}
 
 
 
@@ -73,4 +91,5 @@ module.exports = {
     createDataSource,
     getDataSources,
     deleteDataSource,
+    updateDataSource,
 }

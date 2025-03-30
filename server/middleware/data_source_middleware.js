@@ -6,7 +6,7 @@ const BadRequest = require("../errors/badd_request")
 function createDataSourceValidator(req, res, next) {
 
     if(!req.body.source_name) {
-        return res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("product_name")))
+        return res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("source_name")))
     }
 
 
@@ -17,9 +17,9 @@ function createDataSourceValidator(req, res, next) {
 
 
 
-function updateProductValidator(req, res, next){
-    if(!req.body.product_name) {
-        return res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("product_name")))
+function updateDataSourceValidator(req, res, next){
+    if(!req.body.source_name) {
+        return res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("source_name")))
     }
 
 
@@ -31,5 +31,5 @@ function updateProductValidator(req, res, next){
 
 module.exports = {
     createDataSourceValidator,
-    updateProductValidator,
+    updateDataSourceValidator,
 }
