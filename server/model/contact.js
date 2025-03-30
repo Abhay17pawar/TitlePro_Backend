@@ -102,12 +102,27 @@ const Contact = {
 
 
   // Soft delete a contact
-  softDelete: async (name) => {
-    const query = `UPDATE contacts SET deleted_at = NOW() WHERE name = $1 RETURNING *;`;
-    const result = await pool.query(query, [name]);
-    return result.rows[0];
+  // softDelete: async (name) => {
+  //   const query = `UPDATE contacts SET deleted_at = NOW() WHERE name = $1 RETURNING *;`;
+  //   const result = await pool.query(query, [name]);
+  //   return result.rows[0];
+  // },
+
+  softDelete: async (id) => {
+    try {
+      const query = `
+        DELETE FROM contacts 
+        WHERE id = $1 
+        RETURNING *;
+      `;
+      const result = await pool.query(query, [id]);
+      return result.rows[0];
+    } catch (error) {
+      console.error("Error soft deleting contact:", error.message);
+      throw error;
+    }
   },
 
-};
+};  
 
 module.exports = Contact;

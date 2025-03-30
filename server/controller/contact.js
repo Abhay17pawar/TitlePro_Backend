@@ -87,7 +87,7 @@ exports.deleteContact = async (req, res) => {
       return res.status(400).json({ success: false, errors: errors.array() });
     }
 
-    const deletedContact = await Contact.softDelete(req.params.name);
+    const deletedContact = await Contact.softDelete(req.params.id);
     if (!deletedContact) return res.status(404).json({ success: false, message: "Contact not found" });
     return res.status(200).json({ success: true, data: deletedContact, message: "Contact deleted successfully" });
   } catch (error) {
