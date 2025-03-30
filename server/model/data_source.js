@@ -11,7 +11,7 @@ const DataSource = db.define("data_source", {
             notEmpty: { msg: "Source name cannot be empty" },
             len: { args: [3, 20], msg: "Source name must be between 3 and 20 characters" },
             is: {
-                args: /^[A-Za-z/]+$/,
+                args: /^[A-Za-z /]+$/,
                 msg: "Source name can only contain letters and '/'"
             }
         }
