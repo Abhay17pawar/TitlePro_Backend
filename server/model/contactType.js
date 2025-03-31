@@ -67,11 +67,29 @@ const ContactType = {
   },
   
 
+  // update: async (id, contact_type) => {
+  //   try {
+  //     const query = `
+  //       UPDATE contact_type 
+  //       SET contact_type = $1
+  //       WHERE id = $2 
+  //       RETURNING *;
+  //     `;
+  //     const result = await pool.query(query, [contact_type, id]);
+  //     return result.rows[0];
+  //   } catch (error) {
+  //     console.error("Error updating contact type:", error.message);
+  //     throw error;
+  //   }
+  // },
+
+
   update: async (id, contact_type) => {
     try {
       const query = `
         UPDATE contact_type 
-        SET contact_type = $1
+        SET contact_type = $1, 
+            slug = LOWER(REPLACE($1, ' ', '-'))
         WHERE id = $2 
         RETURNING *;
       `;
@@ -82,7 +100,7 @@ const ContactType = {
       throw error;
     }
   },
-
+  
 
   // Restore a soft deleted contact type
   restore: async (id) => {
