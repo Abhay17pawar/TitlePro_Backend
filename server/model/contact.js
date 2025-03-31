@@ -10,7 +10,7 @@ const createContactsTable = async () => {
       email VARCHAR(100) UNIQUE NOT NULL,
       type VARCHAR(50) NOT NULL,
       address TEXT,
-      city VARCHAR(50),
+      state_name VARCHAR(50),
       county VARCHAR(50),
       status VARCHAR(20) CHECK (status IN ('active', 'inactive')) DEFAULT 'active',
       user_id INT NOT NULL,
