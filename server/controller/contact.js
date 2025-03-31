@@ -95,3 +95,24 @@ exports.deleteContact = async (req, res) => {
     return res.status(500).json({ success: false, message: "Error deleting contact" });
   }
 };
+
+
+exports.getContactById = async (req, res) => {
+  try {
+    // Check for validation errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ success: false, errors: errors.array() });
+    }
+
+    const contact = await Contact.findById(req.params.id);
+    if (!contact) {
+      return res.status(404).json({ success: false, message: "Contact not found" });
+    }
+
+    return res.status(200).json({ success: true, data: contact, message: "Contact retrieved successfully" });
+  } catch (error) {
+    console.error("Error retrieving contact:", error);
+    return res.status(500).json({ success: false, message: "Error retrieving contact" });
+  }
+};

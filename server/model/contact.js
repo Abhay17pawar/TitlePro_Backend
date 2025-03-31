@@ -87,6 +87,12 @@ const Contact = {
     return result.rows[0];
   },
 
+
+  findById: async (id) => {
+    const query = `SELECT type, state_name, county_name FROM contacts WHERE id = $1 AND deleted_at IS NULL;`;
+    const result = await pool.query(query, [id]);
+    return result.rows[0];
+},
   // Update contact details
 //   update: async (email, { name, email: newEmail, phone, type, address, city, county_name, status }) => {
 //     const query = `
