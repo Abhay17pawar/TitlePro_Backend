@@ -10,8 +10,8 @@ const createContactsTable = async () => {
       email VARCHAR(100) UNIQUE NOT NULL,
       type VARCHAR(50) NOT NULL,
       address TEXT,
-      city VARCHAR(50),
-      county VARCHAR(50),
+      state_name VARCHAR(50),
+      county_name VARCHAR(50),
       status VARCHAR(20) CHECK (status IN ('active', 'inactive')) DEFAULT 'active',
       user_id INT NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -28,7 +28,7 @@ const createContactsTable = async () => {
 
 const Contact = {
   // Create a new contact   
-  create: async ({ name, phone, email, type, address, city , county, status, user_id }) => {
+  create: async ({ name, phone, email, type, address, state_name , county_name, status, user_id }) => {
     try {
       // Check if the email or phone already exists in the database
       const checkQuery = `
@@ -46,11 +46,11 @@ const Contact = {
   
       // Proceed with the insert if no duplicate is found
       const query = `
-        INSERT INTO contacts (name, phone, email, type, address, city, county, status, user_id)
+        INSERT INTO contacts (name, phone, email, type, address, state_name, county_name, status, user_id)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
         RETURNING *;
       `;
-      const values = [name, phone, email, type, address, city, county, status, user_id];
+      const values = [name, phone, email, type, address, state_name, county_name, status, user_id];
       const result = await pool.query(query, values);
   
       return result.rows[0];  // Return the newly created contact
@@ -88,20 +88,20 @@ const Contact = {
   },
 
   // Update contact details
-//   update: async (email, { name, email: newEmail, phone, type, address, city, county, status }) => {
+//   update: async (email, { name, email: newEmail, phone, type, address, city, county_name, status }) => {
 //     const query = `
 //       UPDATE contacts 
-//       SET name = $1, email = $2, phone = $3, type = $4, address = $5, city = $6, county = $7, status = $8, updated_at = NOW()
+//       SET name = $1, email = $2, phone = $3, type = $4, address = $5, city = $6, county_name = $7, status = $8, updated_at = NOW()
 //       WHERE email = $9 AND deleted_at IS NULL 
 //       RETURNING *;
 //     `;
-//     const values = [name, newEmail, phone, type, address, city, county, status, email];
+//     const values = [name, newEmail, phone, type, address, city, county_name, status, email];
 //     const result = await pool.query(query, values);
 //     return result.rows[0];
 // },
 
 
-update: async (id, { name, email, phone, type, address, city, county, status }) => {
+update: async (id, { name, email, phone, type, address, state_name, county_name, status }) => {
   // First check if contact exists
   const checkQuery = 'SELECT id FROM contacts WHERE id = $1 AND deleted_at IS NULL';
   const checkResult = await pool.query(checkQuery, [id]);
@@ -113,11 +113,11 @@ update: async (id, { name, email, phone, type, address, city, county, status }) 
   // If contact exists, proceed with update
   const updateQuery = `
     UPDATE contacts 
-    SET name = $1, email = $2, phone = $3, type = $4, address = $5, city = $6, county = $7, status = $8, updated_at = NOW()
+    SET name = $1, email = $2, phone = $3, type = $4, address = $5, state_name = $6, county_name = $7, status = $8, updated_at = NOW()
     WHERE id = $9 AND deleted_at IS NULL 
     RETURNING *;
   `;
-  const values = [name, email, phone, type, address, city, county, status, id];
+  const values = [name, email, phone, type, address, state_name, county_name, status, id];
   const result = await pool.query(updateQuery, values);
   
   return result.rows[0];
