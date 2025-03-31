@@ -28,7 +28,7 @@ const createContactsTable = async () => {
 
 const Contact = {
   // Create a new contact   
-  create: async ({ name, phone, email, type, address, city, county, status, user_id }) => {
+  create: async ({ name, phone, email, type, address, state_name , county, status, user_id }) => {
     try {
       // Check if the email or phone already exists in the database
       const checkQuery = `
@@ -46,11 +46,11 @@ const Contact = {
   
       // Proceed with the insert if no duplicate is found
       const query = `
-        INSERT INTO contacts (name, phone, email, type, address, city, county, status, user_id)
+        INSERT INTO contacts (name, phone, email, type, address, state_name, county, status, user_id)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
         RETURNING *;
       `;
-      const values = [name, phone, email, type, address, city, county, status, user_id];
+      const values = [name, phone, email, type, address, state_name, county, status, user_id];
       const result = await pool.query(query, values);
   
       return result.rows[0];  // Return the newly created contact
