@@ -33,7 +33,7 @@ const corsOptions = {
       } else {
         // Reject the request if the origin is not allowed
         callback(new Error('Not allowed by CORS'));
-      }
+      } 
     },
     methods: 'GET, POST, PATCH, DELETE, OPTIONS',  // Specify allowed methods, including OPTIONS for preflight requests
     allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',  // Allowed headers
