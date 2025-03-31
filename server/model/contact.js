@@ -88,11 +88,29 @@ const Contact = {
   },
 
 
-  findById: async (id) => {
-    const query = `SELECT type, state_name, county_name FROM contacts WHERE id = $1 AND deleted_at IS NULL;`;
+//   findById: async (id) => {
+//     const query = `SELECT type, state_name, county_name FROM contacts WHERE id = $1 AND deleted_at IS NULL;`;
+//     const result = await pool.query(query, [id]);
+//     return result.rows[0];
+// },
+
+findById: async (id) => {
+  try {
+    const query = `SELECT type, state_name, county_name FROM contacts WHERE id = $1;`;
     const result = await pool.query(query, [id]);
+
+    if (result.rows.length === 0) {
+      console.log("No contact found with ID:", id);
+      return null;
+    }
+    
     return result.rows[0];
+  } catch (error) {
+    console.error("Database error in findById:", error);
+    throw error;
+  }
 },
+
   // Update contact details
 //   update: async (email, { name, email: newEmail, phone, type, address, city, county_name, status }) => {
 //     const query = `
