@@ -51,7 +51,7 @@ class WorkFlowRepository {
             return response;
         }
         catch(error){
-            console.log("Error Inside DataSource Respository during getWorkFlows...", error)
+            console.log("Error Inside WorkFlowRepository Respository during getWorkFlows...", error)
             throw new InternalServerError();
         }
 
@@ -64,7 +64,7 @@ class WorkFlowRepository {
             return response;
         }
         catch(error){
-            console.log("Error Inside DataSource Respository during getWorkFlow...", error)
+            console.log("Error Inside WorkFlowRepository Respository during getWorkFlow...", error)
             throw error;
         }
 
@@ -83,7 +83,7 @@ class WorkFlowRepository {
             return responose;
         }
         catch(error){
-            console.log("Error Inside DataSource Respository during deleteWorkFlow...", error)
+            console.log("Error Inside WorkFlowRepository Respository during deleteWorkFlow...", error)
             throw new InternalServerError();
         }
 
@@ -101,7 +101,7 @@ class WorkFlowRepository {
             return response;
         }
         catch(error){
-            console.log("Error Inside DataSource Respository during updateWorkFlow...", error)
+            console.log("Error Inside WorkFlowRepository Respository during updateWorkFlow...", error)
             throw error;
         }
 

@@ -54,7 +54,7 @@ class WorkFlowService {
         try{
             const data = await this.repository.getWorkFlow(id)
             if(!data){
-                throw new NotFoundError("Assigned", "id", id)
+                throw new NotFoundError("Wrok Flow", "id", id)
             }
             return data;
         }
@@ -75,7 +75,7 @@ class WorkFlowService {
         try{
             const data = await this.repository.deleteWorkFlow(id)
             if(!data){
-                throw new NotFoundError("Assigned", "id", id)
+                throw new NotFoundError("Work Flow", "id", id)
             }
             return data;
         }
