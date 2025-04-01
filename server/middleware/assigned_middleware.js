@@ -18,9 +18,9 @@ function createAssignedValidator(req, res, next) {
 
 
 
-function updateProductValidator(req, res, next){
-    if(!req.body.product_name) {
-        return res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("product_name")))
+function updateAssignedValidator(req, res, next){
+    if(!req.body.assigned_name) {
+        return res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("assigned_name")))
     }
 
 
@@ -32,5 +32,5 @@ function updateProductValidator(req, res, next){
 
 module.exports = {
     createAssignedValidator,
-    // updateProductValidator,
+    updateAssignedValidator,
 }

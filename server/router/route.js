@@ -36,8 +36,8 @@ const { createCountyValidator, updateCountyValidator } = require("../middleware/
 const { createProductValidator, updateProductValidator } = require("../middleware/product_middleware");
 const { createDataSource, getDataSources, deleteDataSource, updateDataSource } = require("../controller/data_source_controller");
 const { createDataSourceValidator, updateDataSourceValidator } = require("../middleware/data_source_middleware");
-const { createAssigned } = require("../controller/assigned_controller");
-const { createAssignedValidator } = require("../middleware/assigned_middleware");
+const { createAssigned, getAssigneds, getAssigned, deleteAssigned, updateAssigned } = require("../controller/assigned_controller");
+const { createAssignedValidator, updateAssignedValidator } = require("../middleware/assigned_middleware");
 
 
 
@@ -210,6 +210,10 @@ router.patch("/datasource/:id", [updateDataSourceValidator], updateDataSource);
 // ********************************************************************************************************
 
 router.post("/assigned", [createAssignedValidator], createAssigned);
+router.get("/assigned", getAssigneds);
+router.get("/assigned/:id", getAssigned);
+router.delete("/assigned/:id", deleteAssigned);
+router.patch("/assigned/:id", [updateAssignedValidator], updateAssigned);
 
 
 

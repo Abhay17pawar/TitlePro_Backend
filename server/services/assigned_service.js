@@ -52,9 +52,8 @@ class AssignedService {
     async getAssigned(id) {
         try{
             const data = await this.repository.getAssigned(id)
-            console.log("AssignedService service.. data is", data)
             if(!data){
-                throw new NotFoundError("Product", "id", id)
+                throw new NotFoundError("Assigned", "id", id)
             }
             return data;
         }
@@ -74,9 +73,8 @@ class AssignedService {
     async deleteAssigned(id) {
         try{
             const data = await this.repository.deleteAssigned(id)
-            console.log("AssignedService service.. data is", data)
             if(!data){
-                throw new NotFoundError("Product", "id", id)
+                throw new NotFoundError("Assigned", "id", id)
             }
             return data;
         }
@@ -93,12 +91,17 @@ class AssignedService {
         const {assigned_name} = updatedata;
         try{
             let data = await this.repository.updateAssigned(id, assigned_name);
-            // await this.transactionRepository.updateTransactionWithProductName(id, product_name);
+            if(data[0] == 0){
+                throw new NotFoundError("Assigned", "id", id)
+            }
             return data;
         }
         catch(error){
-            console.log("AssignedService Service layer....", error)
-            // throw new InternalServerError()
+            console.log("AssignedService Service layer....", error);
+            if(error.name === "NotFoundError"){
+                throw error;
+            }
+            throw new InternalServerError()
         }
 
     }
