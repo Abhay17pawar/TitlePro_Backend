@@ -84,16 +84,53 @@ const ContactType = {
   // },
 
 
+  // update: async (id, contact_type) => {
+  //   try {
+  //     const query = `
+  //       UPDATE contact_type 
+  //       SET contact_type = $1, 
+  //           slug = LOWER(REPLACE($1, ' ', '-'))
+  //       WHERE id = $2 
+  //       RETURNING *;
+  //     `;
+  //     const result = await pool.query(query, [contact_type, id]);
+  //     return result.rows[0];
+  //   } catch (error) {
+  //     console.error("Error updating contact type:", error.message);
+  //     throw error;
+  //   }
+  // },
+  
+
+
   update: async (id, contact_type) => {
     try {
+      // Validate ID and contact_type
+      if (!id || isNaN(id)) {
+        throw new Error("Invalid ID provided.");
+      }
+  
+      if (!contact_type || typeof contact_type !== "string" || contact_type.trim() === "") {
+        throw new Error("Contact type cannot be empty.");
+      }
+  
+      // Generate slug from contact_type
+      const slug = contact_type.toLowerCase().replace(/\s+/g, "-").trim();
+  
       const query = `
         UPDATE contact_type 
         SET contact_type = $1, 
-            slug = LOWER(REPLACE($1, ' ', '-'))
-        WHERE id = $2 
+            slug = $2
+        WHERE id = $3 
         RETURNING *;
       `;
-      const result = await pool.query(query, [contact_type, id]);
+  
+      const result = await pool.query(query, [contact_type, slug, id]);
+  
+      if (result.rows.length === 0) {
+        throw new Error("No contact found with the given ID.");
+      }
+  
       return result.rows[0];
     } catch (error) {
       console.error("Error updating contact type:", error.message);
