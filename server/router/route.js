@@ -38,6 +38,8 @@ const { createDataSource, getDataSources, deleteDataSource, updateDataSource } =
 const { createDataSourceValidator, updateDataSourceValidator } = require("../middleware/data_source_middleware");
 const { createAssigned, getAssigneds, getAssigned, deleteAssigned, updateAssigned } = require("../controller/assigned_controller");
 const { createAssignedValidator, updateAssignedValidator } = require("../middleware/assigned_middleware");
+const { createWorkFlow } = require("../controller/work_flow_controller");
+const { createWorkFlowValidator } = require("../middleware/work_fllow_middleware");
 
 
 
@@ -215,6 +217,14 @@ router.get("/assigned/:id", getAssigned);
 router.delete("/assigned/:id", deleteAssigned);
 router.patch("/assigned/:id", [updateAssignedValidator], updateAssigned);
 
+
+
+// ********************************************************************************************************
+//                                      Work Flow Management Routes
+// ********************************************************************************************************
+
+
+router.post("/workflows", [createWorkFlowValidator], createWorkFlow);
 
 
 
