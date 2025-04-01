@@ -12,7 +12,8 @@ async function createAssigned(req, res) {
     try{
         let data = await assignedService.createAssigned(req.body)
         data = {id:data.id, assigned_name:data.assigned_name};
-        res.status(StatusCodes.CREATED).send({
+        res.send({
+        // res.status(StatusCodes.CREATED).send({
             success:true,
             error:{},
             message: "Assigned Created Successfully ",
@@ -33,7 +34,8 @@ async function getAssigneds(req, res) {
             return {id:item.id, assigned_name:item.assigned_name};
         })
         // data = {id:data.id, product:data.assigned_name};
-        res.status(StatusCodes.OK).send({
+        res.send({
+        // res.status(StatusCodes.OK).send({
             success:true,
             error:{},
             message: "Assigned Fetch Successfully ",
@@ -57,7 +59,8 @@ async function getAssigned(req, res) {
         //     return {id:item.id, assigned_name:item.assigned_name};
         // })
         data = {id:data.id, product:data.assigned_name};
-        res.status(StatusCodes.OK).send({
+        res.send({
+        // res.status(StatusCodes.OK).send({
             success:true,
             error:{},
             message: "Assigned Fetch Successfully ",
@@ -77,7 +80,8 @@ async function deleteAssigned(req, res) {
         }
         let data = await assignedService.deleteAssigned(id);
         data = {id:data.id, product:data.assigned_name};
-        res.status(StatusCodes.OK).send({
+        res.send({
+        // res.status(StatusCodes.OK).send({
             success:true,
             error:{},
             message: "Assigned Delete Successfully ",
@@ -97,7 +101,8 @@ async function updateAssigned(req, res) {
         }
         let data = await assignedService.updateAssigned(id, req.body);
         data = {id:data.id, product:data.assigned_name};
-        res.status(StatusCodes.OK).send({
+        res.send({
+        // res.status(StatusCodes.OK).send({
             success:true,
             error:{},
             message: "Assigned Update Successfully ",

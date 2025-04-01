@@ -7,12 +7,12 @@ const BadRequest = require("../errors/badd_request")
 function createAssignedValidator(req, res, next) {
 
     if(!req.body.assigned_name) {
-        return res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("assigned_name")))
+        return res.send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("assigned_name")))
+        // return res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("assigned_name")))
     }
 
 
 
-    // If Everything is Good then call next()
     next()
 }
 
@@ -20,12 +20,12 @@ function createAssignedValidator(req, res, next) {
 
 function updateAssignedValidator(req, res, next){
     if(!req.body.assigned_name) {
-        return res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("assigned_name")))
+        return res.send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("assigned_name")))
+        // return res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("assigned_name")))
     }
 
 
 
-    // If Everything is Good then call next()
     next()
 }
 
