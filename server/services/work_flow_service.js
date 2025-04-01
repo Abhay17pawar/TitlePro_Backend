@@ -89,16 +89,15 @@ class WorkFlowService {
     }
 
     async updateWorkFlow(id, updatedata) {
-        const {assigned_name} = updatedata;
+        const {work_name} = updatedata;
         try{
-            let data = await this.repository.updateWorkFlow(id, assigned_name);
+            let data = await this.repository.updateWorkFlow(id, work_name);
             if(data[0] == 0){
-                throw new NotFoundError("Assigned", "id", id)
+                throw new NotFoundError("Work Flow", "id", id)
             }
             return data;
         }
         catch(error){
-            console.log("AssignedService Service layer....", error);
             if(error.name === "NotFoundError"){
                 throw error;
             }

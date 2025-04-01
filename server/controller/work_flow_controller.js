@@ -28,6 +28,7 @@ async function createWorkFlow(req, res) {
             return formatted;
         }
         data = {id:data.id, work_name:data.work_name, CratedBy:data.createdBy, CreatedOn:formatDate(data.createdAt), LastModifyOn:formatDate(data.updatedAt)};
+
         res.send({
         // res.status(StatusCodes.CREATED).send({
             success:true,
@@ -143,10 +144,32 @@ async function deleteWorkFlow(req, res) {
         res.status(error.statusCode).send(errorResponse(error.reason, error))
     }
 }
+async function updateWorkFlow(req, res) {
+    try{
+        const id = req.params.id;
+        if (!id || isNaN(id)) {
+            throw new BadRequest(`Invalid ID:-> (${id})`, true);
+        }
+        await workFlowService.updateWorkFlow(id, req.body)
+        
+        res.send({
+        // res.status(StatusCodes.CREATED).send({
+            success:true,
+            error:{},
+            message: "Work Update Successfully ",
+            data: {},
+        })
+    }
+    catch(error) {
+        console.log("Error Inside deleteWorkFlow Controller during deleteWorkFlow...", error)
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
+    }
+}
 
 module.exports = {
     createWorkFlow,
     getWorkFlows,
     getWorkFlow,
     deleteWorkFlow,
+    updateWorkFlow,
 }
