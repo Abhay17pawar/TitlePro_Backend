@@ -36,6 +36,8 @@ const { createCountyValidator, updateCountyValidator } = require("../middleware/
 const { createProductValidator, updateProductValidator } = require("../middleware/product_middleware");
 const { createDataSource, getDataSources, deleteDataSource, updateDataSource } = require("../controller/data_source_controller");
 const { createDataSourceValidator, updateDataSourceValidator } = require("../middleware/data_source_middleware");
+const { createAssigned } = require("../controller/assigned_controller");
+const { createAssignedValidator } = require("../middleware/assigned_middleware");
 
 
 
@@ -201,6 +203,13 @@ router.delete("/datasource/:id", deleteDataSource);
 router.patch("/datasource/:id", [updateDataSourceValidator], updateDataSource);
 
 
+
+
+// ********************************************************************************************************
+//                                      Assigned When Management Routes
+// ********************************************************************************************************
+
+router.post("/assigned", [createAssignedValidator], createAssigned);
 
 
 

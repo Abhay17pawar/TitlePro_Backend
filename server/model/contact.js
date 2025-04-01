@@ -111,18 +111,7 @@ findById: async (id) => {
   }
 },
 
-  // Update contact details
-//   update: async (email, { name, email: newEmail, phone, type, address, city, county_name, status }) => {
-//     const query = `
-//       UPDATE contacts 
-//       SET name = $1, email = $2, phone = $3, type = $4, address = $5, city = $6, county_name = $7, status = $8, updated_at = NOW()
-//       WHERE email = $9 AND deleted_at IS NULL 
-//       RETURNING *;
-//     `;
-//     const values = [name, newEmail, phone, type, address, city, county_name, status, email];
-//     const result = await pool.query(query, values);
-//     return result.rows[0];
-// },
+
 
 
 update: async (id, { name, email, phone, type, address, state_name, county_name, status }) => {

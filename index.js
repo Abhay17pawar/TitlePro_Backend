@@ -1,14 +1,11 @@
 const express = require("express");
 require("dotenv").config();
-const pool = require("./server/config/database");
 const userRouter = require("./server/router/route");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const db = require("./server/config/db_config");
 const { PORT, DB_FORCE, DB_ALTER } = require("./server/config/server_config");
-const Transaction = require("./server/model/transaction");
-const Product = require("./server/model/product");
 const apiRouter = require("./server/router/api_router");
 
 const app = express();
@@ -54,7 +51,7 @@ app.use("", userRouter);
 app.use("/api", apiRouter)
 
 // Global Error Handler
-app.use((err, req, res, next) => {
+app.use((err, req, res, ) => {
     console.error("Error:", err.message);
     res.status(500).json({ status: 500, message: "Internal Server Error" });
 });
@@ -74,11 +71,5 @@ app.listen(PORT, async () => {
         console.log("Db connected with sequelize...")
     }
 
-    // const dataProduct = await Product.findOne({
-    //   where: {
-    //     product_name: "property"
-    //   }
-    // })
-    // console.log("Single data from Property..", dataProduct);
-    // console.log("id for single product is:->", dataProduct.id)
+
 });
