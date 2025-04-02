@@ -45,9 +45,9 @@ const corsOptions = {
 
 // Database Connection Test
 
-// pool.connect()
-//     .then(() => console.log("✅ PostgreSQL Database Connected Successfully"))
-//     .catch((err) => console.error("❌ Database Connection Error:", err));
+pool.connect()
+    .then(() => console.log("✅ PostgreSQL Database Connected Successfully"))
+    .catch((err) => console.error("❌ Database Connection Error:", err));
 
 // Routes
 app.use("", userRouter);
