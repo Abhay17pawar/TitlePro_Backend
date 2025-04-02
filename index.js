@@ -9,7 +9,6 @@ const db = require("./server/config/db_config");
 const { PORT, DB_FORCE, DB_ALTER } = require("./server/config/server_config");
 const Transaction = require("./server/model/transaction");
 const Product = require("./server/model/product");
-const apiRouter = require("./server/router/api_router");
 
 const app = express();
 
@@ -45,13 +44,12 @@ const corsOptions = {
 
 // Database Connection Test
 
-pool.connect()
-    .then(() => console.log("✅ PostgreSQL Database Connected Successfully"))
-    .catch((err) => console.error("❌ Database Connection Error:", err));
+// pool.connect()
+//     .then(() => console.log("✅ PostgreSQL Database Connected Successfully"))
+//     .catch((err) => console.error("❌ Database Connection Error:", err));
 
 // Routes
 app.use("", userRouter);
-app.use("/api", apiRouter)
 
 // Global Error Handler
 app.use((err, req, res, next) => {

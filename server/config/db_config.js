@@ -6,12 +6,11 @@ const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
   host: DB_HOST,
   port: DB_PORT,
   dialect: 'postgres',
-  // dialectOptions: {
-  //   ssl: {
-  //     rejectUnauthorized: false, // Allow self-signed certificates
-  //     // ca: process.env.DB_CA_CERT || null, // Uncomment and set if you have a CA certificate
-  //   },
-  // },
+  dialectOptions: {
+    ssl: {
+      rejectUnauthorized: false, // Allow self-signed certificates
+    },
+  },
   // pool: {
   //   max: 10,
   //   min: 0,

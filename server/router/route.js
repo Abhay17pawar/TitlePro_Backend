@@ -49,13 +49,16 @@ const { createWorkFlowValidator, updateWorkFlowValidator } = require("../middlew
 // ********************************************************************************************************
 //                                      Authentication Routes
 // ********************************************************************************************************
-router.post("/signup", validateSignup, signup);
+
+
 router.post("/login", validateLogin, login);
 router.post("/change-password", auth, validateChangePassword, changePassword);
 
 // ********************************************************************************************************
 //                                      Contact Management Routes
 // ********************************************************************************************************
+
+
 // get all deleted contacts
 router.get("/contacts/deleted",auth, contactController.getAllDeletedContacts);
 // Get all contacts
@@ -131,13 +134,12 @@ router.get("/order-summaries/:orderNumber/order-status", orderSummaryController.
 //                                      Products Management Routes
 // ********************************************************************************************************
 
-router.post("/products", [createProductValidator], createProduct)
-router.get("/products", getProducts)
-router.get("/products/deleted", getProductsIncludedDeleted)
-router.get("/products/:id", getProduct)
-// router.get("/products/search/", getProductWithQuery)
-router.delete("/products/:id", deleteProduct)
-router.patch("/products/:id", [updateProductValidator], updateProduct)
+router.post("/products", [auth, createProductValidator], createProduct)
+router.get("/products", auth, getProducts)
+router.get("/products/deleted", auth,  getProductsIncludedDeleted)
+router.get("/products/:id", auth,  getProduct)
+router.delete("/products/:id", auth, deleteProduct)
+router.patch("/products/:id", [ auth, updateProductValidator], updateProduct)
 
 
 
@@ -147,12 +149,12 @@ router.patch("/products/:id", [updateProductValidator], updateProduct)
 // ********************************************************************************************************
 
 
-router.post("/transactions", [createTransactionValidator], createTransaction);
-router.get("/transactions/", getTransactions);
-router.get("/transactions/:id", getTransactionWithProductId);
-router.get("/transactions/single/:id", getTransaction);
-router.delete("/transactions/:id", deleteTransaction);
-router.patch("/transactions/:id",[updateTransactionValidator], updateTransaction);
+router.post("/transactions", [ auth,  createTransactionValidator], createTransaction);
+router.get("/transactions/",  auth,  getTransactions);
+router.get("/transactions/:id",  auth,  getTransactionWithProductId);
+router.get("/transactions/single/:id", auth,  getTransaction);
+router.delete("/transactions/:id",  auth,  deleteTransaction);
+router.patch("/transactions/:id",[ auth, updateTransactionValidator], updateTransaction);
 
 
 // router.get("/ping", (req, res) => {
@@ -167,13 +169,13 @@ router.patch("/transactions/:id",[updateTransactionValidator], updateTransaction
 
 
 
-router.post("/states", [createStateValidator], createState);
-router.get("/states", getStates);
-router.get("/states/restore", [restoreStateValidator], restoreDeleteState);
-router.get("/states/all", getAllStates);
-router.get("/states/:id", getState);
-router.delete("/states/:id", deleteState);
-router.patch("/states/:id", [updateStateValidator], updateState);
+router.post("/states", [ auth,  createStateValidator], createState);
+router.get("/states",  auth,  getStates);
+router.get("/states/restore", [ auth,  restoreStateValidator], restoreDeleteState);
+router.get("/states/all",  auth,  getAllStates);
+router.get("/states/:id", auth,  getState);
+router.delete("/states/:id",  auth,  deleteState);
+router.patch("/states/:id", [ auth, updateStateValidator], updateState);
 
 
 
@@ -183,13 +185,13 @@ router.patch("/states/:id", [updateStateValidator], updateState);
 // ********************************************************************************************************
 
 
-router.post("/counties", [createCountyValidator], createCounty);
-router.get("/counties", getCounties);
+router.post("/counties", [ auth,  createCountyValidator], createCounty);
+router.get("/counties",  auth,  getCounties);
 // router.get("/counties/:id", );
-router.get("/counties/single/:id", getCounty);
-router.delete("/counties/:id", deleteCounty);
-router.patch("/counties/:id", [updateCountyValidator], updateCounty);
-router.get("/counties/states/:id", getCountiesWithStateId);
+router.get("/counties/single/:id",  auth,  getCounty);
+router.delete("/counties/:id",  auth,  deleteCounty);
+router.patch("/counties/:id", [ auth, updateCountyValidator], updateCounty);
+router.get("/counties/states/:id",  auth,  getCountiesWithStateId);
 
 
 
@@ -199,10 +201,10 @@ router.get("/counties/states/:id", getCountiesWithStateId);
 // ********************************************************************************************************
 
 
-router.post("/datasource", [createDataSourceValidator], createDataSource);
-router.get("/datasource", getDataSources);
-router.delete("/datasource/:id", deleteDataSource);
-router.patch("/datasource/:id", [updateDataSourceValidator], updateDataSource);
+router.post("/datasource", [ auth, createDataSourceValidator], createDataSource);
+router.get("/datasource",  auth,  getDataSources);
+router.delete("/datasource/:id",  auth,  deleteDataSource);
+router.patch("/datasource/:id", [ auth,  updateDataSourceValidator], updateDataSource);
 
 
 
@@ -211,11 +213,11 @@ router.patch("/datasource/:id", [updateDataSourceValidator], updateDataSource);
 //                                      Assigned When Management Routes
 // ********************************************************************************************************
 
-router.post("/assigned", [createAssignedValidator], createAssigned);
-router.get("/assigned", getAssigneds);
-router.get("/assigned/:id", getAssigned);
-router.delete("/assigned/:id", deleteAssigned);
-router.patch("/assigned/:id", [updateAssignedValidator], updateAssigned);
+router.post("/assigned", [ auth,  createAssignedValidator], createAssigned);
+router.get("/assigned",  auth, getAssigneds);
+router.get("/assigned/:id", auth,  getAssigned);
+router.delete("/assigned/:id", auth,  deleteAssigned);
+router.patch("/assigned/:id", [ auth, updateAssignedValidator], updateAssigned);
 
 
 
@@ -224,11 +226,11 @@ router.patch("/assigned/:id", [updateAssignedValidator], updateAssigned);
 // ********************************************************************************************************
 
 
-router.post("/workflows", [createWorkFlowValidator], createWorkFlow);
-router.get("/workflows",  getWorkFlows);
-router.get("/workflows/:id",  getWorkFlow);
-router.delete("/workflows/:id",  deleteWorkFlow);
-router.patch("/workflows/:id", [updateWorkFlowValidator], updateWorkFlow);
+router.post("/workflows", [ auth, createWorkFlowValidator], createWorkFlow);
+router.get("/workflows",  auth,  getWorkFlows);
+router.get("/workflows/:id",  auth,  getWorkFlow);
+router.delete("/workflows/:id", auth,   deleteWorkFlow);
+router.patch("/workflows/:id", [ auth, updateWorkFlowValidator], updateWorkFlow);
 
 
 

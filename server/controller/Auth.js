@@ -12,39 +12,8 @@ exports.validateSignup = [
   check("role").isIn(["admin", "user", "moderator"]).withMessage("Invalid role"),
 ];
 
-// 🔹 Signup Controller
-exports.signup = async (req, res) => {
-  try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ success: false, errors: errors.array() });
-    }
 
-    const { name, email, phone, role, password } = req.body;
 
-    const existingUser = await User.findByEmailOrPhone(email);
-    if (existingUser) {
-      return res.status(400).json({ success: false, message: "User already exists" });
-    }
-
-    const hashedPassword = await bcryptjs.hash(password, 10);
-    const newUser = await User.create(name, email, phone, role, hashedPassword);
-
-    const token = jwt.sign({ id: newUser.id, role: newUser.role }, process.env.JWT_SECRET, {
-      expiresIn: "24h",
-    });
-
-    return res.status(201).json({
-      success: true,
-      token,
-      user: newUser,
-      message: "Signup successful",
-    });
-  } catch (error) {
-    console.error("Signup Error:", error);
-    return res.status(500).json({ success: false, message: "Signup failed. Please try again." });
-  }
-};
 
 
 // 🔹 Login Controller
