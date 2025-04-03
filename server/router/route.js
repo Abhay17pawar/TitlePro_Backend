@@ -1,5 +1,4 @@
 const express = require("express");
-const { body, validationResult } = require("express-validator");
 const router = express.Router();
 const { 
   login, 
@@ -20,12 +19,10 @@ const orderSummaryController = require("../controller/ordersummary");
 
 // controller for product...
 const { createProduct, getProducts, deleteProduct, getProductsIncludedDeleted, updateProduct, getProduct } = require("../controller/product_controller");
-const { createProductValidator, updateProductValidator } = require("../middleware/product_middleware");
 
 
 // controller for transaction...
 const { createTransaction, getTransactionWithProductId, deleteTransaction, updateTransaction, getTransactions, getTransaction } = require("../controller/transaction_controller");
-const { createTransactionValidator, updateTransactionValidator } = require("../middleware/transaction_middleware");
 
 // controller for states...
 const { createState, getStates, getState, deleteState, updateState, getAllStates } = require("../controller/state_controller");
@@ -139,12 +136,12 @@ router.get("/order-summaries/:orderNumber/order-status", orderSummaryController.
 // ********************************************************************************************************
 
 
-router.post("/products", [auth, createProductValidator], createProduct)
+router.post("/products", auth,   validateFields(["product_name"]), handleValidationErrors, createProduct)
 router.get("/products", auth, getProducts)
 router.get("/products/deleted", auth,  getProductsIncludedDeleted)
 router.get("/products/:id", auth,  getProduct)
 router.delete("/products/:id", auth, deleteProduct)
-router.patch("/products/:id", [ auth, updateProductValidator], updateProduct)
+router.patch("/products/:id",  auth,   validateFields(["product_name"]), handleValidationErrors, updateProduct)
 
 
 
@@ -154,12 +151,12 @@ router.patch("/products/:id", [ auth, updateProductValidator], updateProduct)
 // ********************************************************************************************************
 
 
-router.post("/transactions", [ auth,  createTransactionValidator], createTransaction);
+router.post("/transactions", auth,  validateFields([ "transaction_name", "product_name", "productId"]), handleValidationErrors, createTransaction);
 router.get("/transactions/",  auth,  getTransactions);
 router.get("/transactions/:id",  auth,  getTransactionWithProductId);
 router.get("/transactions/single/:id", auth,  getTransaction);
 router.delete("/transactions/:id",  auth,  deleteTransaction);
-router.patch("/transactions/:id",[ auth, updateTransactionValidator], updateTransaction);
+router.patch("/transactions/:id",  auth,   validateFields(["transaction_name"]), handleValidationErrors, updateTransaction);
 
 
 

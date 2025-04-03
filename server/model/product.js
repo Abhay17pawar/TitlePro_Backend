@@ -8,7 +8,7 @@ const Product = db.define("product", {
         unique:true,
         validate:{
             len:[3, 20],
-            is: /^[A-Za-z/]+$/i, // Allows only letters and '/'
+            is: /^[A-Za-z/ ]+$/i, // Allows only letters and '/'
         },
     }
 }, {
