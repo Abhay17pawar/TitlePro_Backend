@@ -34,7 +34,6 @@ const { createStateValidator, updateStateValidator } = require("../middleware/st
 
 // controller for county...
 const { createCounty, getCounties, getCounty, deleteCounty, getCountiesWithStateId, updateCounty } = require("../controller/county_controller");
-const { createCountyValidator, updateCountyValidator } = require("../middleware/county_middleware");
 
 // controller for data source
 const { createDataSource, getDataSources, deleteDataSource, updateDataSource } = require("../controller/data_source_controller");
@@ -189,11 +188,11 @@ router.patch("/states/:id", [ auth, updateStateValidator], updateState);
 // ********************************************************************************************************
 
 
-router.post("/counties", [ auth,  createCountyValidator], createCounty);
-router.get("/counties",  auth,  getCounties);
+router.post("/counties",  auth,   validateFields(["county_name", "state_name", "stateId"]), handleValidationErrors, createCounty);
+router.get("/counties",    getCounties);
 router.get("/counties/single/:id",  auth,  getCounty);
 router.delete("/counties/:id",  auth,  deleteCounty);
-router.patch("/counties/:id", [ auth, updateCountyValidator], updateCounty);
+router.patch("/counties/:id",  auth,   validateFields(["county_name"]), handleValidationErrors, updateCounty);
 router.get("/counties/states/:id",  auth,  getCountiesWithStateId);
 
 
