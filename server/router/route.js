@@ -1,4 +1,5 @@
 const express = require("express");
+const { body, validationResult } = require("express-validator");
 const router = express.Router();
 const { 
   login, 
@@ -19,6 +20,7 @@ const orderSummaryController = require("../controller/ordersummary");
 
 // controller for product...
 const { createProduct, getProducts, deleteProduct, getProductsIncludedDeleted, updateProduct, getProduct } = require("../controller/product_controller");
+const { createProductValidator, updateProductValidator } = require("../middleware/product_middleware");
 
 
 // controller for transaction...
@@ -26,18 +28,25 @@ const { createTransaction, getTransactionWithProductId, deleteTransaction, updat
 const { createTransactionValidator, updateTransactionValidator } = require("../middleware/transaction_middleware");
 
 // controller for states...
-const { createState, getStates, getState, deleteState, updateState, getAllStates, restoreDeleteState } = require("../controller/state_controller");
-const { createStateValidator, updateStateValidator, restoreStateValidator } = require("../middleware/state_middleware");
+const { createState, getStates, getState, deleteState, updateState, getAllStates } = require("../controller/state_controller");
+const { createStateValidator, updateStateValidator } = require("../middleware/state_middleware");
 
 
 // controller for county...
 const { createCounty, getCounties, getCounty, deleteCounty, getCountiesWithStateId, updateCounty } = require("../controller/county_controller");
 const { createCountyValidator, updateCountyValidator } = require("../middleware/county_middleware");
-const { createProductValidator, updateProductValidator } = require("../middleware/product_middleware");
+
+// controller for data source
 const { createDataSource, getDataSources, deleteDataSource, updateDataSource } = require("../controller/data_source_controller");
 const { createDataSourceValidator, updateDataSourceValidator } = require("../middleware/data_source_middleware");
+
+
+// controller for assigned
 const { createAssigned, getAssigneds, getAssigned, deleteAssigned, updateAssigned } = require("../controller/assigned_controller");
 const { createAssignedValidator, updateAssignedValidator } = require("../middleware/assigned_middleware");
+
+
+// contorller for work flow
 const { createWorkFlow, getWorkFlows, getWorkFlow, deleteWorkFlow, updateWorkFlow } = require("../controller/work_flow_controller");
 const { createWorkFlowValidator, updateWorkFlowValidator } = require("../middleware/work_fllow_middleware");
 
@@ -66,8 +75,7 @@ router.get("/contacts",auth,contactController.getAllContacts);
 // create contact
 router.post("/contacts",auth, contactController.createContact);
 // get a single contact
-router.get("/contacts/:name",auth, contactController.getContactByName);
-router.get("/contacts/:id", contactController.getContactById);
+router.get("/contacts/:id", auth, contactController.getContactById);
 // Update a contact
 router.patch("/contacts/:id",auth, contactController.updateContact);
 // Soft delete a contact
@@ -111,11 +119,11 @@ router.delete("/orders/:id",auth, orderController.deleteOrder);
 // ********************************************************************************************************
 //                                      Order Entry Management Routes
 // ********************************************************************************************************
-router.post("/order-entries", orderEntryController.createOrderEntry); 
-router.get("/order-entries", orderEntryController.getAllOrderEntries);
-router.get("/order-entries/:id", orderEntryController.getOrderEntryById); 
-router.put("/order-entries/:id", orderEntryController.updateOrderEntry); 
-router.delete("/order-entries/:id", orderEntryController.deleteOrderEntry); 
+router.post("/order-entries", auth, orderEntryController.createOrderEntry); 
+router.get("/order-entries",  auth, orderEntryController.getAllOrderEntries);
+router.get("/order-entries/:id", auth, orderEntryController.getOrderEntryById); 
+router.patch("/order-entries/:id", auth, orderEntryController.updateOrderEntry); 
+router.delete("/order-entries/:id", auth, orderEntryController.deleteOrderEntry); 
 
 // ********************************************************************************************************
 //                                      Order Summary Management Routes
@@ -134,7 +142,10 @@ router.get("/order-summaries/:orderNumber/order-status", orderSummaryController.
 //                                      Products Management Routes
 // ********************************************************************************************************
 
-router.post("/products", [auth, createProductValidator], createProduct)
+router.post("/products", [   
+  body("product_name").notEmpty().withMessage("product_name is required"),
+], createProduct)
+// router.post("/products", [auth, createProductValidator], createProduct)
 router.get("/products", auth, getProducts)
 router.get("/products/deleted", auth,  getProductsIncludedDeleted)
 router.get("/products/:id", auth,  getProduct)
@@ -157,9 +168,7 @@ router.delete("/transactions/:id",  auth,  deleteTransaction);
 router.patch("/transactions/:id",[ auth, updateTransactionValidator], updateTransaction);
 
 
-// router.get("/ping", (req, res) => {
-//     res.send({message:"ping check ok without v1 routing.."})
-// })
+
 
 
 // ********************************************************************************************************
@@ -171,7 +180,6 @@ router.patch("/transactions/:id",[ auth, updateTransactionValidator], updateTran
 
 router.post("/states", [ auth,  createStateValidator], createState);
 router.get("/states",  auth,  getStates);
-router.get("/states/restore", [ auth,  restoreStateValidator], restoreDeleteState);
 router.get("/states/all",  auth,  getAllStates);
 router.get("/states/:id", auth,  getState);
 router.delete("/states/:id",  auth,  deleteState);
@@ -187,7 +195,6 @@ router.patch("/states/:id", [ auth, updateStateValidator], updateState);
 
 router.post("/counties", [ auth,  createCountyValidator], createCounty);
 router.get("/counties",  auth,  getCounties);
-// router.get("/counties/:id", );
 router.get("/counties/single/:id",  auth,  getCounty);
 router.delete("/counties/:id",  auth,  deleteCounty);
 router.patch("/counties/:id", [ auth, updateCountyValidator], updateCounty);

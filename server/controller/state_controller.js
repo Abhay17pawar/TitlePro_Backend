@@ -99,22 +99,7 @@ async function deleteState (req, res) {
         res.status(error.statusCode).send(errorResponse(error.reason, error))
     }
 }
-async function restoreDeleteState (req, res) {
-    try{
 
-        const data = await stateService.restoreDeleteState(req.body);
-        res.status(StatusCodes.OK).send({
-            success:true,
-            error:{},
-            message: "State restore successfully...",
-            data: data
-        })
-    }
-    catch(error) {
-        console.error('Error inside Controller layer during restoreDeleteState...', error);
-        res.status(error.statusCode).send(errorResponse(error.reason, error))
-    }
-}
 async function updateState (req, res) {
     try{
         const id = req.params.id;
@@ -143,5 +128,4 @@ module.exports = {
     deleteState,
     updateState,
     getAllStates,
-    restoreDeleteState,
 }

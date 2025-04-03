@@ -9,9 +9,6 @@ function createStateValidator(req, res, next) {
     if(!req.body.state_name) {
         return res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("state_name")))
     }
-
-
-    // If Everything is Good then call next()
     next()
 }
 function updateStateValidator(req, res, next) {
@@ -19,9 +16,6 @@ function updateStateValidator(req, res, next) {
     if(!req.body.state_name) {
         return res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("state_name")))
     }
-
-
-    // If Everything is Good then call next()
     next()
 }
 function restoreStateValidator(req, res, next) {
@@ -29,9 +23,6 @@ function restoreStateValidator(req, res, next) {
     if(!req.body.state_name) {
         return res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("state_name")))
     }
-
-
-    // If Everything is Good then call next()
     next()
 }
 

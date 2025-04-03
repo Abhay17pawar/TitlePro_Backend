@@ -3,6 +3,7 @@
 
 const ConflictError = require("../errors/conflict_error");
 const InternalServerError = require("../errors/internal_server_error");
+const NotFoundError = require("../errors/not_found_error");
 const WorkFlow = require("../model/work_flow")
 
 class WorkFlowRepository {
@@ -71,8 +72,6 @@ class WorkFlowRepository {
     }
 
 
-
-
     async deleteWorkFlow (id) {
         try{
             const responose = await WorkFlow.destroy({
@@ -89,24 +88,34 @@ class WorkFlowRepository {
 
     }
 
+
     async updateWorkFlow(id, work_name) {
-        try{
-            const response = await WorkFlow.update({
-                work_name,
-            }, {
-                where:{
-                    id:id
-                }
-            })
-            return response;
-        }
-        catch(error){
+        try {
+            // Find the record, including soft-deleted ones
+            const existingWorkFlow = await WorkFlow.findOne({
+                where: { id },
+                paranoid: false // Include soft-deleted records
+            });
+    
+            if (!existingWorkFlow) {
+                throw new NotFoundError("Workflow", "id", id);
+            }
+    
+            // Restore if it was soft-deleted
+            if (existingWorkFlow.deletedAt) {
+                await existingWorkFlow.restore();
+            }
+    
+            // Update the work_name
+            await existingWorkFlow.update({ work_name });
+    
+            return existingWorkFlow;
+        } catch (error) {
             console.log("Error Inside WorkFlowRepository Respository during updateWorkFlow...", error)
             throw error;
         }
-
     }
-
+    
 
 
 }

@@ -15,10 +15,9 @@ class CountyRepository {
                 // If it's soft-deleted, restore it
                 if (existingProduct.deletedAt) {
                     await existingProduct.restore();
-                    return existingProduct; // Return the restored product
+                    return existingProduct; 
                 } 
                 throw new ConflictError("Duplicate entry is not allowed...");
-                // console.log("erro is:-", error)
             }
     
             // If not found, create a new County
@@ -42,7 +41,6 @@ class CountyRepository {
         catch(error){
             console.log("Error inside County Repository layer during createCounty...", error)
             throw error; 
-              
         }
     }
 
@@ -54,7 +52,7 @@ class CountyRepository {
         catch(error){
             console.log("Error inside County Repository layer during createCounty...", error)
             throw error;
-              
+            
         }
     }
 
@@ -72,7 +70,6 @@ class CountyRepository {
         catch(error){
             console.log("Error inside County Repository layer during createCounty...", error)
             throw error;
-              
         }
     }
 
@@ -89,7 +86,6 @@ class CountyRepository {
         catch(error){
             console.log("Error inside County Repository layer during createCounty...", error)
             throw error;
-              
         }
 
     }
@@ -106,7 +102,6 @@ class CountyRepository {
         catch(error){
             console.log("Error inside County Repository layer during updateCounty...", error)
             throw error;
-              
         }
     }
 

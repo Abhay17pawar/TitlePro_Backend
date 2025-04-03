@@ -49,6 +49,7 @@ class CountyService {
 
     }
   }
+
   async getCounty (id) {
     try{
         const response = await this.respository.getCounty(id);
@@ -66,6 +67,8 @@ class CountyService {
 
     }
   }
+
+
   async getCountiesWithStateId (id) {
     try{
         const stateResponse = await this.stateRepository.getState(id);
@@ -102,6 +105,7 @@ class CountyService {
 
     }
   }
+  
   async updateCounty (id, countyDetails) {
     try{
         const {county_name} = countyDetails;

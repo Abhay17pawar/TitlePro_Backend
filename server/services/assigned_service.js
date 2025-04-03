@@ -1,5 +1,4 @@
 
-// const BadRequest = require("../errors/badd_request");
 const ConflictError = require("../errors/conflict_error");
 const CustomError = require("../errors/custom_error");
 const InternalServerError = require("../errors/internal_server_error");
@@ -48,7 +47,6 @@ class AssignedService {
     }
     
 
-
     async getAssigned(id) {
         try{
             const data = await this.repository.getAssigned(id)
@@ -66,9 +64,6 @@ class AssignedService {
         }
 
     }
-
-
-
 
     async deleteAssigned(id) {
         try{

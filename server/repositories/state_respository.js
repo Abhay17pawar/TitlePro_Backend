@@ -1,8 +1,8 @@
 const State = require("../model/state")
 const ConflictError = require("../errors/conflict_error")
+
+
 class StateRepository {
-
-
 
     async  createState(state_name) {
         try {
@@ -82,21 +82,7 @@ class StateRepository {
         }
     }
     
-    async restoreDeleteState(state_name) {
-        try{
-            
-            const response = await State.restore({
-                where:{
-                    state_name,
-                }
-            });
-            return response;
-        }
-        catch(error) {
-            console.error('Error inside Respository layer during restoreDeleteState...', error);
-            throw error;
-        }
-    }
+
 
     async updateState(id, state_name) {
         try{

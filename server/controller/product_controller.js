@@ -11,9 +11,6 @@ async function createProduct(req, res) {
     try{
         console.log("controller called...", req.body)
         let newProduct = await productService.createProduct(req.body)
-        // newProduct = newProduct.map((data) => {
-        //     return { id: data.id, product:data.product_name}
-        // })
         newProduct = {id:newProduct.id, product:newProduct.product_name};
         res.status(StatusCodes.CREATED).send({
             success:true,
@@ -44,7 +41,6 @@ async function getProducts(req, res) {
     catch(error) {
         console.log("Error Inside Product Controller during getProducts...", error)
         res.status(error.statusCode).send(errorResponse(error.reason, error))
-        // res.send({errorMessage:error})
     }
 }
 async function getProductsIncludedDeleted(req, res) {
@@ -64,7 +60,6 @@ async function getProductsIncludedDeleted(req, res) {
     catch(error) {
         console.log("Error Inside Product Controller during getProductsIncludedDeleted...", error)
         res.status(error.statusCode).send(errorResponse(error.reason, error))
-        // res.send({errorMessage:error})
     }
 }
 
@@ -136,8 +131,7 @@ async function updateProduct(req, res) {
     }
     catch(error) {
         console.log("Product Controller layer..", error)
-        // res.status(error.statusCode).send(errorResponse(error.reason, error))
-        res.send({errorMessage:error})
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
     }
 }
 

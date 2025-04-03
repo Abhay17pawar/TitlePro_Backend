@@ -9,11 +9,7 @@ function createWorkFlowValidator(req, res, next) {
 
     if(!req.body.work_name) {
         return res.send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("work_name")))
-        // return res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("assigned_name")))
     }
-
-
-
     next()
 }
 
@@ -22,11 +18,7 @@ function createWorkFlowValidator(req, res, next) {
 function updateWorkFlowValidator(req, res, next){
     if(!req.body.work_name) {
         return res.send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("work_name")))
-        // return res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("assigned_name")))
     }
-
-
-
     next()
 }
 

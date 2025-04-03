@@ -74,25 +74,7 @@ const Contact = {
     return result.rows;
   },
 
-  // Get a single contact by ID
-  // findById: async (id) => {
-  //   const query = `SELECT * FROM contacts WHERE id = $1 AND deleted_at IS NULL;`;
-  //   const result = await pool.query(query, [id]);
-  //   return result.rows[0];
-  // },
 
-  findByName: async (name) => {
-    const query = `SELECT * FROM contacts WHERE name = $1 AND deleted_at IS NULL;`;
-    const result = await pool.query(query, [name]);
-    return result.rows[0];
-  },
-
-
-//   findById: async (id) => {
-//     const query = `SELECT type, state_name, county_name FROM contacts WHERE id = $1 AND deleted_at IS NULL;`;
-//     const result = await pool.query(query, [id]);
-//     return result.rows[0];
-// },
 
 findById: async (id) => {
   try {
@@ -136,12 +118,7 @@ update: async (id, { name, email, phone, type, address, state_name, county_name,
   return result.rows[0];
 },
 
-  // Soft delete a contact
-  // softDelete: async (name) => {
-  //   const query = `UPDATE contacts SET deleted_at = NOW() WHERE name = $1 RETURNING *;`;
-  //   const result = await pool.query(query, [name]);
-  //   return result.rows[0];
-  // },
+
 
   softDelete: async (id) => {
     try {

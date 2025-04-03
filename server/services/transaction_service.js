@@ -42,6 +42,7 @@ class TransactionService {
             throw new InternalServerError()
         }
     }
+
     async getTransaction(id) {
         try{
             const response = await this.repository.getTransaction(id);
@@ -58,6 +59,7 @@ class TransactionService {
             throw new InternalServerError()
         }
     }
+
     async getTransactionWithProductId(productId){
         try{
             const newTransaction = await this.repository.getTransactionWithProductId(productId);
@@ -67,6 +69,7 @@ class TransactionService {
             console.log("Error Inside Transaction Service during getTransactionWithProductId...", error)
         }
     }
+
     async deleteTransaction(id){
         try{
             const data = await this.repository.deleteTransaction(id);
@@ -83,6 +86,7 @@ class TransactionService {
             throw new InternalServerError()
         }
     }
+    
     async updateTransaction(id, updatedData){
         try{
             const data = await this.repository.updateTransaction(id, updatedData.transaction_name);

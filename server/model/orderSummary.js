@@ -25,32 +25,9 @@ const OrderSummary = {
     }
   },
 
-  // // Get order summaries by status (Open, Closed, Pending)
-  // findByStatus: async (status) => {
-  //   try {
-  //     const query = `SELECT * FROM order_entries WHERE status = $1;`;
-  //     const result = await pool.query(query, [status]);
-  //     return result.rows;
-  //   } catch (error) {
-  //     console.error("Error fetching order summaries by status:", error.message);
-  //     throw error;
-  //   }
-  // },
 
-  // // Get order summaries within a specific date range
-  // findByDateRange: async (startDate, endDate) => {
-  //   try {
-  //     const query = `
-  //       SELECT * FROM order_entries 
-  //       WHERE open_date BETWEEN $1 AND $2;
-  //     `;
-  //     const result = await pool.query(query, [startDate, endDate]);
-  //     return result.rows;
-  //   } catch (error) {
-  //     console.error("Error fetching order summaries by date range:", error.message);
-  //     throw error;
-  //   }
-  // },
+
+
 };
 
 module.exports = OrderSummary;

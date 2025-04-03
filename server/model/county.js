@@ -24,11 +24,11 @@ const County = db.define("county", {
 }, {
     indexes: [
       {
-          unique: true,  // Ensures uniqueness
+          unique: true,  
           fields: ['county_name', 'state_name'] // Prevents duplicate state for same county
       }
   ],
-    timestamps: true,    // Enables createdAt & updatedAt
+    timestamps: true,
     paranoid: true       // Enables deletedAt for soft delete
   })
 

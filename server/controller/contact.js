@@ -43,22 +43,7 @@ exports.getAllDeletedContacts = async (req, res) => {
   }
 };
 
-// Get contact by name
-exports.getContactByName = async (req, res) => {
-  try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ success: false, errors: errors.array() });
-    }
 
-    const contact = await Contact.findByName(req.params.name);  
-    if (!contact) return res.status(404).json({ success: false, message: "Contact not found" });
-    return res.status(200).json({ success: true, data: contact });
-  } catch (error) {
-    console.error("Error fetching contact:", error);
-    return res.status(500).json({ success: false, message: "Error fetching contact" });
-  }
-};
 
 // Update a contact
 exports.updateContact = async (req, res) => {
@@ -113,6 +98,6 @@ exports.getContactById = async (req, res) => {
     return res.status(200).json({ success: true, data: contact, message: "Contact retrieved successfully" });
   } catch (error) {
     console.error("Error retrieving contact:", error);
-    return res.status(500).json({ success: false, message: "Error retrieving contact" });
+    return res.status(500).json({ success: false, message: "Error retrieving contact from single id" });
   }
 };

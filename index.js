@@ -7,8 +7,6 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const db = require("./server/config/db_config");
 const { PORT, DB_FORCE, DB_ALTER } = require("./server/config/server_config");
-const Transaction = require("./server/model/transaction");
-const Product = require("./server/model/product");
 
 const app = express();
 

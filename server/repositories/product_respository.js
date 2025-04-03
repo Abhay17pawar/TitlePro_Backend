@@ -75,7 +75,7 @@ class ProductRepository {
             const response = Product.findAll({
                 where: {
                     product_name: {
-                        [Op.like]: `%${product_name}%` // Case-insensitive search
+                        [Op.like]: `%${product_name}%` 
                     }
                 }
             });

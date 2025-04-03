@@ -23,14 +23,12 @@ async function createWorkFlow(req, res) {
             hour12: false, // Use 24-hour format
             });
     
-        // Adjust format to match "MM/DD/YYYY HH:mm"
             const formatted = formattedDate.replace(",", "");
             return formatted;
         }
         data = {id:data.id, work_name:data.work_name, CratedBy:data.createdBy, CreatedOn:formatDate(data.createdAt), LastModifyOn:formatDate(data.updatedAt)};
 
         res.send({
-        // res.status(StatusCodes.CREATED).send({
             success:true,
             error:{},
             message: "Work Created Successfully ",
@@ -47,7 +45,6 @@ async function createWorkFlow(req, res) {
 async function getWorkFlows(req, res) {
     try{
         let data = await workFlowService.getWorkFlows()
-        // data = {id:data.id, work_name:data.work_name};
 
         function formatDate(dateStr) {
             const date = new Date(dateStr);
@@ -61,7 +58,6 @@ async function getWorkFlows(req, res) {
             hour12: false, // Use 24-hour format
             });
     
-        // Adjust format to match "MM/DD/YYYY HH:mm"
             const formatted = formattedDate.replace(",", "");
             return formatted;
         }
@@ -71,7 +67,6 @@ async function getWorkFlows(req, res) {
             return {id:item.id, work_name:item.work_name, CratedBy:item.createdBy, CreatedOn:formatDate(item.createdAt), LastModifyOn:formatDate(item.updatedAt)}
         })
         res.send({
-        // res.status(StatusCodes.CREATED).send({
             success:true,
             error:{},
             message: "Work Fetch Successfully ",
@@ -105,13 +100,11 @@ async function getWorkFlow(req, res) {
             hour12: false, // Use 24-hour format
             });
     
-        // Adjust format to match "MM/DD/YYYY HH:mm"
             const formatted = formattedDate.replace(",", "");
             return formatted;
         }
         data = {id:data.id, work_name:data.work_name, CratedBy:data.createdBy, CreatedOn:formatDate(data.createdAt), LastModifyOn:formatDate(data.updatedAt)};
         res.send({
-        // res.status(StatusCodes.CREATED).send({
             success:true,
             error:{},
             message: "Work fetch Successfully ",
@@ -132,7 +125,6 @@ async function deleteWorkFlow(req, res) {
         await workFlowService.deleteWorkFlow(id)
         
         res.send({
-        // res.status(StatusCodes.CREATED).send({
             success:true,
             error:{},
             message: "Work Delete Successfully ",
@@ -153,7 +145,6 @@ async function updateWorkFlow(req, res) {
         await workFlowService.updateWorkFlow(id, req.body)
         
         res.send({
-        // res.status(StatusCodes.CREATED).send({
             success:true,
             error:{},
             message: "Work Update Successfully ",

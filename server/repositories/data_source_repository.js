@@ -1,9 +1,7 @@
 
 const ConflictError = require("../errors/conflict_error");
 const InternalServerError = require("../errors/internal_server_error");
-// const InternalServerError = require("../errors/internal_server_error");
 const DataSource = require("../model/data_source");
-// const {Op} = require("sequelize")
 class DataSourceRepository {
 
 
@@ -55,17 +53,8 @@ class DataSourceRepository {
         }
 
     }
-    // async getProductsIncludedDeleted () {
-    //     try{
-    //         const response = await DataSource.findAll({paranoid:false});
-    //         return response;
-    //     }
-    //     catch(error){
-    //         console.log("Error Inside DataSource Respository during getProductsIncludedDeleted...", error)
-    //         throw error;
-    //     }
 
-    // }
+
     async getProduct (id) {
         try{
             const response = DataSource.findByPk(id);

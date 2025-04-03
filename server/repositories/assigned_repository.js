@@ -17,7 +17,7 @@ class AssignedRepository {
                 // If it's soft-deleted, restore it
                 if (existingProduct.deletedAt) {
                     await existingProduct.restore();
-                    return existingProduct; // Return the restored product
+                    return existingProduct; 
                 } 
                 
             }

@@ -84,28 +84,6 @@ class StateService {
             throw new InternalServerError();
         }
     }
-    async restoreDeleteState (stateDetails) {
-        try{
-            const {state_name} = stateDetails;
-            const response = await this.respository.restoreDeleteState(state_name);
-            console.log("response of :-", response)
-            // if(!response){
-            //     throw new NotFoundError("State", "id", id)
-            // }
-            if(response === 0){
-                throw new BadRequest("Please Provide a valid state_name", true)
-            }
-            return response;
-        }
-        catch(error){
-            if(error.name === "BadRequest"){
-                throw error;
-            }
-            console.error('Error inside Service layer during restoreDeleteState...', error);
-            throw new InternalServerError();
-        }
-    }
-
 
 
     async updateState (id, updatedData) {

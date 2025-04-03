@@ -1,4 +1,3 @@
-// const { StatusCodes } = require("http-status-codes");
 const AssignedRepository = require("../repositories/assigned_repository");
 const AssignedService = require("../services/assigned_service");
 const errorResponse = require("../utils/error_response");
@@ -13,7 +12,6 @@ async function createAssigned(req, res) {
         let data = await assignedService.createAssigned(req.body)
         data = {id:data.id, assigned_name:data.assigned_name};
         res.send({
-        // res.status(StatusCodes.CREATED).send({
             success:true,
             error:{},
             message: "Assigned Created Successfully ",
@@ -33,9 +31,7 @@ async function getAssigneds(req, res) {
         data = data.map((item) => {
             return {id:item.id, assigned_name:item.assigned_name};
         })
-        // data = {id:data.id, product:data.assigned_name};
         res.send({
-        // res.status(StatusCodes.OK).send({
             success:true,
             error:{},
             message: "Assigned Fetch Successfully ",
@@ -55,12 +51,8 @@ async function getAssigned(req, res) {
             throw new BadRequest(`Invalid ID:-> (${id})`, true);
         }
         let data = await assignedService.getAssigned(id);
-        // data = data.map((item) => {
-        //     return {id:item.id, assigned_name:item.assigned_name};
-        // })
         data = {id:data.id, product:data.assigned_name};
         res.send({
-        // res.status(StatusCodes.OK).send({
             success:true,
             error:{},
             message: "Assigned Fetch Successfully ",
@@ -81,7 +73,6 @@ async function deleteAssigned(req, res) {
         let data = await assignedService.deleteAssigned(id);
         data = {id:data.id, product:data.assigned_name};
         res.send({
-        // res.status(StatusCodes.OK).send({
             success:true,
             error:{},
             message: "Assigned Delete Successfully ",
@@ -102,7 +93,6 @@ async function updateAssigned(req, res) {
         let data = await assignedService.updateAssigned(id, req.body);
         data = {id:data.id, product:data.assigned_name};
         res.send({
-        // res.status(StatusCodes.OK).send({
             success:true,
             error:{},
             message: "Assigned Update Successfully ",

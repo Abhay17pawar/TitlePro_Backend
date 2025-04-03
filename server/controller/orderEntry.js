@@ -58,6 +58,7 @@ const updateOrderEntry = async (req, res) => {
 
 // Delete an order entry (Hard Delete)
 const deleteOrderEntry = async (req, res) => {
+    console.log("delte order entry called...")
     try {
         const { id } = req.params;
         const deletedOrderEntry = await OrderEntry.delete(id);
