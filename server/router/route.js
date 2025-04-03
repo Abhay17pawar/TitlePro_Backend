@@ -48,7 +48,7 @@ const { createAssignedValidator, updateAssignedValidator } = require("../middlew
 
 // contorller for work flow
 const { createWorkFlow, getWorkFlows, getWorkFlow, deleteWorkFlow, updateWorkFlow } = require("../controller/work_flow_controller");
-const { createWorkFlowValidator, updateWorkFlowValidator } = require("../middleware/work_fllow_middleware");
+const { validateFields, handleValidationErrors } = require("../utils/error_middleware");
 
 
 
@@ -233,11 +233,12 @@ router.patch("/assigned/:id", [ auth, updateAssignedValidator], updateAssigned);
 // ********************************************************************************************************
 
 
-router.post("/workflows", [ auth, createWorkFlowValidator], createWorkFlow);
+router.post("/workflows",  auth,   validateFields(["work_name"]), handleValidationErrors, createWorkFlow);
 router.get("/workflows",  auth,  getWorkFlows);
 router.get("/workflows/:id",  auth,  getWorkFlow);
 router.delete("/workflows/:id", auth,   deleteWorkFlow);
-router.patch("/workflows/:id", [ auth, updateWorkFlowValidator], updateWorkFlow);
+router.patch("/workflows/:id", auth,  validateFields(["work_name"]), handleValidationErrors,  updateWorkFlow);
+
 
 
 
