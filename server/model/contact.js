@@ -28,7 +28,7 @@ const createContactsTable = async () => {
 
 const Contact = {
   // Create a new contact   
-  create: async ({ name, phone, email, type, address, state_name , county_name, status, user_id }) => {
+  create: async (user_id, { name, phone, email, type, address, state_name , county_name, status,  }) => {
     try {
       // Check if the email or phone already exists in the database
       const checkQuery = `

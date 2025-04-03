@@ -10,7 +10,7 @@ exports.createContact = async (req, res) => {
       return res.status(400).json({ success: false, errors: errors.array() });
     }
 
-    const newContact = await Contact.create(req.body);
+    const newContact = await Contact.create(req.user.id, req.body);
     return res.status(201).json({ success: true, data: newContact });
   } catch (error) {
     console.error("Error creating contact:", error);

@@ -66,7 +66,7 @@ router.get("/contacts/deleted",auth, contactController.getAllDeletedContacts);
 // Get all contacts
 router.get("/contacts",auth,contactController.getAllContacts);
 // create contact
-router.post("/contacts",auth, contactController.createContact);
+router.post("/contacts", auth, contactController.createContact);
 // get a single contact
 router.get("/contacts/:id", auth, contactController.getContactById);
 // Update a contact
