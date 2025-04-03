@@ -29,7 +29,6 @@ const { createTransactionValidator, updateTransactionValidator } = require("../m
 
 // controller for states...
 const { createState, getStates, getState, deleteState, updateState, getAllStates } = require("../controller/state_controller");
-const { createStateValidator, updateStateValidator } = require("../middleware/state_middleware");
 
 
 // controller for county...
@@ -173,12 +172,12 @@ router.patch("/transactions/:id",[ auth, updateTransactionValidator], updateTran
 
 
 
-router.post("/states", [ auth,  createStateValidator], createState);
+router.post("/states", auth,  validateFields(["state_name"]), handleValidationErrors, createState);
 router.get("/states",  auth,  getStates);
 router.get("/states/all",  auth,  getAllStates);
 router.get("/states/:id", auth,  getState);
 router.delete("/states/:id",  auth,  deleteState);
-router.patch("/states/:id", [ auth, updateStateValidator], updateState);
+router.patch("/states/:id", auth,   validateFields(["state_name"]), handleValidationErrors, updateState);
 
 
 
