@@ -38,7 +38,6 @@ const { createCountyValidator, updateCountyValidator } = require("../middleware/
 
 // controller for data source
 const { createDataSource, getDataSources, deleteDataSource, updateDataSource } = require("../controller/data_source_controller");
-const { createDataSourceValidator, updateDataSourceValidator } = require("../middleware/data_source_middleware");
 
 
 // controller for assigned
@@ -205,10 +204,10 @@ router.get("/counties/states/:id",  auth,  getCountiesWithStateId);
 // ********************************************************************************************************
 
 
-router.post("/datasource", [ auth, createDataSourceValidator], createDataSource);
+router.post("/datasource", auth,   validateFields(["source_name"]), handleValidationErrors, createDataSource);
 router.get("/datasource",  auth,  getDataSources);
 router.delete("/datasource/:id",  auth,  deleteDataSource);
-router.patch("/datasource/:id", [ auth,  updateDataSourceValidator], updateDataSource);
+router.patch("/datasource/:id", auth,   validateFields(["source_name"]), handleValidationErrors, updateDataSource);
 
 
 
