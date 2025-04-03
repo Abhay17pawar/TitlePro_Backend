@@ -43,7 +43,6 @@ const { createDataSourceValidator, updateDataSourceValidator } = require("../mid
 
 // controller for assigned
 const { createAssigned, getAssigneds, getAssigned, deleteAssigned, updateAssigned } = require("../controller/assigned_controller");
-const { createAssignedValidator, updateAssignedValidator } = require("../middleware/assigned_middleware");
 
 
 // contorller for work flow
@@ -142,10 +141,8 @@ router.get("/order-summaries/:orderNumber/order-status", orderSummaryController.
 //                                      Products Management Routes
 // ********************************************************************************************************
 
-router.post("/products", [   
-  body("product_name").notEmpty().withMessage("product_name is required"),
-], createProduct)
-// router.post("/products", [auth, createProductValidator], createProduct)
+
+router.post("/products", [auth, createProductValidator], createProduct)
 router.get("/products", auth, getProducts)
 router.get("/products/deleted", auth,  getProductsIncludedDeleted)
 router.get("/products/:id", auth,  getProduct)
@@ -220,11 +217,11 @@ router.patch("/datasource/:id", [ auth,  updateDataSourceValidator], updateDataS
 //                                      Assigned When Management Routes
 // ********************************************************************************************************
 
-router.post("/assigned", [ auth,  createAssignedValidator], createAssigned);
+router.post("/assigned", auth,   validateFields(["assigned_name"]), handleValidationErrors, createAssigned);
 router.get("/assigned",  auth, getAssigneds);
 router.get("/assigned/:id", auth,  getAssigned);
 router.delete("/assigned/:id", auth,  deleteAssigned);
-router.patch("/assigned/:id", [ auth, updateAssignedValidator], updateAssigned);
+router.patch("/assigned/:id", auth,   validateFields(["assigned_name"]), handleValidationErrors, updateAssigned);
 
 
 
